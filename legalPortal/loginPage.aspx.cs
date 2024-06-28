@@ -93,7 +93,7 @@ namespace onlineLegalWF.legalPortal
             // Use Token Data From MSAL
             if (resUser != null)
             {
-                token = resUser.accessToken;
+                token = resUser.refreshToken;
             }
             else 
             {
@@ -217,7 +217,7 @@ namespace onlineLegalWF.legalPortal
 
             return res;
         }
-        static UserIdntityResponse GetUserIdentity(string username, string password ,string appCode)
+        public UserIdntityResponse GetUserIdentity(string username, string password ,string appCode)
         {
             UserIdntityResponse res = null;
             try

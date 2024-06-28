@@ -21,7 +21,7 @@ namespace onlineLegalWF.Class
                     Port = 587,
                     UseDefaultCredentials = false,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("no_reply@assetworldcorp-th.com", "Awc@2019")
+                    Credentials = new NetworkCredential("no_reply@assetworldcorp-th.com", "Aw[@dM1N#")
                 };
 
                 
