@@ -38,11 +38,11 @@ namespace onlineLegalWF.frmPermit
         {
             ucHeader1.setHeader("Utility Edit");
 
-            type_project.DataSource = GetListBuByTypeReq("02");
-            type_project.DataBind();
-            type_project.DataTextField = "bu_desc";
-            type_project.DataValueField = "bu_code";
-            type_project.DataBind();
+            //type_project.DataSource = GetListBuByTypeReq("02");
+            //type_project.DataBind();
+            //type_project.DataTextField = "bu_desc";
+            //type_project.DataValueField = "bu_code";
+            //type_project.DataBind();
 
             //type_requester.DataSource = GetTypeOfRequester();
             //type_requester.DataBind();
@@ -54,6 +54,12 @@ namespace onlineLegalWF.frmPermit
             var res = zdb.ExecSql_DataTable(sql, zconnstr);
             if (res.Rows.Count > 0)
             {
+                type_project.DataSource = GetListBuByTypeReq(res.Rows[0]["tof_requester_code"].ToString());
+                type_project.DataBind();
+                type_project.DataTextField = "bu_desc";
+                type_project.DataValueField = "bu_code";
+                type_project.DataBind();
+
                 req_date.Value = Convert.ToDateTime(res.Rows[0]["permit_date"]).ToString("yyyy-MM-dd");
                 lblPID.Text = res.Rows[0]["process_id"].ToString();
                 hid_PID.Value = res.Rows[0]["process_id"].ToString();

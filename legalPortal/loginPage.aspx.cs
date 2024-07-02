@@ -102,10 +102,10 @@ namespace onlineLegalWF.legalPortal
                 //var Isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                 //if (Isdev == "true") 
                 //{
-                if (!string.IsNullOrEmpty(xusername.Trim()) && xpassword.Trim() == "1234")
-                {
-                    token = "IsPass";
-                }
+                //if (!string.IsNullOrEmpty(xusername.Trim()) && xpassword.Trim() == "1234")
+                //{
+                //    token = "IsPass";
+                //}
                 //}
                 //else 
                 //{
@@ -123,22 +123,22 @@ namespace onlineLegalWF.legalPortal
                 //    }
                 //}
 
-                //if (!string.IsNullOrEmpty(xusername.Trim()) && !string.IsNullOrEmpty(xpassword.Trim()))
-                //{
-                //    var key = "iJLTaWhyqexThL3Qmj63qA==";
-                //    string hashpassword = EmpInfo.EncryptString(key, xpassword);
-                //    string sqlbpm = "select * from li_user where user_login = '" + xusername.Trim() + "' and passwordhash = '" + hashpassword + "' ";
-                //    DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
+                if (!string.IsNullOrEmpty(xusername.Trim()) && !string.IsNullOrEmpty(xpassword.Trim()))
+                {
+                    var key = "iJLTaWhyqexThL3Qmj63qA==";
+                    string hashpassword = EmpInfo.EncryptString(key, xpassword);
+                    string sqlbpm = "select * from li_user where user_login = '" + xusername.Trim() + "' and passwordhash = '" + hashpassword + "' ";
+                    DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
-                //    if (dtbpm.Rows.Count > 0)
-                //    {
-                //        if (dtbpm.Rows[0]["isADAccount"].ToString() == "N")
-                //        {
-                //            token = "IsPass";
-                //        }
+                    if (dtbpm.Rows.Count > 0)
+                    {
+                        if (dtbpm.Rows[0]["isADAccount"].ToString() == "N")
+                        {
+                            token = "IsPass";
+                        }
 
-                //    }
-                //}
+                    }
+                }
 
 
             }

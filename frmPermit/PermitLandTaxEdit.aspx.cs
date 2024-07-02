@@ -40,18 +40,18 @@ namespace onlineLegalWF.frmPermit
         {
             ucHeader1.setHeader("Tax Edit");
 
-            //type_lt_project.DataSource = GetBusinessUnit();
-            type_lt_project.DataSource = GetListBuByTypeReq("01");
-            type_lt_project.DataBind();
-            type_lt_project.DataTextField = "bu_desc";
-            type_lt_project.DataValueField = "bu_code";
-            type_lt_project.DataBind();
+            ////type_lt_project.DataSource = GetBusinessUnit();
+            //type_lt_project.DataSource = GetListBuByTypeReq("01");
+            //type_lt_project.DataBind();
+            //type_lt_project.DataTextField = "bu_desc";
+            //type_lt_project.DataValueField = "bu_code";
+            //type_lt_project.DataBind();
 
-            type_requester.DataSource = GetTypeOfRequester();
-            type_requester.DataBind();
-            type_requester.DataTextField = "tof_requester_desc";
-            type_requester.DataValueField = "tof_requester_code";
-            type_requester.DataBind();
+            //type_requester.DataSource = GetTypeOfRequester();
+            //type_requester.DataBind();
+            //type_requester.DataTextField = "tof_requester_desc";
+            //type_requester.DataValueField = "tof_requester_code";
+            //type_requester.DataBind();
 
             string sql = "select * from li_permit_request where permit_no='" + id + "'";
 
@@ -59,6 +59,19 @@ namespace onlineLegalWF.frmPermit
 
             if (res.Rows.Count > 0)
             {
+                //type_lt_project.DataSource = GetBusinessUnit();
+                type_lt_project.DataSource = GetListBuByTypeReq(res.Rows[0]["tof_requester_code"].ToString());
+                type_lt_project.DataBind();
+                type_lt_project.DataTextField = "bu_desc";
+                type_lt_project.DataValueField = "bu_code";
+                type_lt_project.DataBind();
+
+                type_requester.DataSource = GetTypeOfRequester();
+                type_requester.DataBind();
+                type_requester.DataTextField = "tof_requester_desc";
+                type_requester.DataValueField = "tof_requester_code";
+                type_requester.DataBind();
+
                 req_date.Value = Convert.ToDateTime(res.Rows[0]["permit_date"]).ToString("yyyy-MM-dd");
                 lblPID.Text = res.Rows[0]["process_id"].ToString();
                 hid_PID.Value = res.Rows[0]["process_id"].ToString();

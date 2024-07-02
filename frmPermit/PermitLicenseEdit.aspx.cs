@@ -41,49 +41,49 @@ namespace onlineLegalWF.frmPermit
         {
             ucHeader1.setHeader("License Request Edit");
 
-            type_requester.DataSource = GetTypeOfRequester();
-            type_requester.DataBind();
-            type_requester.DataTextField = "tof_requester_desc";
-            type_requester.DataValueField = "tof_requester_code";
-            type_requester.DataBind();
+            //type_requester.DataSource = GetTypeOfRequester();
+            //type_requester.DataBind();
+            //type_requester.DataTextField = "tof_requester_desc";
+            //type_requester.DataValueField = "tof_requester_code";
+            //type_requester.DataBind();
 
-            //type_project.DataSource = GetBusinessUnit();
-            type_project.DataSource = GetListBuByTypeReq("01");
-            type_project.DataBind();
-            type_project.DataTextField = "bu_desc";
-            type_project.DataValueField = "bu_code";
-            type_project.DataBind();
+            ////type_project.DataSource = GetBusinessUnit();
+            //type_project.DataSource = GetListBuByTypeReq("01");
+            //type_project.DataBind();
+            //type_project.DataTextField = "bu_desc";
+            //type_project.DataValueField = "bu_code";
+            //type_project.DataBind();
 
-            license_code.DataSource = GetTypeOfPermitLicense();
-            license_code.DataBind();
-            license_code.DataTextField = "license_desc_all";
-            license_code.DataValueField = "license_code";
-            license_code.DataBind();
+            //license_code.DataSource = GetTypeOfPermitLicense();
+            //license_code.DataBind();
+            //license_code.DataTextField = "license_desc_all";
+            //license_code.DataValueField = "license_code";
+            //license_code.DataBind();
 
-            var dtSublicense = GetSubPermitLicense(license_code.SelectedValue);
+            //var dtSublicense = GetSubPermitLicense(license_code.SelectedValue);
 
-            if (dtSublicense.Rows.Count > 0)
-            {
-                ddl_sublicense.Visible = true;
-                ddl_sublicense.DataSource = dtSublicense;
-                ddl_sublicense.DataBind();
-                ddl_sublicense.DataTextField = "sublicense_desc";
-                ddl_sublicense.DataValueField = "sublicense_code";
-                ddl_sublicense.DataBind();
-            }
+            //if (dtSublicense.Rows.Count > 0)
+            //{
+            //    ddl_sublicense.Visible = true;
+            //    ddl_sublicense.DataSource = dtSublicense;
+            //    ddl_sublicense.DataBind();
+            //    ddl_sublicense.DataTextField = "sublicense_desc";
+            //    ddl_sublicense.DataValueField = "sublicense_code";
+            //    ddl_sublicense.DataBind();
+            //}
 
-            var dtSublicenseRefdoc = GetSubPermitLicenseRefDoc(ddl_sublicense.SelectedValue);
+            //var dtSublicenseRefdoc = GetSubPermitLicenseRefDoc(ddl_sublicense.SelectedValue);
 
-            if (dtSublicenseRefdoc.Rows.Count > 0)
-            {
-                refdoc.Visible = true;
-                ddl_refdoc.Visible = true;
-                ddl_refdoc.DataSource = dtSublicenseRefdoc;
-                ddl_refdoc.DataBind();
-                ddl_refdoc.DataTextField = "sublicense_refdoc_desc";
-                ddl_refdoc.DataValueField = "sublicense_code";
-                ddl_refdoc.DataBind();
-            }
+            //if (dtSublicenseRefdoc.Rows.Count > 0)
+            //{
+            //    refdoc.Visible = true;
+            //    ddl_refdoc.Visible = true;
+            //    ddl_refdoc.DataSource = dtSublicenseRefdoc;
+            //    ddl_refdoc.DataBind();
+            //    ddl_refdoc.DataTextField = "sublicense_refdoc_desc";
+            //    ddl_refdoc.DataValueField = "sublicense_code";
+            //    ddl_refdoc.DataBind();
+            //}
 
             string sql = "select * from li_permit_request where permit_no='" + id + "'";
 
@@ -91,6 +91,51 @@ namespace onlineLegalWF.frmPermit
 
             if (res.Rows.Count > 0) 
             {
+                type_requester.DataSource = GetTypeOfRequester();
+                type_requester.DataBind();
+                type_requester.DataTextField = "tof_requester_desc";
+                type_requester.DataValueField = "tof_requester_code";
+                type_requester.DataBind();
+
+                //type_project.DataSource = GetBusinessUnit();
+                type_project.DataSource = GetListBuByTypeReq(res.Rows[0]["tof_requester_code"].ToString());
+                type_project.DataBind();
+                type_project.DataTextField = "bu_desc";
+                type_project.DataValueField = "bu_code";
+                type_project.DataBind();
+
+                license_code.DataSource = GetTypeOfPermitLicense();
+                license_code.DataBind();
+                license_code.DataTextField = "license_desc_all";
+                license_code.DataValueField = "license_code";
+                license_code.DataBind();
+
+                var dtSublicense = GetSubPermitLicense(license_code.SelectedValue);
+
+                if (dtSublicense.Rows.Count > 0)
+                {
+                    ddl_sublicense.Visible = true;
+                    ddl_sublicense.DataSource = dtSublicense;
+                    ddl_sublicense.DataBind();
+                    ddl_sublicense.DataTextField = "sublicense_desc";
+                    ddl_sublicense.DataValueField = "sublicense_code";
+                    ddl_sublicense.DataBind();
+                }
+
+                var dtSublicenseRefdoc = GetSubPermitLicenseRefDoc(ddl_sublicense.SelectedValue);
+
+                if (dtSublicenseRefdoc.Rows.Count > 0)
+                {
+                    refdoc.Visible = true;
+                    ddl_refdoc.Visible = true;
+                    ddl_refdoc.DataSource = dtSublicenseRefdoc;
+                    ddl_refdoc.DataBind();
+                    ddl_refdoc.DataTextField = "sublicense_refdoc_desc";
+                    ddl_refdoc.DataValueField = "sublicense_code";
+                    ddl_refdoc.DataBind();
+                }
+
+
                 req_date.Value = Convert.ToDateTime(res.Rows[0]["permit_date"]).ToString("yyyy-MM-dd");
                 lblPID.Text = res.Rows[0]["process_id"].ToString();
                 hid_PID.Value = res.Rows[0]["process_id"].ToString();
