@@ -91,7 +91,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#bu_name#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.bu_name) ? data.bu_name.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.bu_name) ? data.bu_name.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
 
             dr0 = dtStr.NewRow();

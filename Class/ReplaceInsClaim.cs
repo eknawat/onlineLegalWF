@@ -27,7 +27,7 @@ namespace onlineLegalWF.Class
 
             DataRow dr0 = dtStr.NewRow();
             dr0["tagname"] = "#company#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.company) ? data.company.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.company) ? data.company.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propertyname#";
@@ -87,7 +87,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propposition1#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition1) ? data.propposition1.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition1) ? data.propposition1.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propdate1#";
@@ -103,7 +103,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propposition2#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition2) ? data.propposition2.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition2) ? data.propposition2.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propdate2#";
@@ -120,7 +120,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propposition3#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition3) ? data.propposition3.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition3) ? data.propposition3.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propdate3#";
@@ -137,7 +137,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propposition3_1#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition3_1) ? data.propposition3_1.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propposition3_1) ? data.propposition3_1.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propdate3_1#";
@@ -154,7 +154,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcposition1#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1) ? data.awcposition1.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1) ? data.awcposition1.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcdate1#";
@@ -171,7 +171,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcposition1_2#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1_2) ? data.awcposition1_2.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1_2) ? data.awcposition1_2.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcdate1_2#";
@@ -188,7 +188,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcposition1_3#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1_3) ? data.awcposition1_3.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition1_3) ? data.awcposition1_3.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcdate1_3#";
@@ -205,7 +205,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcposition2#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition2) ? data.awcposition2.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition2) ? data.awcposition2.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcdate2#";
@@ -221,7 +221,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcposition3#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition3) ? data.awcposition3.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.awcposition3) ? data.awcposition3.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#awcdate3#";

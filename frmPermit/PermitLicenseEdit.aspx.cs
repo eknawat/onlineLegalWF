@@ -148,6 +148,7 @@ namespace onlineLegalWF.frmPermit
                 type_requester.SelectedValue = res.Rows[0]["tof_requester_code"].ToString();
                 tof_requester_other_desc.Text = res.Rows[0]["tof_requester_other_desc"].ToString();
                 responsible_phone.Text = res.Rows[0]["responsible_phone"].ToString();
+                number_of_licenses.Text = res.Rows[0]["number_of_licenses"].ToString();
                 if (res.Rows[0]["tof_requester_code"].ToString() == "03")
                 {
                     tof_requester_other_desc.Enabled = true;
@@ -428,6 +429,7 @@ namespace onlineLegalWF.frmPermit
             var xpermit_desc = permit_desc.Text.Trim();
             var xcontact_agency = contact_agency.Text.Trim();
             var xattorney_name = attorney_name.Text.Trim();
+            var xnumber_of_licenses = number_of_licenses.Text.Trim();
 
             string sql = @"UPDATE [dbo].[li_permit_request]
                            SET [permit_subject] = '" + xpermit_subject + @"'
@@ -442,7 +444,8 @@ namespace onlineLegalWF.frmPermit
                               ,[attorney_name] = '"+xattorney_name+@"'
                               ,[bu_code] = '"+xproject_code+@"'
                               ,[updated_datetime] = '"+xpermit_updatedate+ @"'
-                              ,[responsible_phone] = '" + xresponsible_phone+@"'
+                              ,[responsible_phone] = '" + xresponsible_phone+ @"'
+                              ,[number_of_licenses] = '" + xnumber_of_licenses + @"'
                          WHERE [permit_no] = '"+ xpermit_no + "'";
 
             ret = zdb.ExecNonQueryReturnID(sql, zconnstr);

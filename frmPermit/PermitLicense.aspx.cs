@@ -378,6 +378,7 @@ namespace onlineLegalWF.frmPermit
             var xstatus = "verify";
             var xsubject = permit_subject.Text.Trim();
             var xresponsible_phone = responsible_phone.Text.Trim();
+            var xnumber_of_licenses = number_of_licenses.Text.Trim();
 
             string sql = "";
 
@@ -394,7 +395,7 @@ namespace onlineLegalWF.frmPermit
             if (license_code.SelectedValue == "11" || license_code.SelectedValue == "13")
             {
                 sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[contact_agency],[attorney_name],[responsible_phone],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -411,12 +412,13 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xcontact_agency + @"'
                                    ,'" + xattorney_name + @"'
                                    ,'" + xresponsible_phone + @"'
+                                   ,'" + xnumber_of_licenses + @"'
                                    ,'" + xstatus + @"')";
             }
             else 
             {
                 sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[sublicense_code],[contact_agency],[attorney_name],[responsible_phone],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[sublicense_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -434,6 +436,7 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xcontact_agency + @"'
                                    ,'" + xattorney_name + @"'
                                    ,'" + xresponsible_phone + @"'
+                                   ,'" + xnumber_of_licenses + @"'
                                    ,'" + xstatus + @"')";
             }
 

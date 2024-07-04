@@ -66,7 +66,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#position1#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position1) ? data.position1.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position1) ? data.position1.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#date1#";
@@ -83,7 +83,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#position2#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position2) ? data.position2.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position2) ? data.position2.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#date2#";
@@ -100,7 +100,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#position3#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position3) ? data.position3.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position3) ? data.position3.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#date3#";
@@ -117,7 +117,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#position3_1#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position3_1) ? data.position3_1.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position3_1) ? data.position3_1.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#date3_1#";
@@ -135,7 +135,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#position4#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position4) ? data.position4.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.position4) ? data.position4.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#date4#";

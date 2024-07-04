@@ -161,6 +161,16 @@
                         </tr>
                         <tr>
                             <td class="cell_content_20PC_TR">
+                                <label class="Label_md">Number of Licenses </label>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td class="cell_content_80PC_TL">
+                                <asp:TextBox ID="number_of_licenses" runat="server" TextMode="Number" CssClass="Text_400"></asp:TextBox>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="cell_content_20PC_TR">
                                 <label class="Label_md">Contact Agency </label>
                             </td>
                             <td>&nbsp;</td>

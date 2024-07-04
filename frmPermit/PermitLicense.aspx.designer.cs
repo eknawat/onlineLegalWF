@@ -168,6 +168,15 @@ namespace onlineLegalWF.frmPermit
         protected global::System.Web.UI.WebControls.BulletedList ddl_refdoc;
 
         /// <summary>
+        /// number_of_licenses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox number_of_licenses;
+
+        /// <summary>
         /// contact_agency control.
         /// </summary>
         /// <remarks>
