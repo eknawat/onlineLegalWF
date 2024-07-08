@@ -189,6 +189,14 @@ namespace onlineLegalWF.frmPermit
                         return;
                     }
                 }
+                if (cb_urgent.Checked)
+                {
+                    if (string.IsNullOrEmpty(urgent_remark.Text))
+                    {
+                        showAlertError("alertTitleErr", "Warning! Please input Urgent Remark");
+                        return;
+                    }
+                }
 
                 int res = SaveRequest();
 
@@ -282,9 +290,11 @@ namespace onlineLegalWF.frmPermit
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xcom_code = com_code.Text.Trim();
             var xgl = gl.Text.Trim();
+            var xcb_urgent = cb_urgent.Checked;
+            var xurgent_remark = urgent_remark.Text.Trim();
 
             string sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[contact_agency],[attorney_name],[email_accounting],[responsible_phone],[com_code],[gl],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[contact_agency],[attorney_name],[email_accounting],[responsible_phone],[com_code],[gl],[isurgent],[urgent_remark],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -303,6 +313,8 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xresponsible_phone + @"'
                                    ,'" + xcom_code + @"'
                                    ,'" + xgl + @"'
+                                   ,'" + xcb_urgent + @"'
+                                   ,'" + xurgent_remark + @"'
                                    ,'" + xstatus + @"')";
 
             ret = zdb.ExecNonQueryReturnID(sql, zconnstr);
@@ -333,6 +345,15 @@ namespace onlineLegalWF.frmPermit
             var xrequester_code = type_requester.SelectedValue;
             data.req_other = "";
             data.responsible_phone = responsible_phone.Text.Trim();
+            if (cb_urgent.Checked)
+            {
+                data.cb_urgent = "☑";
+            }
+            else
+            {
+                data.cb_urgent = "☐";
+            }
+            data.urgent_remark = urgent_remark.Text.Trim();
             if (xrequester_code == "01")
             {
                 data.r1 = "☑";
@@ -650,6 +671,19 @@ namespace onlineLegalWF.frmPermit
         public void showAlertError(string key, string msg)
         {
             ClientScript.RegisterStartupScript(GetType(), key, "showAlertError('" + msg + "');", true);
+        }
+
+        protected void cb_urgent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_urgent.Checked)
+            {
+                urgent_remark.Enabled = true;
+            }
+            else
+            {
+                urgent_remark.Enabled = false;
+                urgent_remark.Text = string.Empty;
+            }
         }
     }
 }

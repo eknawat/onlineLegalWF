@@ -27,6 +27,7 @@
                                 Type of Request :
                                 <asp:DropDownList runat="server" ID="ddlType_of_request" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByTOR">
                                 </asp:DropDownList>
+                                <asp:Button ID="reset" runat="server" Text="Reset" PostBackUrl="/frmPermit/PermitWorkAssign.aspx" />
                             </td>
                         </tr>
                         <tr>

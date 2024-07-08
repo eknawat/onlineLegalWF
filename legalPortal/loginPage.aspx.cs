@@ -149,7 +149,7 @@ namespace onlineLegalWF.legalPortal
         {
             var empFunc = new EmpInfo();
 
-            var emp = empFunc.getEmpInfo(xusername); 
+            var emp = empFunc.getEmpInfo(xusername);
             Session.Clear();
             Session.Add("is_login", "Y");
             Session.Add("user_login", emp.user_login);

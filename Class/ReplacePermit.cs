@@ -163,6 +163,14 @@ namespace onlineLegalWF.Class
             dr0["tagname"] = "#responsible_phone#";
             dr0["tagvalue"] = (!string.IsNullOrEmpty(data.responsible_phone) ? data.responsible_phone.Replace(",", "!comma") : "");
             dtStr.Rows.Add(dr0);
+            dr0 = dtStr.NewRow();
+            dr0["tagname"] = "#cb_urgent#";
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.cb_urgent) ? data.cb_urgent.Replace(",", "!comma") : "");
+            dtStr.Rows.Add(dr0);
+            dr0 = dtStr.NewRow();
+            dr0["tagname"] = "#urgent_remark#";
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.urgent_remark) ? data.urgent_remark.Replace(",", "!comma") : "");
+            dtStr.Rows.Add(dr0);
 
 
             return dtStr;
@@ -173,7 +181,7 @@ namespace onlineLegalWF.Class
             ReplacePermit_TagData res = new ReplacePermit_TagData();
 
             string xexternal_domain = "";
-            string sql0 = @"SELECT permit.[row_id],permit.[process_id],permit.[permit_no],permit.[document_no],permit.[permit_date],permit.[permit_subject],permit.[permit_desc]
+            string sql0 = @"SELECT permit.[row_id],permit.[process_id],permit.[permit_no],permit.[document_no],permit.[permit_date],permit.[permit_subject],permit.[permit_desc],permit.[isurgent],permit.[urgent_remark]
                                   ,permit.[tof_requester_code],permit.[tof_requester_other_desc],permit.[tof_permitreq_code],permit.[tof_permitreq_other_desc],permit.[license_code],permit.[sublicense_code]
                                   ,permit.[contact_agency],permit.[attorney_name],permit.[email_accounting],permit.[bu_code],bu.[bu_desc],permit.[status],permit.[updated_datetime],permit.[responsible_phone],bu.[external_domain]
                               FROM [li_permit_request] as permit
@@ -187,8 +195,18 @@ namespace onlineLegalWF.Class
                 res.reqdate = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr0["permit_date"]), "th").Trim();
                 var xrequester_code = dr0["tof_requester_code"].ToString().Trim();
                 xexternal_domain = dr0["external_domain"].ToString();
-                data.req_other = "";
-                data.responsible_phone = dr0["responsible_phone"].ToString().Trim();
+                res.req_other = "";
+                res.responsible_phone = dr0["responsible_phone"].ToString().Trim();
+                var xcb_urgent = dr0["isurgent"].ToString();
+                if (xcb_urgent == "True") 
+                {
+                    res.cb_urgent = "☑";
+                }
+                else 
+                { 
+                    res.cb_urgent = "☐"; 
+                }
+                res.urgent_remark = dr0["urgent_remark"].ToString();
                 if (xrequester_code == "01")
                 {
                     res.r1 = "☑";
@@ -497,6 +515,8 @@ namespace onlineLegalWF.Class
             public string attorney_name { get; set; }
             public string list_doc_attach { get; set; }
             public string responsible_phone { get; set; }
+            public string cb_urgent { get; set; }
+            public string urgent_remark { get; set; }
         }
     }
 }

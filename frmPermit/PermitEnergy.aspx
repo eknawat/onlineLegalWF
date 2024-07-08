@@ -40,12 +40,23 @@
                         </tr>
                         <tr>
                             <td class="cell_content_20PC_TR">
+                                <label class="Label_md">Urgent </label>
+                                &nbsp;
+                                <asp:CheckBox ID="cb_urgent" runat="server" OnCheckedChanged="cb_urgent_CheckedChanged" AutoPostBack="true" />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td class="cell_content_80PC_TL">
+                                <asp:TextBox ID="urgent_remark" runat="server" Enabled="false" TextMode="MultiLine" CssClass="Text_600"></asp:TextBox>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="cell_content_20PC_TR">
                                 <label class="Label_md">Requester </label>
                             </td>
                             <td>&nbsp;</td>
                             <td class="cell_content_80PC_TL">
-                                <asp:DropDownList ID="type_requester" runat="server" CssClass="Text_400">
-                                    <asp:ListItem Value="02">Hospitality Group Officer / กลุ่มโรงแรม</asp:ListItem>
+                                <asp:DropDownList ID="type_requester" runat="server" CssClass="Text_400" OnSelectedIndexChanged="ddl_type_requester_Changed" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
                             <td>&nbsp;</td>

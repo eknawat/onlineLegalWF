@@ -786,6 +786,96 @@ namespace onlineLegalWF.Class
                 }
 
             }
+            else if (wfA.step_name == "Start" && wfA.process_code == "PMT_LIC")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
+            else if (wfA.step_name == "Start" && wfA.process_code == "PMT_TM")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
+            else if (wfA.step_name == "Start" && wfA.process_code == "PMT_TAX")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
+            else if (wfA.step_name == "Start" && wfA.process_code == "PMT_EMR")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
+            else if (wfA.step_name == "Start" && wfA.process_code == "PMT_UTIL")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
             else 
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
@@ -1885,5 +1975,7 @@ namespace onlineLegalWF.Class
         public bool issignagetax { get; set; }
         public string permit_energy_external { get; set; }
         public string permit_utility_external { get; set; }
+        public string division { get; set; }
+
     }
 }

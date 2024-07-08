@@ -139,7 +139,7 @@ namespace onlineLegalWF.forms
             if (mode == "tracking") 
             {
                 btn_Approve.Visible = false;
-                btn_Reject.Visible = false;
+                btn_Reject.Visible = true;
 
                 if (Session["user_login"] != null)
                 {

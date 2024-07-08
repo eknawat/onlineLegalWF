@@ -109,6 +109,16 @@ namespace onlineLegalWF.frmPermit
                     tof_permitreq_other_desc.Enabled = false;
                 }
                 company.Text = GetCompanyNameByBuCode(type_project.SelectedValue);
+                cb_urgent.Checked = Convert.ToBoolean(res.Rows[0]["isurgent"].ToString());
+                urgent_remark.Text = res.Rows[0]["urgent_remark"].ToString();
+                if (cb_urgent.Checked)
+                {
+                    urgent_remark.Enabled = true;
+                }
+                else
+                {
+                    urgent_remark.Enabled = false;
+                }
             }
         }
         public string GetCompanyNameByBuCode(string xbu_code)
@@ -246,6 +256,8 @@ namespace onlineLegalWF.frmPermit
             var xtrademark_regis_in_name = trademark_regis_in_name.Text.Trim();
             var xtrademark_type_of_regis = trademark_type_of_regis.Text.Trim();
             var xtrademark_cost = trademark_cost.Text.Trim();
+            var xcb_urgent = cb_urgent.Checked;
+            var xurgent_remark = urgent_remark.Text.Trim();
 
             string sql = @"UPDATE [dbo].[li_permit_request]
                            SET [permit_subject] = '" + xpermit_subject + @"'
@@ -263,6 +275,8 @@ namespace onlineLegalWF.frmPermit
                               ,[trademark_regis_in_name] = '" + xtrademark_regis_in_name + @"'
                               ,[trademark_type_of_regis] = '" + xtrademark_type_of_regis + @"'
                               ,[trademark_cost] = '" + xtrademark_cost + @"'
+                              ,[isurgent] = '" + xcb_urgent + @"'
+                              ,[urgent_remark] = '" + xurgent_remark + @"'
                          WHERE [permit_no] = '" + xpermit_no + "'";
 
             ret = zdb.ExecNonQueryReturnID(sql, zconnstr);
@@ -293,6 +307,15 @@ namespace onlineLegalWF.frmPermit
             var xrequester_code = type_requester.SelectedValue;
             data.req_other = "";
             data.responsible_phone = responsible_phone.Text.Trim();
+            if (cb_urgent.Checked)
+            {
+                data.cb_urgent = "☑";
+            }
+            else
+            {
+                data.cb_urgent = "☐";
+            }
+            data.urgent_remark = urgent_remark.Text.Trim();
             if (xrequester_code == "01")
             {
                 data.r1 = "☑";
@@ -631,7 +654,7 @@ namespace onlineLegalWF.frmPermit
 
                 wfAttr.next_assto_login = zwf.findNextStep_Assignee(wfAttr.process_code, wfAttr.step_name, emp.user_login, wfAttr.submit_by, lblPID.Text, xbu_code);
                 wfAttr.updated_by = emp.user_login;
-
+                wfAttr.division = emp.division;
                 // wf.updateProcess
                 var wfA_NextStep = zwf.updateProcess(wfAttr);
                 //wfA_NextStep.next_assto_login = emp.next_line_mgr_login;
@@ -705,6 +728,11 @@ namespace onlineLegalWF.frmPermit
                             if (!string.IsNullOrEmpty(email))
                             {
                                 _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+
+                                if (cb_urgent.Checked)
+                                {
+                                    sendMailUrgentToPermit(lblPID.Text, wfAttr.subject);
+                                }
                             }
 
                         }
@@ -824,6 +852,66 @@ namespace onlineLegalWF.frmPermit
 
             repl.convertDOCtoPDF(outputfn, outputfn.Replace(".docx", ".pdf"), false);
 
+        }
+        protected void cb_urgent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_urgent.Checked)
+            {
+                urgent_remark.Enabled = true;
+            }
+            else
+            {
+                urgent_remark.Enabled = false;
+                urgent_remark.Text = string.Empty;
+            }
+        }
+
+        private void sendMailUrgentToPermit(string pid, string xsubject)
+        {
+            string subject = "";
+            string body = "";
+            string sql = @"select * from li_permit_request where process_id = '" + pid + "'";
+            var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+            if (dt.Rows.Count > 0)
+            {
+                var dr = dt.Rows[0];
+                string id = dr["permit_no"].ToString();
+                subject = xsubject;
+                var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
+                body = "!!!Urgent คำขอเลขที่ " + dr["process_id"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a><br/>" +
+                    "!!!Urgent Request no" + dr["process_id"].ToString() + " Please check and proceed through the system. <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a>";
+
+                string pathfile = "";
+
+                string sqlfile = "select top 1 * from z_replacedocx_log where replacedocx_reqno='" + id + "' order by row_id desc";
+
+                var resfile = zdb.ExecSql_DataTable(sqlfile, zconnstr);
+
+                if (resfile.Rows.Count > 0)
+                {
+                    pathfile = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
+
+                    string[] email;
+
+                    var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
+                    ////get mail from db
+                    if (isdev != "true")
+                    {
+                        email = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com" };
+                    }
+                    else
+                    {
+                        ////fix mail test
+                        email = new string[] { "legalwfuat2024@gmail.com", "manit.ch@assetworldcorp-th.com" };
+                    }
+
+                    if (email.Length > 0)
+                    {
+                        _ = zsendmail.sendEmails(subject + " Mail To Permit", email, body, pathfile);
+                    }
+                }
+
+            }
         }
     }
 }

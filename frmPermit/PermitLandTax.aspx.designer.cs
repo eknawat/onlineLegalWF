@@ -51,6 +51,24 @@ namespace onlineLegalWF.frmPermit
         protected global::System.Web.UI.WebControls.Label doc_no;
 
         /// <summary>
+        /// cb_urgent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cb_urgent;
+
+        /// <summary>
+        /// urgent_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox urgent_remark;
+
+        /// <summary>
         /// type_requester control.
         /// </summary>
         /// <remarks>

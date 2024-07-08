@@ -260,6 +260,14 @@ namespace onlineLegalWF.frmPermit
                     showAlertError("alertTitleErr", "Warning! Please input attorney_name");
                     return;
                 }
+                if (cb_urgent.Checked) 
+                {
+                    if (string.IsNullOrEmpty(urgent_remark.Text))
+                    {
+                        showAlertError("alertTitleErr", "Warning! Please input Urgent Remark");
+                        return;
+                    }
+                }
 
                 int res = SaveRequest();
 
@@ -379,6 +387,8 @@ namespace onlineLegalWF.frmPermit
             var xsubject = permit_subject.Text.Trim();
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xnumber_of_licenses = number_of_licenses.Text.Trim();
+            var xcb_urgent = cb_urgent.Checked;
+            var xurgent_remark = urgent_remark.Text.Trim();
 
             string sql = "";
 
@@ -395,7 +405,7 @@ namespace onlineLegalWF.frmPermit
             if (license_code.SelectedValue == "11" || license_code.SelectedValue == "13")
             {
                 sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[isurgent],[urgent_remark],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -413,12 +423,14 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xattorney_name + @"'
                                    ,'" + xresponsible_phone + @"'
                                    ,'" + xnumber_of_licenses + @"'
+                                   ,'" + xcb_urgent + @"'
+                                   ,'" + xurgent_remark + @"'
                                    ,'" + xstatus + @"')";
             }
             else 
             {
                 sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[sublicense_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[tof_permitreq_other_desc],[license_code],[sublicense_code],[contact_agency],[attorney_name],[responsible_phone],[number_of_licenses],[isurgent],[urgent_remark],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -437,6 +449,8 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xattorney_name + @"'
                                    ,'" + xresponsible_phone + @"'
                                    ,'" + xnumber_of_licenses + @"'
+                                   ,'" + xcb_urgent + @"'
+                                   ,'" + xurgent_remark + @"'
                                    ,'" + xstatus + @"')";
             }
 
@@ -470,6 +484,15 @@ namespace onlineLegalWF.frmPermit
             var xrequester_code = type_requester.SelectedValue;
             data.req_other = "";
             data.responsible_phone = responsible_phone.Text.Trim();
+            if (cb_urgent.Checked)
+            {
+                data.cb_urgent = "☑";
+            }
+            else
+            {
+                data.cb_urgent = "☐";
+            }
+            data.urgent_remark = urgent_remark.Text.Trim();
             if (xrequester_code == "01")
             {
                 data.r1 = "☑";
@@ -787,6 +810,19 @@ namespace onlineLegalWF.frmPermit
         public void showAlertError(string key, string msg)
         {
             ClientScript.RegisterStartupScript(GetType(), key, "showAlertError('" + msg + "');", true);
+        }
+
+        protected void cb_urgent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_urgent.Checked)
+            {
+                urgent_remark.Enabled = true;
+            }
+            else
+            {
+                urgent_remark.Enabled = false;
+                urgent_remark.Text = string.Empty;
+            }
         }
     }
 }

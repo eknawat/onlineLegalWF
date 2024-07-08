@@ -40,18 +40,18 @@ namespace onlineLegalWF.frmPermit
             ucAttachment1.ini_object(pid);
             ucCommentlog1.ini_object(pid);
 
-            //type_project.DataSource = GetBusinessUnit();
-            type_project.DataSource = GetListBuByTypeReq("02");
+            type_project.DataSource = GetBusinessUnit();
+            //type_project.DataSource = GetListBuByTypeReq("02");
             type_project.DataBind();
             type_project.DataTextField = "bu_desc";
             type_project.DataValueField = "bu_code";
             type_project.DataBind();
 
-            //type_requester.DataSource = GetTypeOfRequester();
-            //type_requester.DataBind();
-            //type_requester.DataTextField = "tof_requester_desc";
-            //type_requester.DataValueField = "tof_requester_code";
-            //type_requester.DataBind();
+            type_requester.DataSource = GetTypeOfRequester();
+            type_requester.DataBind();
+            type_requester.DataTextField = "tof_requester_desc";
+            type_requester.DataValueField = "tof_requester_code";
+            type_requester.DataBind();
 
             company.Text = GetCompanyNameByBuCode(type_project.SelectedValue.ToString());
         }
@@ -93,6 +93,14 @@ namespace onlineLegalWF.frmPermit
                 {
                     showAlertError("alertTitleErr", "Warning! Please input permit_desc");
                     return;
+                }
+                if (cb_urgent.Checked)
+                {
+                    if (string.IsNullOrEmpty(urgent_remark.Text))
+                    {
+                        showAlertError("alertTitleErr", "Warning! Please input Urgent Remark");
+                        return;
+                    }
                 }
 
                 int res = SaveRequest();
@@ -221,9 +229,11 @@ namespace onlineLegalWF.frmPermit
             var xpermit_desc = permit_desc.Text.Trim();
             var xstatus = "verify";
             var xresponsible_phone = responsible_phone.Text.Trim();
+            var xcb_urgent = cb_urgent.Checked;
+            var xurgent_remark = urgent_remark.Text.Trim();
 
             string sql = @"INSERT INTO [dbo].[li_permit_request]
-                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[responsible_phone],[status])
+                                   ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[responsible_phone],[isurgent],[urgent_remark],[status])
                              VALUES
                                    ('" + xprocess_id + @"'
                                    ,'" + xpermit_no + @"'
@@ -236,6 +246,8 @@ namespace onlineLegalWF.frmPermit
                                    ,'" + xproject_code + @"'
                                    ,'" + xtof_permitreq_code + @"'
                                    ,'" + xresponsible_phone + @"'
+                                   ,'" + xcb_urgent + @"'
+                                   ,'" + xurgent_remark + @"'
                                    ,'" + xstatus + @"')";
 
             ret = zdb.ExecNonQueryReturnID(sql, zconnstr);
@@ -266,6 +278,15 @@ namespace onlineLegalWF.frmPermit
             var xrequester_code = type_requester.SelectedValue;
             data.req_other = "";
             data.responsible_phone = responsible_phone.Text.Trim();
+            if (cb_urgent.Checked)
+            {
+                data.cb_urgent = "☑";
+            }
+            else
+            {
+                data.cb_urgent = "☐";
+            }
+            data.urgent_remark = urgent_remark.Text.Trim();
             if (xrequester_code == "01")
             {
                 data.r1 = "☑";
@@ -586,6 +607,19 @@ namespace onlineLegalWF.frmPermit
         public void showAlertError(string key, string msg)
         {
             ClientScript.RegisterStartupScript(GetType(), key, "showAlertError('" + msg + "');", true);
+        }
+
+        protected void cb_urgent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_urgent.Checked)
+            {
+                urgent_remark.Enabled = true;
+            }
+            else
+            {
+                urgent_remark.Enabled = false;
+                urgent_remark.Text = string.Empty;
+            }
         }
     }
 }
