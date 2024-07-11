@@ -689,7 +689,8 @@ namespace onlineLegalWF.frmPermit
                             pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                             string email = "";
-
+                            string[] emails;
+                            string[] ccemails;
                             var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                             ////get mail from db
                             /////send mail to next_approve
@@ -718,16 +719,20 @@ namespace onlineLegalWF.frmPermit
                                     }
 
                                 }
+                                ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                             }
                             else
                             {
                                 ////fix mail test
                                 email = "legalwfuat2024@gmail.com";
+                                ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                             }
 
                             if (!string.IsNullOrEmpty(email))
                             {
-                                _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+                                //_ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+                                emails = new string[] { email };
+                                _ = zsendmail.sendEmailsCCs(subject + " Mail To Next Appove", emails, ccemails, body, pathfileins);
 
                                 if (cb_urgent.Checked)
                                 {
@@ -897,7 +902,7 @@ namespace onlineLegalWF.frmPermit
                     ////get mail from db
                     if (isdev != "true")
                     {
-                        email = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com" };
+                        email = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {

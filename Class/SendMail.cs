@@ -131,5 +131,57 @@ namespace onlineLegalWF.Class
                 throw ex;
             }
         }
+
+        public async Task<bool> sendEmailsCCs(string subject, string[] mailto, string[] mailcc, string body, string attachfile)
+        {
+            bool status = false;
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                var client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential("no_reply@assetworldcorp-th.com", "Aw[@dM1N#")
+                };
+
+                //var attachment = new System.Net.Mail.Attachment(attachfile);
+                var mailMessage = new MailMessage { From = new MailAddress("no_reply@assetworldcorp-th.com") };
+                if (mailto.Length > 0)
+                {
+                    foreach (var item in mailto)
+                    {
+                        mailMessage.To.Add(item);
+                    }
+                }
+                if (mailcc.Length > 0)
+                {
+                    foreach (var itemCC in mailcc)
+                    {
+                        mailMessage.CC.Add(itemCC);
+                    }
+                }
+                mailMessage.Body = body;
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                //if (attachment != null)
+                if (!string.IsNullOrEmpty(attachfile))
+                {
+                    var attachment = new System.Net.Mail.Attachment(attachfile);
+                    mailMessage.Attachments.Add(attachment);
+                }
+
+
+                await client.SendMailAsync(mailMessage).ConfigureAwait(false);
+                status = true;
+                return status;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Write(ex);
+                throw ex;
+            }
+        }
     }
 }

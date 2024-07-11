@@ -227,18 +227,18 @@
 
         <tr class="cell_content_100PC">
             <td colspan="2" class="cell_content_100PC">
+                <br />
+                <uc4:ucCommentlog runat="server" ID="ucCommentlog1" />
+            </td>
+        </tr>
+
+        <tr class="cell_content_100PC">
+            <td colspan="2" class="cell_content_100PC">
                 <asp:Button ID="btn_save" runat="server" CssClass="btn_normal_silver" Text="Save" OnClientClick="this.disabled = true;" UseSubmitBehavior="false" OnClick="btn_save_Click" />
                 <asp:Button ID="btn_submit" runat="server" CssClass="btn_normal_silver" Text="Submit" OnClientClick="this.disabled = true;" UseSubmitBehavior="false" OnClick="btn_submit_Click" />
                 <asp:Button ID="btn_gendocumnt" runat="server" CssClass="btn_normal_silver" Text="Preview" OnClientClick="this.disabled = true;" UseSubmitBehavior="false" OnClick="btn_gendocumnt_Click" />
             </td>
 
-        </tr>
-
-        <tr class="cell_content_100PC">
-            <td colspan="2" class="cell_content_100PC">
-                <br />
-                <uc4:ucCommentlog runat="server" ID="ucCommentlog1" />
-            </td>
         </tr>
     </table>
     <asp:HiddenField ID="hid_PID" runat="server" />

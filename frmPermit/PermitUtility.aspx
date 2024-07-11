@@ -150,6 +150,14 @@
             </td>
 
         </tr>
+        
+        <tr class="cell_content_100PC">
+            <td colspan="2" class="cell_content_100PC">
+                <br />
+                <uc4:ucCommentlog runat="server" ID="ucCommentlog1" />
+            </td>
+        </tr>
+
         <tr class="cell_content_100PC">
             <td colspan="2" class="cell_content_100PC">
                 <asp:Button ID="btn_save" runat="server" CssClass="btn_normal_silver" Text="Save" OnClick="btn_save_Click" OnClientClick="this.disabled = true;" UseSubmitBehavior="false" />
@@ -157,13 +165,6 @@
                 <asp:Button ID="btn_cancel" runat="server" CssClass="btn_normal_silver" Text="Cancel" OnClientClick="JavaScript:window.history.back(1); return false;" />
             </td>
 
-        </tr>
-        
-        <tr class="cell_content_100PC">
-            <td colspan="2" class="cell_content_100PC">
-                <br />
-                <uc4:ucCommentlog runat="server" ID="ucCommentlog1" />
-            </td>
         </tr>
     </table>
     <asp:HiddenField ID="hid_PID" runat="server" />

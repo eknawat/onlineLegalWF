@@ -1682,7 +1682,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Receive")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Receive user click receive
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Receive user click receive
                 }
                 else if (next_step_name == "Permit Update")
                 {
@@ -1694,7 +1694,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Check Update")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Check Update Close Job
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Check Update Close Job
                 }
                 else if (next_step_name == "End")
                 {
@@ -1725,7 +1725,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Receive")
                 {
-                    xname = "naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Receive user click receive
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Receive user click receive
                 }
                 else if (next_step_name == "Permit Update")
                 {
@@ -1737,7 +1737,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Check Update")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Check Update Close Job
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Check Update Close Job
                 }
                 else if (next_step_name == "End")
                 {
@@ -1768,7 +1768,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Receive")
                 {
-                    xname = "naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Receive user click receive
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Receive user click receive
                 }
                 else if (next_step_name == "Permit Update")
                 {
@@ -1780,7 +1780,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Check Update")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Check Update Close Job
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Check Update Close Job
                 }
                 else if (next_step_name == "End")
                 {
@@ -1811,7 +1811,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Receive")
                 {
-                    xname = "naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Receive user click receive
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Receive user click receive
                 }
                 else if (next_step_name == "Permit Update")
                 {
@@ -1823,7 +1823,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Check Update")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Check Update Close Job
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Check Update Close Job
                 }
                 else if (next_step_name == "End")
                 {
@@ -1854,7 +1854,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Receive")
                 {
-                    xname = "naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Receive user click receive
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Receive user click receive
                 }
                 else if (next_step_name == "Permit Update")
                 {
@@ -1866,7 +1866,7 @@ namespace onlineLegalWF.Class
                 }
                 else if (next_step_name == "Permit Check Update")
                 {
-                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k"; //Permit Check Update Close Job
+                    xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku"; //Permit Check Update Close Job
                 }
                 else if (next_step_name == "End")
                 {

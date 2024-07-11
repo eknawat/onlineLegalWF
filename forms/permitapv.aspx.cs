@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Presentation;
+using Microsoft.Office.Interop.Word;
 using onlineLegalWF.Class;
 using System;
 using System.Collections.Generic;
@@ -135,16 +136,30 @@ namespace onlineLegalWF.forms
                 btn_Submit.Visible = true;
                 btn_send_requester.Visible = true;
             }
+            else if (st_name == "End")
+            {
+                btn_Reject.Visible = false;
+            }
 
             if (mode == "tracking") 
             {
                 btn_Approve.Visible = false;
-                btn_Reject.Visible = true;
+
+                if (st_name == "End")
+                {
+                    btn_Reject.Visible = false;
+                }
+                else 
+                {
+                    btn_Reject.Visible = true;
+                }
+                
 
                 if (Session["user_login"] != null)
                 {
+                    //xname = "pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k, pichet.ku";
                     var xlogin_name = Session["user_login"].ToString();
-                    if (xlogin_name == "pornsawan.s") 
+                    if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku") 
                     {
                         if (st_name == "Permit Update" || st_name == "Permit Check Update") 
                         {
@@ -255,7 +270,7 @@ namespace onlineLegalWF.forms
                 data.signdate2 = "";
             }
 
-            DataTable dtStr = zreplacepermit.BindTagData(pid, data);
+            System.Data.DataTable dtStr = zreplacepermit.BindTagData(pid, data);
             #endregion
 
             ReplaceDocx.Class.ReplaceDocx repl = new ReplaceDocx.Class.ReplaceDocx();
@@ -387,7 +402,8 @@ namespace onlineLegalWF.forms
                     pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                     string email = "";
-
+                    string[] emails;
+                    string[] ccemails;
                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
                     /////send mail to next_approve
@@ -416,16 +432,21 @@ namespace onlineLegalWF.forms
                             }
 
                         }
+                        ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
                         ////fix mail test
                         email = "legalwfuat2024@gmail.com";
+                        ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                     }
 
                     if (!string.IsNullOrEmpty(email))
                     {
-                        _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+
+                        //_ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+                        emails = new string[] { email };
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Next Appove", emails, ccemails, body, pathfileins);
                     }
 
                 }
@@ -634,6 +655,8 @@ namespace onlineLegalWF.forms
                                 pathfilecommregis = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                                 string email = "";
+                                string[] emails;
+                                string[] ccemails;
 
                                 var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                 ////get mail from db
@@ -663,16 +686,20 @@ namespace onlineLegalWF.forms
                                         }
 
                                     }
+                                    ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                                 }
                                 else
                                 {
                                     ////fix mail test
                                     email = "legalwfuat2024@gmail.com";
+                                    ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                                 }
 
                                 if (!string.IsNullOrEmpty(email))
                                 {
-                                    _ = zsendmail.sendEmail("Reject " + subject + " Mail To Requester", email, body, pathfilecommregis);
+                                    //_ = zsendmail.sendEmail("Reject " + subject + " Mail To Requester", email, body, pathfilecommregis);
+                                    emails = new string[] { email };
+                                    _ = zsendmail.sendEmailsCCs(subject + " Mail To Requester", emails, ccemails, body, pathfilecommregis);
                                 }
                             }
 
@@ -863,7 +890,7 @@ namespace onlineLegalWF.forms
                     ////get mail from db
                     if (isdev != "true")
                     {
-                        emailCommregis = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com" };
+                        emailCommregis = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
@@ -873,7 +900,8 @@ namespace onlineLegalWF.forms
 
                     if (emailCommregis.Length > 0)
                     {
-                        _ = zsendmail.sendEmails(subject + " Mail To Permit", emailCommregis, body, pathfilecommregis);
+                        //_ = zsendmail.sendEmails(subject + " Mail To Permit", emailCommregis, body, pathfilecommregis);
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Next Appove", emailCommregis, emailCommregis, body, pathfilecommregis);
                     }
                 }
 
@@ -906,6 +934,8 @@ namespace onlineLegalWF.forms
                     pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                     string email = "";
+                    string[] emails;
+                    string[] ccemails;
 
                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
@@ -935,16 +965,20 @@ namespace onlineLegalWF.forms
                             }
 
                         }
+                        ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
                         ////fix mail test
                         email = "legalwfuat2024@gmail.com";
+                        ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                     }
 
                     if (!string.IsNullOrEmpty(email))
                     {
-                        _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, pathfileins);
+                        //_ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, pathfileins);
+                        emails = new string[] { email };
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Requester", emails, ccemails, body, pathfileins);
                     }
 
                 }
@@ -978,6 +1012,8 @@ namespace onlineLegalWF.forms
                     pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                     string email = "";
+                    string[] emails;
+                    string[] ccemails;
 
                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
@@ -1007,16 +1043,20 @@ namespace onlineLegalWF.forms
                             }
 
                         }
+                        ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
                         ////fix mail test
                         email = "legalwfuat2024@gmail.com";
+                        ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                     }
 
                     if (!string.IsNullOrEmpty(email))
                     {
-                        _ = zsendmail.sendEmail(subject + " Mail To Permit ChangeAssign", email, body, pathfileins);
+                        //_ = zsendmail.sendEmail(subject + " Mail To Permit ChangeAssign", email, body, pathfileins);
+                        emails = new string[] { email };
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Permit ChangeAssign", emails, ccemails, body, pathfileins);
                     }
 
                 }
@@ -1053,6 +1093,8 @@ namespace onlineLegalWF.forms
                     pathfileCommregis = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                     string email = "";
+                    string[] emails;
+                    string[] ccemails;
 
                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
@@ -1081,17 +1123,21 @@ namespace onlineLegalWF.forms
                             }
 
                         }
+                        ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
                         ////fix mail test
                         email = "legalwfuat2024@gmail.com";
+                        ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                     }
 
                     if (!string.IsNullOrEmpty(email))
                     {
                         //send mail to requester
-                        _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, pathfileCommregis);
+                        //_ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, pathfileCommregis);
+                        emails = new string[] { email };
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Requester", emails, ccemails, body, pathfileCommregis);
                     }
 
                 }

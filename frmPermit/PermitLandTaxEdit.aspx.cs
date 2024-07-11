@@ -1,4 +1,5 @@
-﻿using onlineLegalWF.Class;
+﻿using Microsoft.Office.Interop.Word;
+using onlineLegalWF.Class;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -135,7 +136,7 @@ namespace onlineLegalWF.frmPermit
             string company_name = "";
 
             string sql = @"select * from li_business_unit where bu_code='" + xbu_code + "'";
-            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
+            System.Data.DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
             if (dt.Rows.Count > 0)
             {
                 company_name = dt.Rows[0]["company_name"].ToString();
@@ -169,7 +170,7 @@ namespace onlineLegalWF.frmPermit
             company.Text = GetCompanyNameByBuCode(type_lt_project.SelectedValue.ToString());
 
         }
-        public DataTable GetListBuByTypeReq(string tof_reqid)
+        public System.Data.DataTable GetListBuByTypeReq(string tof_reqid)
         {
             string sql = "";
             if (tof_reqid == "01")
@@ -184,7 +185,7 @@ namespace onlineLegalWF.frmPermit
             {
                 sql = "select * from li_business_unit where isactive=1 order by row_sort asc";
             }
-            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
+            System.Data.DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
 
             return dt;
         }
@@ -233,16 +234,16 @@ namespace onlineLegalWF.frmPermit
         {
             GenDocumnet();
         }
-        public DataTable GetTypeOfRequester()
+        public System.Data.DataTable GetTypeOfRequester()
         {
             string sql = "select * from li_type_of_requester order by row_sort asc";
-            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
+            System.Data.DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
             return dt;
         }
-        public DataTable GetBusinessUnit()
+        public System.Data.DataTable GetBusinessUnit()
         {
             string sql = "select * from li_business_unit where isactive=1 order by row_sort asc";
-            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
+            System.Data.DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
             return dt;
         }
 
@@ -597,7 +598,7 @@ namespace onlineLegalWF.frmPermit
             data.list_doc_attach = "ตรวจสอบเอกสารแนบได้ที่ระบบ";
 
 
-            DataTable dtStr = zreplacepermit.genTagData(data);
+            System.Data.DataTable dtStr = zreplacepermit.genTagData(data);
             #endregion
 
 
@@ -696,7 +697,8 @@ namespace onlineLegalWF.frmPermit
                             pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
 
                             string email = "";
-
+                            string[] emails;
+                            string[] ccemails;
                             var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                             ////get mail from db
                             /////send mail to next_approve
@@ -725,16 +727,20 @@ namespace onlineLegalWF.frmPermit
                                     }
 
                                 }
+                                ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                             }
                             else
                             {
                                 ////fix mail test
                                 email = "legalwfuat2024@gmail.com";
+                                ccemails = new string[] { "worawut.m@assetworldcorp-th.com", "manit.ch@assetworldcorp-th.com" };
                             }
 
                             if (!string.IsNullOrEmpty(email))
                             {
-                                _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+                                //_ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, pathfileins);
+                                emails = new string[] { email };
+                                _ = zsendmail.sendEmailsCCs(subject + " Mail To Next Appove", emails, ccemails, body, pathfileins);
 
                                 if (cb_urgent.Checked)
                                 {
@@ -833,7 +839,7 @@ namespace onlineLegalWF.frmPermit
                 data.signdate2 = "";
             }
 
-            DataTable dtStr = zreplacepermit.BindTagData(pid, data);
+            System.Data.DataTable dtStr = zreplacepermit.BindTagData(pid, data);
             #endregion
 
             ReplaceDocx.Class.ReplaceDocx repl = new ReplaceDocx.Class.ReplaceDocx();
@@ -904,7 +910,7 @@ namespace onlineLegalWF.frmPermit
                     ////get mail from db
                     if (isdev != "true")
                     {
-                        email = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com" };
+                        email = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
                     {
