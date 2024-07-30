@@ -114,9 +114,9 @@ namespace onlineLegalWF.frmInsurance
 
                 //check corditon deviation claim
                 float deviation = 0;
-                float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-                float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-                int int_iar_pfc = int.Parse(xiar_pfc, NumberStyles.AllowThousands);
+                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
+                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
+                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {
@@ -307,7 +307,7 @@ namespace onlineLegalWF.frmInsurance
             var xttl_ded = (!string.IsNullOrEmpty(ttl_ded.Text.Trim()) ? ttl_ded.Text.Trim() : null);
             var xttl_pfc = (!string.IsNullOrEmpty(ttl_pfc.Text.Trim()) ? ttl_pfc.Text.Trim() : null);
             var xttl_uatc = (!string.IsNullOrEmpty(ttl_uatc.Text.Trim()) ? ttl_uatc.Text.Trim() : null);
-            var xremark = (!string.IsNullOrEmpty(remark.Text.Trim()) ? remark.Text.Trim() : null);
+            var xremark = (!string.IsNullOrEmpty(remark.Text.Trim()) ? remark.Text.Trim() : "");
             var xdocref = GetListDoc(lblPID.Text);
 
             var path_template = ConfigurationManager.AppSettings["WT_Template_insurance"].ToString();
@@ -322,7 +322,7 @@ namespace onlineLegalWF.frmInsurance
             #region prepare data
             //Replace TAG STRING
             data.company = xcompany_name.Replace(",", "!comma");
-            data.propertyname = xbu_name.Replace(",", "!comma");
+            data.propertyname = xbu_name.Replace(",", "!comma").Replace("'", "’");
             data.incident = xincident.Replace(",", "!comma");
             data.occurreddate = xoccurred_date;
             data.submidate = xsubmission_date;
@@ -415,9 +415,9 @@ namespace onlineLegalWF.frmInsurance
 
             //check corditon deviation claim
             float deviation = 0;
-            float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-            float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-            int int_iar_pfc = int.Parse(xiar_pfc, NumberStyles.AllowThousands);
+            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0); 
+            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0); 
+            int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
@@ -787,9 +787,9 @@ namespace onlineLegalWF.frmInsurance
 
             //check corditon deviation claim
             float deviation = 0;
-            float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-            float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-            int int_iar_pfc = int.Parse(xiar_pfc, NumberStyles.AllowThousands);
+            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
+            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
+            int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
@@ -1062,9 +1062,9 @@ namespace onlineLegalWF.frmInsurance
 
                 //check corditon deviation claim
                 float deviation = 0;
-                float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-                float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-                int int_iar_pfc = int.Parse(xiar_pfc, NumberStyles.AllowThousands);
+                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
+                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
+                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {

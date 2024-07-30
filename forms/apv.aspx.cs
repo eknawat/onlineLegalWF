@@ -1487,9 +1487,9 @@ namespace onlineLegalWF.forms
 
                 //check corditon deviation claim
                 float deviation = 0;
-                float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-                float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-                int int_iar_pfc = int.Parse(xiar_pfc, NumberStyles.AllowThousands);
+                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
+                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
+                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {

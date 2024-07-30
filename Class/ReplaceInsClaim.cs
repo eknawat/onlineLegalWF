@@ -31,7 +31,7 @@ namespace onlineLegalWF.Class
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#propertyname#";
-            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propertyname) ? data.propertyname.Replace(",", "!comma") : "");
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.propertyname) ? data.propertyname.Replace(",", "!comma").Replace("'", "’") : "");
             dtStr.Rows.Add(dr0);
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#incident#";
