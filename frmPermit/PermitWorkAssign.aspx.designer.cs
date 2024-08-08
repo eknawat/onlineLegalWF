@@ -51,6 +51,15 @@ namespace onlineLegalWF.frmPermit
         protected global::System.Web.UI.WebControls.DropDownList ddlType_of_request;
 
         /// <summary>
+        /// ddl_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_status;
+
+        /// <summary>
         /// reset control.
         /// </summary>
         /// <remarks>

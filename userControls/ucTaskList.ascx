@@ -17,9 +17,9 @@
 <asp:Panel ID="Panel1" runat="server"  Height="600px" CssClass="div_90">
     <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" CssClass="w-100 table">
         <Columns>
-            <asp:TemplateField HeaderText="Request No">
+            <asp:TemplateField HeaderText="Document No">
                 <ItemTemplate>
-                    <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("process_id") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
+                    <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("document_no") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Subject">

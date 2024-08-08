@@ -80,7 +80,7 @@ namespace onlineLegalWF.test
             //    var requestorpos = "Head of Operations";
             //    var requestordate = Utillity.ConvertDateToLongDateTime(System.DateTime.Now, "en");
 
-            //    var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+            //    var apv1 = "คุณจรูญศักดิ์ นามะฮง";
             //    var apv1pos = "Insurance Specialist";
             //    var apv1date = "";
             //    var apv2 = "คุณชโลทร ศรีสมวงษ์";
@@ -636,7 +636,7 @@ namespace onlineLegalWF.test
             //    var requestorpos = "Head of Operations";
             //    var requestordate = Utillity.ConvertDateToLongDateTime(System.DateTime.Now, "en");
 
-            //    var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+            //    var apv1 = "คุณจรูญศักดิ์ นามะฮง";
             //    var apv1pos = "Insurance Specialist";
             //    var apv1date = "";
             //    var apv2 = "คุณชโลทร ศรีสมวงษ์";

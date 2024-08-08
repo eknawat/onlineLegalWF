@@ -116,7 +116,7 @@ namespace onlineLegalWF.frmInsurance
                 float deviation = 0;
                 float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
                 float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {
@@ -415,14 +415,14 @@ namespace onlineLegalWF.frmInsurance
 
             //check corditon deviation claim
             float deviation = 0;
-            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0); 
-            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0); 
-            int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
+            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
+            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
                 data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                 data.awcposition1 = "Insurance Specialist";
                 data.awcdate1 = "";
 
@@ -449,7 +449,7 @@ namespace onlineLegalWF.frmInsurance
             else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
             {
                 data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                 data.awcposition1 = "Insurance Specialist";
                 data.awcdate1 = "";
 
@@ -476,7 +476,7 @@ namespace onlineLegalWF.frmInsurance
             else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
             {
                 data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                 data.awcposition1 = "Insurance Specialist";
                 data.awcdate1 = "";
 
@@ -503,7 +503,7 @@ namespace onlineLegalWF.frmInsurance
             else if (int_iar_pfc > 1000000 && deviation <= 0.2)
             {
                 data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                 data.awcposition1 = "Insurance Specialist";
                 data.awcdate1 = "";
 
@@ -535,7 +535,7 @@ namespace onlineLegalWF.frmInsurance
                 //data.awcdate1 = "";
 
                 data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                 data.awcposition1 = "Insurance Specialist";
                 data.awcdate1 = "";
 
@@ -789,7 +789,7 @@ namespace onlineLegalWF.frmInsurance
             float deviation = 0;
             float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
             float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-            int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
@@ -1064,12 +1064,12 @@ namespace onlineLegalWF.frmInsurance
                 float deviation = 0;
                 float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
                 float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1096,7 +1096,7 @@ namespace onlineLegalWF.frmInsurance
                 else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1123,7 +1123,7 @@ namespace onlineLegalWF.frmInsurance
                 else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1150,7 +1150,7 @@ namespace onlineLegalWF.frmInsurance
                 else if (int_iar_pfc > 1000000 && deviation <= 0.2)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1182,7 +1182,7 @@ namespace onlineLegalWF.frmInsurance
                     //data.awcdate1 = "";
 
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1428,48 +1428,48 @@ namespace onlineLegalWF.frmInsurance
 
         protected void AtcCalculate(object sender, EventArgs e)
         {
-            int iar = (!string.IsNullOrEmpty(iar_atc.Text) ? Int32.Parse(iar_atc.Text) : 0);
-            int bi = (!string.IsNullOrEmpty(bi_atc.Text) ? Int32.Parse(bi_atc.Text) : 0);
-            int pl = (!string.IsNullOrEmpty(pl_cgl_atc.Text) ? Int32.Parse(pl_cgl_atc.Text) : 0);
-            int pv = (!string.IsNullOrEmpty(pv_atc.Text) ? Int32.Parse(pv_atc.Text) : 0);
+            float iar = (!string.IsNullOrEmpty(iar_atc.Text) ? float.Parse(iar_atc.Text) : 0);
+            float bi = (!string.IsNullOrEmpty(bi_atc.Text) ? float.Parse(bi_atc.Text) : 0);
+            float pl = (!string.IsNullOrEmpty(pl_cgl_atc.Text) ? float.Parse(pl_cgl_atc.Text) : 0);
+            float pv = (!string.IsNullOrEmpty(pv_atc.Text) ? float.Parse(pv_atc.Text) : 0);
 
-            int total = iar + bi + pl + pv;
+            float total = iar + bi + pl + pv;
 
             ttl_atc.Text = total.ToString();
             ttl_atc.Focus();
         }
         protected void DedCalculate(object sender, EventArgs e)
         {
-            int iar = (!string.IsNullOrEmpty(iar_ded.Text) ? Int32.Parse(iar_ded.Text) : 0);
-            int bi = (!string.IsNullOrEmpty(bi_ded.Text) ? Int32.Parse(bi_ded.Text) : 0);
-            int pl = (!string.IsNullOrEmpty(pl_cgl_ded.Text) ? Int32.Parse(pl_cgl_ded.Text) : 0);
-            int pv = (!string.IsNullOrEmpty(pv_ded.Text) ? Int32.Parse(pv_ded.Text) : 0);
+            float iar = (!string.IsNullOrEmpty(iar_ded.Text) ? float.Parse(iar_ded.Text) : 0);
+            float bi = (!string.IsNullOrEmpty(bi_ded.Text) ? float.Parse(bi_ded.Text) : 0);
+            float pl = (!string.IsNullOrEmpty(pl_cgl_ded.Text) ? float.Parse(pl_cgl_ded.Text) : 0);
+            float pv = (!string.IsNullOrEmpty(pv_ded.Text) ? float.Parse(pv_ded.Text) : 0);
 
-            int total = iar + bi + pl + pv;
+            float total = iar + bi + pl + pv;
 
             ttl_ded.Text = total.ToString();
             ttl_ded.Focus();
         }
         protected void PfcCalculate(object sender, EventArgs e)
         {
-            int iar = (!string.IsNullOrEmpty(iar_pfc.Text) ? Int32.Parse(iar_pfc.Text) : 0);
-            int bi = (!string.IsNullOrEmpty(bi_pfc.Text) ? Int32.Parse(bi_pfc.Text) : 0);
-            int pl = (!string.IsNullOrEmpty(pl_cgl_pfc.Text) ? Int32.Parse(pl_cgl_pfc.Text) : 0);
-            int pv = (!string.IsNullOrEmpty(pv_pfc.Text) ? Int32.Parse(pv_pfc.Text) : 0);
+            float iar = (!string.IsNullOrEmpty(iar_pfc.Text) ? float.Parse(iar_pfc.Text) : 0);
+            float bi = (!string.IsNullOrEmpty(bi_pfc.Text) ? float.Parse(bi_pfc.Text) : 0);
+            float pl = (!string.IsNullOrEmpty(pl_cgl_pfc.Text) ? float.Parse(pl_cgl_pfc.Text) : 0);
+            float pv = (!string.IsNullOrEmpty(pv_pfc.Text) ? float.Parse(pv_pfc.Text) : 0);
 
-            int total = iar + bi + pl + pv;
+            float total = iar + bi + pl + pv;
 
             ttl_pfc.Text = total.ToString();
             ttl_pfc.Focus();
         }
         protected void UatcCalculate(object sender, EventArgs e)
         {
-            int iar = (!string.IsNullOrEmpty(iar_uatc.Text) ? Int32.Parse(iar_uatc.Text) : 0);
-            int bi = (!string.IsNullOrEmpty(bi_uatc.Text) ? Int32.Parse(bi_uatc.Text) : 0);
-            int pl = (!string.IsNullOrEmpty(pl_cgl_uatc.Text) ? Int32.Parse(pl_cgl_uatc.Text) : 0);
-            int pv = (!string.IsNullOrEmpty(pv_uatc.Text) ? Int32.Parse(pv_uatc.Text) : 0);
+            float iar = (!string.IsNullOrEmpty(iar_uatc.Text) ? float.Parse(iar_uatc.Text) : 0);
+            float bi = (!string.IsNullOrEmpty(bi_uatc.Text) ? float.Parse(bi_uatc.Text) : 0);
+            float pl = (!string.IsNullOrEmpty(pl_cgl_uatc.Text) ? float.Parse(pl_cgl_uatc.Text) : 0);
+            float pv = (!string.IsNullOrEmpty(pv_uatc.Text) ? float.Parse(pv_uatc.Text) : 0);
 
-            int total = iar + bi + pl + pv;
+            float total = iar + bi + pl + pv;
 
             ttl_uatc.Text = total.ToString();
             ttl_uatc.Focus();

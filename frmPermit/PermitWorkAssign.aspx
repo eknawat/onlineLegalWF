@@ -1,8 +1,7 @@
-﻿<%@ Page Title="PermitWorkAssign" Language="C#" MasterPageFile="~/frmInsurance/SiteLigalWorkFlow.Master" AutoEventWireup="true" CodeBehind="PermitWorkAssign.aspx.cs" Inherits="onlineLegalWF.frmPermit.PermitWorkAssign" %>
+﻿<%@ Page Title="PermitWorkAssign" EnableEventValidation = "false" Language="C#" MasterPageFile="~/frmInsurance/SiteLigalWorkFlow.Master" AutoEventWireup="true" CodeBehind="PermitWorkAssign.aspx.cs" Inherits="onlineLegalWF.frmPermit.PermitWorkAssign" %>
 <%--<%@ Register Src="~/userControls/ucWorkflowlist.ascx" TagPrefix="uc2" TagName="ucWorkflowlist" %>--%>
 <%@ Register Src="~/userControls/ucHeader.ascx" TagPrefix="uc1" TagName="ucHeader" %>
 <%@ Register Src="~/userControls/ucTaskList.ascx" TagPrefix="uc2" TagName="ucTaskList" %>
-
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="cell_content_100PC">
@@ -22,12 +21,23 @@
                     <table class="w-100">
                         <tr>
                             <td style="text-align: right;" colspan="2" class="cell_content_100PC">
+                                <label>Search by Subject :</label>
                                 <asp:TextBox runat="server" ID="txtSearch" AutoPostBack="true" OnTextChanged="Search" />
                                 <br />
-                                Type of Request :
+                                <label>Type of Request :</label>
                                 <asp:DropDownList runat="server" ID="ddlType_of_request" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByTOR">
+                                    <%--<asp:ListItem Value="0">All</asp:ListItem>--%>
                                 </asp:DropDownList>
-                                <asp:Button ID="reset" runat="server" Text="Reset" PostBackUrl="/frmPermit/PermitWorkAssign.aspx" />
+                                <br />
+                                <label>Status :</label>
+                                <asp:DropDownList runat="server" ID="ddl_status" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByStatus">
+                                    <asp:ListItem Value="0">All</asp:ListItem>
+                                    <asp:ListItem Value="IN PROGRESS">IN PROGRESS</asp:ListItem>
+                                    <asp:ListItem Value="COMPLETED">COMPLETED</asp:ListItem>
+                                </asp:DropDownList>
+                                <br />
+                                <br />
+                                <asp:Button ID="reset" runat="server" Text="Reset" AutoPostBack="true" OnClick="Reset" />
                             </td>
                         </tr>
                         <tr>
@@ -38,9 +48,9 @@
                         <tr>
                             <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" CssClass="w-100 table" AllowSorting="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="gv1_PageIndexChanging">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Request No">
+                                    <asp:TemplateField HeaderText="Document No">
                                         <ItemTemplate>
-                                            <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("process_id") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
+                                            <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("document_no") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Type Request">

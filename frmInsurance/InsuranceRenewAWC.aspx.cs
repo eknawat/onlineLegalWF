@@ -399,7 +399,7 @@ namespace onlineLegalWF.frmInsurance
             var requestor = "";
             var requestorpos = "";
 
-            var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+            var apv1 = "คุณจรูญศักดิ์ นามะฮง";
             var apv1pos = "Insurance Specialist";
             var apv1_2 = "คุณวารินทร์ เกลียวไพศาล";
             var apv2 = "คุณชโลทร ศรีสมวงษ์";
@@ -953,7 +953,7 @@ namespace onlineLegalWF.frmInsurance
             var requestor = "";
             var requestorpos = "";
 
-            var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+            var apv1 = "คุณจรูญศักดิ์ นามะฮง";
             var apv1pos = "Insurance Specialist";
             var apv1_2 = "คุณวารินทร์ เกลียวไพศาล";
             var apv2 = "คุณชโลทร ศรีสมวงษ์";

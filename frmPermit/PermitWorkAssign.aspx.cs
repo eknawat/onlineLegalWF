@@ -42,6 +42,7 @@ namespace onlineLegalWF.frmPermit
                 ddlType_of_request.DataTextField = "tof_permitreq_desc";
                 ddlType_of_request.DataValueField = "tof_permitreq_code";
                 ddlType_of_request.DataBind();
+                ddlType_of_request.Items.Insert(0, new ListItem("All", "0"));
 
             }
         }
@@ -54,14 +55,19 @@ namespace onlineLegalWF.frmPermit
 
         protected void Search(object sender, EventArgs e)
         {
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue);
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, "");
             gv1.DataBind();
             
         }
 
         protected void SearchByTOR(object sender, EventArgs e)
         {
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue);
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue,"");
+            gv1.DataBind();
+        }
+        protected void SearchByStatus(object sender, EventArgs e)
+        {
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue);
             gv1.DataBind();
         }
 
@@ -165,7 +171,7 @@ namespace onlineLegalWF.frmPermit
         public DataTable getPermitTrackingList()
         {
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            string sql = @"Select wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
+            string sql = @"Select req.document_no,wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
                             CASE 
                                 WHEN wf_status = '' THEN 'IN PROGRESS' 
                                 ELSE wf_status
@@ -185,10 +191,10 @@ namespace onlineLegalWF.frmPermit
 
             return dt;
         }
-        public DataTable getSearchPermitTracking(string kw, string code)
+        public DataTable getSearchPermitTracking(string kw, string code, string status)
         {
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            string sql = @"Select wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
+            string sql = @"Select req.document_no,wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
                             CASE 
                                 WHEN wf_status = '' THEN 'IN PROGRESS' 
                                 ELSE wf_status
@@ -213,7 +219,27 @@ namespace onlineLegalWF.frmPermit
 
             if(!string.IsNullOrEmpty(code)) 
             {
-                sql += "and req.tof_permitreq_code like '%" + code + "%'";
+                if (code != "0") 
+                {
+                    sql += "and req.tof_permitreq_code like '%" + code + "%'";
+                }
+                
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                if (status != "0")
+                {
+                    if (status == "IN PROGRESS")
+                    {
+                        sql += "and wf_status <> 'COMPLETED'";
+                    }
+                    else 
+                    {
+                        sql += "and wf_status like '%" + status + "%'";
+                    }
+                    
+                }
+
             }
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
@@ -223,6 +249,11 @@ namespace onlineLegalWF.frmPermit
         protected void btn_Export_Click(object sender, EventArgs e)
         {
             ExportGridToExcel();
+        }
+        protected void Reset(object sender, EventArgs e)
+        {
+            var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
+            Response.Redirect(host_url + "frmpermit/permitworkassign.aspx", true);
         }
         public override void VerifyRenderingInServerForm(Control control)
         {
@@ -246,6 +277,11 @@ namespace onlineLegalWF.frmPermit
             Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
             gv1.GridLines = GridLines.Both;
             gv1.HeaderStyle.Font.Bold = true;
+
+            gv1.AllowPaging = false;
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue);
+            gv1.DataBind();
+
             gv1.RenderControl(htmltextwrtter);
             Response.Write(strwritter.ToString());
             //Response.Flush();

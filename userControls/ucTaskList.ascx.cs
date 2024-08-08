@@ -80,13 +80,40 @@ namespace onlineLegalWF.userControls
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString(); 
             //string sql = "Select process_id,subject,submit_by,updated_by,created_datetime,wf_status,updated_datetime, ( '" + host_url+ "' + link_url_format) as link_url_format from " +
             //    "wf_routing where process_id in (Select process_id from wf_routing where submit_by = '"+ hidLogin.Value + "' and wf_status in ('SAVE','WAITATCH')) and wf_status in ('SAVE','WAITATCH')";
-            string sql = "Select assto_login,process_id,subject,submit_by,updated_by,created_datetime,wf_status,updated_datetime,"+
+            //string sql = @"Select assto_login,process_id,subject,submit_by,updated_by,created_datetime,wf_status,updated_datetime,"+
+            //                "CASE "+
+            //                    "WHEN step_name = 'Start' or wf_status in ('SAVE', 'WAITATCH') THEN ('" + host_url+ "' + link_url_format) " +
+            //                    "ELSE '"+host_url+"legalPortal/legalportal?m=myrequest#' " +
+            //                "END AS link_url_format "+
+            //                "from wf_routing where submit_by = '"+ hidLogin.Value + "'" +
+            //                " and row_id in (select tb1.row_id from "+
+            //                "(SELECT process_id, "+
+            //                "MAX(row_id) as row_id "+
+            //                "FROM wf_routing where submit_by = '"+ hidLogin.Value + "'" +
+            //                "GROUP BY  process_id)as tb1) and step_name not in ('End')";
+            string sql = @"Select wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.wf_status,wf.updated_datetime," +
                             "CASE "+
                                 "WHEN step_name = 'Start' or wf_status in ('SAVE', 'WAITATCH') THEN ('" + host_url+ "' + link_url_format) " +
                                 "ELSE '"+host_url+"legalPortal/legalportal?m=myrequest#' " +
-                            "END AS link_url_format "+
-                            "from wf_routing where submit_by = '"+ hidLogin.Value + "'" +
-                            " and row_id in (select tb1.row_id from "+
+                            "END AS link_url_format,"+
+                            "CASE " +
+                                "WHEN permitreq.document_no IS NOT NULL THEN permitreq.document_no " +
+                                "WHEN commreq.document_no IS NOT NULL THEN commreq.document_no " +
+                                "WHEN claimreq.document_no IS NOT NULL THEN claimreq.document_no " +
+                                "WHEN insreq.document_no IS NOT NULL THEN insreq.document_no " +
+                                "WHEN memoreq.document_no IS NOT NULL THEN memoreq.document_no " +
+                                "WHEN lit.document_no IS NOT NULL THEN lit.document_no " +
+                                "ELSE '' " +
+                            "END AS document_no " +
+                            "from wf_routing as wf " +
+                            "left outer join li_permit_request as permitreq on permitreq.process_id = wf.process_id " +
+                            "left outer join li_comm_regis_request as commreq on commreq.process_id = wf.process_id " +
+                            "left outer join li_insurance_claim as claimreq on claimreq.process_id = wf.process_id " +
+                            "left outer join li_insurance_request as insreq on insreq.process_id = wf.process_id " +
+                            "left outer join li_insurance_renew_awc_memo as memoreq on memoreq.process_id = wf.process_id " +
+                            "left outer join li_litigation_request as lit on lit.process_id = wf.process_id " +
+                            "where submit_by = '" + hidLogin.Value + "'" +
+                            " and wf.row_id in (select tb1.row_id from " +
                             "(SELECT process_id, "+
                             "MAX(row_id) as row_id "+
                             "FROM wf_routing where submit_by = '"+ hidLogin.Value + "'" +
@@ -99,8 +126,24 @@ namespace onlineLegalWF.userControls
         public DataTable getMyWorkList()
         {
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            string sql = "Select assto_login,process_id,subject,submit_by,updated_by,created_datetime,wf_status,updated_datetime, ( '" + host_url + "' + link_url_format) as link_url_format from " +
-                "wf_routing where process_id in (Select process_id from wf_routing where assto_login like '%" + hidLogin.Value + "%' and submit_answer = '') and submit_answer = ''";
+            string sql = "Select wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.wf_status,wf.updated_datetime, ( '" + host_url + "' + link_url_format) as link_url_format," +
+                        "CASE " +
+                            "WHEN permitreq.document_no IS NOT NULL THEN permitreq.document_no " +
+                            "WHEN commreq.document_no IS NOT NULL THEN commreq.document_no " +
+                            "WHEN claimreq.document_no IS NOT NULL THEN claimreq.document_no " +
+                            "WHEN insreq.document_no IS NOT NULL THEN insreq.document_no " +
+                            "WHEN memoreq.document_no IS NOT NULL THEN memoreq.document_no " +
+                            "WHEN lit.document_no IS NOT NULL THEN lit.document_no " +
+                            "ELSE '' " +
+                        "END AS document_no " +
+                        "from wf_routing as wf " +
+                        "left outer join li_permit_request as permitreq on permitreq.process_id = wf.process_id " +
+                        "left outer join li_comm_regis_request as commreq on commreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_claim as claimreq on claimreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_request as insreq on insreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_renew_awc_memo as memoreq on memoreq.process_id = wf.process_id " +
+                        "left outer join li_litigation_request as lit on lit.process_id = wf.process_id " +
+                        "where wf.process_id in (Select process_id from wf_routing where assto_login like '%" + hidLogin.Value + "%' and submit_answer = '') and submit_answer = ''";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
             return dt;
@@ -108,8 +151,24 @@ namespace onlineLegalWF.userControls
         public DataTable getCompleteList()
         {
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            string sql = "Select assto_login,process_id,subject,submit_by,updated_by,created_datetime,wf_status,updated_datetime, ( '" + host_url + "' + link_url_format) as link_url_format from " +
-                "wf_routing where process_id in (Select process_id from wf_routing where submit_by = '" + hidLogin.Value + "' and step_name = 'End') and step_name = 'End'";
+            string sql = "Select wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.wf_status,wf.updated_datetime, ( '" + host_url + "' + link_url_format) as link_url_format," +
+                        "CASE " +
+                            "WHEN permitreq.document_no IS NOT NULL THEN permitreq.document_no " +
+                            "WHEN commreq.document_no IS NOT NULL THEN commreq.document_no " +
+                            "WHEN claimreq.document_no IS NOT NULL THEN claimreq.document_no " +
+                            "WHEN insreq.document_no IS NOT NULL THEN insreq.document_no " +
+                            "WHEN memoreq.document_no IS NOT NULL THEN memoreq.document_no " +
+                            "WHEN lit.document_no IS NOT NULL THEN lit.document_no " +
+                            "ELSE '' " +
+                        "END AS document_no " +
+                        "from wf_routing as wf " +
+                        "left outer join li_permit_request as permitreq on permitreq.process_id = wf.process_id " +
+                        "left outer join li_comm_regis_request as commreq on commreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_claim as claimreq on claimreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_request as insreq on insreq.process_id = wf.process_id " +
+                        "left outer join li_insurance_renew_awc_memo as memoreq on memoreq.process_id = wf.process_id " +
+                        "left outer join li_litigation_request as lit on lit.process_id = wf.process_id " +
+                "where wf.process_id in (Select process_id from wf_routing where submit_by = '" + hidLogin.Value + "' and step_name = 'End') and step_name = 'End' ";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
             return dt;

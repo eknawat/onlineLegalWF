@@ -342,7 +342,7 @@ namespace onlineLegalWF.forms
                         }
                         else if (process_code == "INR_CLAIM" || process_code == "INR_CLAIM_2" || process_code == "INR_CLAIM_3")
                         {
-                            GenDocumnetInsClaim(lblPID.Text);
+                            GenDocumnetInsClaim(lblPID.Text, wfAttr.submit_by);
                             //check step not in step_name awc approval approve and end send email notification user assign_to approve or review
                             if (wfAttr.step_name != "End" && wfAttr.step_name != "Insurance Specialist Confirm Approve")
                             {
@@ -740,6 +740,8 @@ namespace onlineLegalWF.forms
 
                             }
                         }
+
+
                         else if (wfAttr.step_name == "Insurance Specialist Confirm Approve")
                         {
                             if (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM_2" || wfAttr.process_code == "INR_CLAIM_3") 
@@ -1141,7 +1143,7 @@ namespace onlineLegalWF.forms
 
                 }
 
-                var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+                var apv1 = "คุณจรูญศักดิ์ นามะฮง";
                 var apv1pos = "Insurance Specialist";
                 var apv1_2 = "คุณวารินทร์ เกลียวไพศาล";
                 var apv2 = "คุณชโลทร ศรีสมวงษ์";
@@ -1376,7 +1378,7 @@ namespace onlineLegalWF.forms
             //Response.End();
         }
 
-        private void GenDocumnetInsClaim(string pid)
+        private void GenDocumnetInsClaim(string pid, string submitby)
         {
             string xclaim_no = "";
             var xdocref = GetListDoc(hid_PID.Value);
@@ -1425,8 +1427,8 @@ namespace onlineLegalWF.forms
                     var empFunc = new EmpInfo();
                     if (Session["user_login"] != null)
                     {
-                        var xlogin_name = Session["user_login"].ToString();
-                        var emp = empFunc.getEmpInfo(xlogin_name);
+                        //var xlogin_name = Session["user_login"].ToString();
+                        var emp = empFunc.getEmpInfo(submitby);
                         requestor = emp.full_name_en;
                         requestorpos = emp.position_en;
                     }
@@ -1489,12 +1491,12 @@ namespace onlineLegalWF.forms
                 float deviation = 0;
                 float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
                 float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-                int int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? int.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1521,7 +1523,7 @@ namespace onlineLegalWF.forms
                 else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1548,7 +1550,7 @@ namespace onlineLegalWF.forms
                 else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1575,7 +1577,7 @@ namespace onlineLegalWF.forms
                 else if (int_iar_pfc > 1000000 && deviation <= 0.2)
                 {
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -1607,7 +1609,7 @@ namespace onlineLegalWF.forms
                     //data.awcdate1 = "";
 
                     data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูณศักดิ์ นามะฮง";
+                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
                     data.awcposition1 = "Insurance Specialist";
                     data.awcdate1 = "";
 
@@ -2240,7 +2242,7 @@ namespace onlineLegalWF.forms
             var requestor = "";
             var requestorpos = "";
 
-            var apv1 = "คุณจรูณศักดิ์ นามะฮง";
+            var apv1 = "คุณจรูญศักดิ์ นามะฮง";
             var apv1pos = "Insurance Specialist";
             var apv1_2 = "คุณวารินทร์ เกลียวไพศาล";
             var apv2 = "คุณชโลทร ศรีสมวงษ์";
@@ -2704,7 +2706,7 @@ namespace onlineLegalWF.forms
                         }
                         else if (process_code == "INR_CLAIM" || process_code == "INR_CLAIM_2" || process_code == "INR_CLAIM_3")
                         {
-                            GenDocumnetInsClaim(lblPID.Text);
+                            GenDocumnetInsClaim(lblPID.Text, wfAttr.submit_by);
                             string subject = "";
                             string body = "";
                             string sqlclaim = @"select * from li_insurance_claim where process_id = '" + wfAttr.process_id + "'";
