@@ -111,6 +111,7 @@
                                 <asp:DropDownList ID="type_req_utility" runat="server" CssClass="Text_600">
                                     <asp:ListItem Value="11">Request to change the name of a public utility / ขอเปลี่ยนชื่อสาธารณูปโภค</asp:ListItem>
                                     <asp:ListItem Value="12">Request installation of public utilities / ขอติดตั้งสาธารณูปโภค</asp:ListItem>
+                                    <asp:ListItem Value="13">Other Utility / อื่น ๆ</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td>&nbsp;</td>

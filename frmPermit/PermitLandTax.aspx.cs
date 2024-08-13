@@ -455,6 +455,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "02")
             {
@@ -470,6 +471,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "03")
             {
@@ -482,6 +484,10 @@ namespace onlineLegalWF.frmPermit
                 data.t7 = "☐";
                 data.t8 = "☐";
                 data.t9 = "☐";
+                data.t10 = "☐";
+                data.t11 = "☐";
+                data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "04")
             {
@@ -497,7 +503,8 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
-                data.license_other = tof_permitreq_other_desc.Text.Trim();
+                data.t13 = "☐";
+                //data.license_other = tof_permitreq_other_desc.Text.Trim();
             }
             else if (xtof_permitreq_code == "05")
             {
@@ -513,6 +520,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "06")
             {
@@ -528,6 +536,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "07")
             {
@@ -543,7 +552,8 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
-                data.tax_other = tof_permitreq_other_desc.Text.Trim();
+                data.t13 = "☐";
+                //data.tax_other = tof_permitreq_other_desc.Text.Trim();
             }
             else if (xtof_permitreq_code == "08")
             {
@@ -559,6 +569,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "09")
             {
@@ -574,7 +585,8 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☐";
-                data.trademarks_other = tof_permitreq_other_desc.Text.Trim();
+                data.t13 = "☐";
+                //data.trademarks_other = tof_permitreq_other_desc.Text.Trim();
             }
             else if (xtof_permitreq_code == "10")
             {
@@ -590,6 +602,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☑";
                 data.t11 = "☐";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "11")
             {
@@ -605,6 +618,7 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☑";
                 data.t12 = "☐";
+                data.t13 = "☐";
             }
             else if (xtof_permitreq_code == "12")
             {
@@ -620,6 +634,23 @@ namespace onlineLegalWF.frmPermit
                 data.t10 = "☐";
                 data.t11 = "☐";
                 data.t12 = "☑";
+                data.t13 = "☐";
+            }
+            else if (xtof_permitreq_code == "13")
+            {
+                data.t1 = "☐";
+                data.t2 = "☐";
+                data.t3 = "☐";
+                data.t4 = "☐";
+                data.t5 = "☐";
+                data.t6 = "☐";
+                data.t7 = "☐";
+                data.t8 = "☐";
+                data.t9 = "☐";
+                data.t10 = "☐";
+                data.t11 = "☐";
+                data.t12 = "☐";
+                data.t13 = "☑";
             }
 
             data.desc_req = permit_desc.Text.Trim();
