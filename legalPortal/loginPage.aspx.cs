@@ -88,6 +88,9 @@ namespace onlineLegalWF.legalPortal
             //string user_name = Username.Substring(Username.LastIndexOf("\\") + 1);
             string appCode = "EFCY_LGW";
 
+            //Revoke User
+            var status = RevokeUser(xusername);
+
             //Check Identity User MSAL
             var resUser = GetUserIdentity(xusername, xpassword, appCode);
             // Use Token Data From MSAL
@@ -276,6 +279,61 @@ namespace onlineLegalWF.legalPortal
             }
 
             return res;
+        }
+        public bool RevokeUser(string username)
+        {
+            bool status = false;
+            try
+            {
+                // Create an instance of HttpClient
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    //Prepare content
+                    var req = new UserIndentity
+                    {
+                        identity = username
+                    };
+                    var options = new JsonSerializerSettings
+                    {
+                        Formatting = Formatting.Indented,
+                        DefaultValueHandling = DefaultValueHandling.Ignore
+                    };
+                    var jsonData = JsonConvert.SerializeObject(req, options);
+                    var content = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");
+
+                    // Define the parameters to include in the URL
+                    //string baseurl = $"{_crmSetting.Value.BaseURL}";
+                    string baseurl = ConfigurationManager.AppSettings["msal_api_url"].ToString();
+
+                    // Build the URL with the parameter
+                    string url = $"{baseurl}/User/revokeUser";
+                    httpClient.BaseAddress = new Uri(url);
+
+                    // Send the GET request and get the response
+                    //HttpResponseMessage response = await httpClient.PostAsync(httpClient.BaseAddress, content);
+                    HttpResponseMessage response = httpClient.PostAsync(httpClient.BaseAddress, content).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        response.EnsureSuccessStatusCode();
+
+                        status = true;
+                    }
+                    else
+                    {
+                        status = false;
+                    }
+
+                }
+
+            }
+            catch (HttpRequestException ex)
+            {
+                //return BadRequest($"Error: {ex.StatusCode}, {ex.Message}{ex.InnerException}");
+                LogHelper.Write($"Error: {ex.Message}{ex.InnerException}");
+            }
+
+            return status;
         }
         public class UserIndentity 
         {
