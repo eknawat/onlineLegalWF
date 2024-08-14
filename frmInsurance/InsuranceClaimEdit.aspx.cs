@@ -368,9 +368,9 @@ namespace onlineLegalWF.frmInsurance
 
             //check corditon deviation claim
             float deviation = 0;
-            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(float.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
-            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(float.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
@@ -742,9 +742,9 @@ namespace onlineLegalWF.frmInsurance
 
             //check corditon deviation claim
             float deviation = 0;
-            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(float.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
-            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(float.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
             deviation = cal_iar_uatc / cal_iar_pfc;
             if (int_iar_pfc <= 100000)
             {
@@ -1011,9 +1011,9 @@ namespace onlineLegalWF.frmInsurance
 
                 //check corditon deviation claim
                 float deviation = 0;
-                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(float.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString()) : 0);
-                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(float.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString()) : 0);
-                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc, NumberStyles.AllowThousands) : 0);
+                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
                 if (int_iar_pfc <= 100000)
                 {

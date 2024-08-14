@@ -29,6 +29,11 @@ namespace onlineLegalWF.userControls
             hidMode.Value = xmode; 
 
         }
+        protected void gv1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv1.PageIndex = e.NewPageIndex;
+            bind_gv();
+        }
         public DataTable getDataStructure() 
         {
             DataTable dt = new DataTable();

@@ -142,6 +142,10 @@ namespace onlineLegalWF.Class
             dr0["tagname"] = "#t12#";
             dr0["tagvalue"] = (!string.IsNullOrEmpty(data.t12) ? data.t12.Replace(",", "!comma") : "");
             dtStr.Rows.Add(dr0);
+            dr0 = dtStr.NewRow();
+            dr0["tagname"] = "#t13#";
+            dr0["tagvalue"] = (!string.IsNullOrEmpty(data.t13) ? data.t13.Replace(",", "!comma") : "");
+            dtStr.Rows.Add(dr0);
 
             dr0 = dtStr.NewRow();
             dr0["tagname"] = "#desc_req#";

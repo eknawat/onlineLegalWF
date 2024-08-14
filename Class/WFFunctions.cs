@@ -1287,36 +1287,39 @@ namespace onlineLegalWF.Class
 
                 ////Check เงื่อนไข Deviation เพิ่มเติมเพื่อ set คนอนุมัติ
                 float deviation = 0;
-                float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
-                float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
-                int int_iar_uatc = int.Parse(xiar_uatc, NumberStyles.AllowThousands);
+                //float cal_iar_uatc = float.Parse(int.Parse(xiar_uatc, NumberStyles.AllowThousands).ToString());
+                //float cal_iar_pfc = float.Parse(int.Parse(xiar_pfc, NumberStyles.AllowThousands).ToString());
+                //int int_iar_uatc = int.Parse(xiar_uatc, NumberStyles.AllowThousands);
+                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
                 deviation = cal_iar_uatc / cal_iar_pfc;
-                if (int_iar_uatc <= 100000)
+                if (int_iar_pfc <= 100000)
                 {
                     xawcname1 = "jaroonsak.n";
                     xawcname2 = "warin.k";
                     xawcname3 = "chalothorn.s";
 
                 }
-                else if (int_iar_uatc > 100000 && int_iar_uatc <= 1000000 && deviation <= 0.1)
+                else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
                 {
                     xawcname1 = "jaroonsak.n";
                     xawcname2 = "warin.k";
                     xawcname3 = "chalothorn.s";
                 }
-                else if (int_iar_uatc > 100000 && int_iar_uatc <= 1000000 && deviation > 0.1)
+                else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
                 {
                     xawcname1 = "jaroonsak.n";
                     xawcname2 = "chalothorn.s";
                     xawcname3 = "siwate.r";
                 }
-                else if (int_iar_uatc > 1000000 && deviation <= 0.2)
+                else if (int_iar_pfc > 1000000 && deviation <= 0.2)
                 {
                     xawcname1 = "jaroonsak.n";
                     xawcname2 = "chalothorn.s";
                     xawcname3 = "siwate.r";
                 }
-                else if (int_iar_uatc > 1000000 && deviation > 0.2)
+                else if (int_iar_pfc > 1000000 && deviation > 0.2)
                 {
                     xawcname1 = "chalothorn.s";
                     xawcname2 = "siwate.r";
