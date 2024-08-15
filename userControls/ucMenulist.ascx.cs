@@ -92,7 +92,7 @@ namespace onlineLegalWF.userControls
                             var xlogin_name = Session["user_login"].ToString();
 
                             //pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k
-                            if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k")
+                            if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku")
                             {
                                 (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
                                 (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
@@ -105,11 +105,24 @@ namespace onlineLegalWF.userControls
                         }
                         
                     }
-                    //else
-                    //{
-                    //    (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = false;
-                    //    (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = false;
-                    //}
+                    else if (menu_code == "instracking" || menu_code == "instracking_renew")
+                    {
+                        if (Session["user_login"] != null)
+                        {
+                            var xlogin_name = Session["user_login"].ToString();
+                            if (xlogin_name == "jaroonsak.n" || xlogin_name == "warin.k")
+                            {
+                                (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
+                                (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
+                            }
+                            else
+                            {
+                                (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = false;
+                                (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = false;
+                            }
+                        }
+
+                    }
                 }
 
                 if (Session["user_login"] != null)
@@ -150,7 +163,7 @@ namespace onlineLegalWF.userControls
                         var xlogin_name = Session["user_login"].ToString();
 
                         //pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k
-                        if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k")
+                        if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku")
                         {
                             (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
                             (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
@@ -161,12 +174,26 @@ namespace onlineLegalWF.userControls
                             (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = false;
                         }
                     }
+
                 }
-                //else 
-                //{
-                //    (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = false;
-                //    (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = false;
-                //}
+                else if (menu_code == "instracking" || menu_code == "instracking_renew")
+                {
+                    if (Session["user_login"] != null)
+                    {
+                        var xlogin_name = Session["user_login"].ToString();
+                        if (xlogin_name == "jaroonsak.n" || xlogin_name == "warin.k")
+                        {
+                            (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
+                            (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
+                        }
+                        else
+                        {
+                            (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = false;
+                            (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = false;
+                        }
+                    }
+
+                }
             }
 
             if (Session["user_login"] != null)

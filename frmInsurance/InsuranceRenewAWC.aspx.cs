@@ -29,21 +29,23 @@ namespace onlineLegalWF.frmInsurance
         {
             if (!IsPostBack)
             {
-                string id = Request.QueryString["id"];
+                //string id = Request.QueryString["id"];
 
-                if (!string.IsNullOrEmpty(id))
-                {
-                    setData(id);
-                }
-                
+                //if (!string.IsNullOrEmpty(id))
+                //{
+                //    setData(id);
+                //}
+                setData();
             }
         }
 
-        private void setData(string id)
+        //private void setData(string id)
+        private void setData()
         {
             ucHeader1.setHeader("AWCRenew Insurance Memo");
 
-            iniData(id);
+            //iniData(id);
+            iniData();
 
             string pid = zwf.iniPID("LEGALWF");
             lblPID.Text = pid;
@@ -52,17 +54,77 @@ namespace onlineLegalWF.frmInsurance
             ucCommentlog1.ini_object(pid);
             hid_reqno.Value = System.DateTime.Now.ToString("yyyyMMdd_HHmmss_fff");
 
-            bindDataListPropTable(id);
+            //bindDataListPropTable(id);
 
         }
 
         #region gv1
+        public void iniData()
+        {
+            var dt = iniDataTable();
+            gv1.DataSource = dt;
+            gv1.DataBind();
+        }
         public void iniData(string id)
         {
             var dt = iniDataTable(id);
             gv1.DataSource = dt;
             gv1.DataBind();
 
+        }
+        public DataTable iniDataTable()
+        {
+            //getData
+            var dt = iniDTStructure();
+            var dr = dt.NewRow();
+            dr["TYPE_PROP"] = "Commercial";
+            dr["IAR"] = "0";
+            dr["BI"] = "0";
+            dr["CGL"] = "0";
+            dr["PL"] = "0";
+            dr["PV"] = "0";
+            dr["LPG"] = "0";   
+            dr["D_O"] = "0";
+            dr["Row_Sort"] = "01";
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["TYPE_PROP"] = "Retail&Wholesale";
+            dr["IAR"] = "0";
+            dr["BI"] = "0";
+            dr["CGL"] = "0";
+            dr["PL"] = "0";
+            dr["PV"] = "0";
+            dr["LPG"] = "0";
+            dr["D_O"] = "0";
+            dr["Row_Sort"] = "02";
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["TYPE_PROP"] = "Hospitality";
+            dr["IAR"] = "0";
+            dr["BI"] = "0";
+            dr["CGL"] = "0";
+            dr["PL"] = "0";
+            dr["PV"] = "0";
+            dr["LPG"] = "0";
+            dr["D_O"] = "0";
+            dr["Row_Sort"] = "03";
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["TYPE_PROP"] = "AWC";
+            dr["IAR"] = "0";
+            dr["BI"] = "0";
+            dr["CGL"] = "0";
+            dr["PL"] = "0";
+            dr["PV"] = "0";
+            dr["LPG"] = "0";
+            dr["D_O"] = "0";
+            dr["Row_Sort"] = "04";
+            dt.Rows.Add(dr);
+
+            return dt;
         }
         public DataTable iniDataTable(string id)
         {
@@ -258,13 +320,13 @@ namespace onlineLegalWF.frmInsurance
                                            ('" + xprocess_id+ @"'
                                            ,'" +item.Row_Sort+ @"'
                                            ,'" +item.TYPE_PROP+ @"'
-                                           ,'" + int.Parse(item.IAR, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.BI, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.CGL, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.PL, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.PV, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.LPG, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.D_O, NumberStyles.AllowThousands) + "')";
+                                           ,'" + float.Parse(item.IAR) + @"'
+                                           ,'" + float.Parse(item.BI) + @"'
+                                           ,'" + float.Parse(item.CGL) + @"'
+                                           ,'" + float.Parse(item.PL) + @"'
+                                           ,'" + float.Parse(item.PV) + @"'
+                                           ,'" + float.Parse(item.LPG) + @"'
+                                           ,'" + float.Parse(item.D_O) + "')";
 
                         ret = zdb.ExecNonQueryReturnID(sqlsum, zconnstr);
 
@@ -272,28 +334,28 @@ namespace onlineLegalWF.frmInsurance
                 }
 
                 //insert memo ref renew_req
-                if (ret > 0)
-                {
-                    string id = Request.QueryString["id"];
-                    if (!string.IsNullOrEmpty(id))
-                    {
-                        var listid = id.Split(',');
+                //if (ret > 0)
+                //{
+                //    string id = Request.QueryString["id"];
+                //    if (!string.IsNullOrEmpty(id))
+                //    {
+                //        var listid = id.Split(',');
 
-                        foreach (var item_id in listid)
-                        {
-                            string sql = @"INSERT INTO [dbo].[li_insurance_renew_awc_memo_req]
-		                               ([process_id],[req_no])
-                                 VALUES
-                                       ('" + xprocess_id + @"'
-                                       ," + item_id + ")";
-                            zdb.ExecNonQuery(sql, zconnstr);
-                        }
-                    }
+                //        foreach (var item_id in listid)
+                //        {
+                //            string sql = @"INSERT INTO [dbo].[li_insurance_renew_awc_memo_req]
+		              //                 ([process_id],[req_no])
+                //                 VALUES
+                //                       ('" + xprocess_id + @"'
+                //                       ," + item_id + ")";
+                //            zdb.ExecNonQuery(sql, zconnstr);
+                //        }
+                //    }
 
-                    //update status renew ins
-                    string sqlupdate = @"update li_insurance_request set status = 'genmemo' , updated_datetime = '"+xreq_date+"' where req_no in (" + id + ")";
-                    ret = zdb.ExecNonQueryReturnID(sqlupdate, zconnstr);
-                }
+                //    //update status renew ins
+                //    string sqlupdate = @"update li_insurance_request set status = 'genmemo' , updated_datetime = '"+xreq_date+"' where req_no in (" + id + ")";
+                //    ret = zdb.ExecNonQueryReturnID(sqlupdate, zconnstr);
+                //}
 
             }
 
@@ -362,8 +424,8 @@ namespace onlineLegalWF.frmInsurance
                     no++;
                 }
 
-                gvList.DataSource = listRequestResponse;
-                gvList.DataBind();
+                //gvList.DataSource = listRequestResponse;
+                //gvList.DataBind();
             }
         }
 

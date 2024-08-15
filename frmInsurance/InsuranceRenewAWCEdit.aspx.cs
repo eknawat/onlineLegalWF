@@ -64,21 +64,21 @@ namespace onlineLegalWF.frmInsurance
                 req_date.Value = dr["req_date"].ToString();
                 hid_reqno.Value = dr["req_no"].ToString();
 
-                string sqlreq = @"select * from li_insurance_renew_awc_memo_req where process_id = '" + id + "'";
-                DataTable dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                //string sqlreq = @"select * from li_insurance_renew_awc_memo_req where process_id = '" + id + "'";
+                //DataTable dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
 
-                if (dtreq.Rows.Count > 0) 
-                {
-                    List<string> listreq_no = new List<string>();
-                    foreach(DataRow drreq in dtreq.Rows) 
-                    {
-                        string item = "'" + drreq["req_no"].ToString() + "'";
-                        listreq_no.Add(item);
-                    }
+                //if (dtreq.Rows.Count > 0) 
+                //{
+                //    List<string> listreq_no = new List<string>();
+                //    foreach(DataRow drreq in dtreq.Rows) 
+                //    {
+                //        string item = "'" + drreq["req_no"].ToString() + "'";
+                //        listreq_no.Add(item);
+                //    }
 
-                    string listid = string.Join(", ", listreq_no);
-                    bindDataListPropTable(listid);
-                }
+                //    string listid = string.Join(", ", listreq_no);
+                //    bindDataListPropTable(listid);
+                //}
                 
             }
         }
@@ -136,14 +136,23 @@ namespace onlineLegalWF.frmInsurance
 
         public DataTable GetSumInsurance(string id)
         {
+            //string sql = @"select row_sort,type_prop
+            //                      ,format(isnull(cast(sum_iar as int),0), '##,##0') as sum_iar
+            //                      ,format(isnull(cast(sum_bi as int),0), '##,##0') as sum_bi
+            //                      ,format(isnull(cast(sum_cgl as int),0), '##,##0') as sum_cgl
+            //                      ,format(isnull(cast(sum_pl as int),0), '##,##0') as sum_pl
+            //                      ,format(isnull(cast(sum_pv as int),0), '##,##0') as sum_pv
+            //                      ,format(isnull(cast(sum_lpg as int),0), '##,##0') as sum_lpg
+            //                      ,format(isnull(cast(sum_d_o as int),0), '##,##0') as sum_d_o
+            //                from li_insurance_renew_awc_memo_sumins where process_id = '" + id + "'";
             string sql = @"select row_sort,type_prop
-                                  ,format(isnull(cast(sum_iar as int),0), '##,##0') as sum_iar
-                                  ,format(isnull(cast(sum_bi as int),0), '##,##0') as sum_bi
-                                  ,format(isnull(cast(sum_cgl as int),0), '##,##0') as sum_cgl
-                                  ,format(isnull(cast(sum_pl as int),0), '##,##0') as sum_pl
-                                  ,format(isnull(cast(sum_pv as int),0), '##,##0') as sum_pv
-                                  ,format(isnull(cast(sum_lpg as int),0), '##,##0') as sum_lpg
-                                  ,format(isnull(cast(sum_d_o as int),0), '##,##0') as sum_d_o
+                                  ,format(isnull(cast(sum_iar as int),0), '') as sum_iar
+                                  ,format(isnull(cast(sum_bi as int),0), '') as sum_bi
+                                  ,format(isnull(cast(sum_cgl as int),0), '') as sum_cgl
+                                  ,format(isnull(cast(sum_pl as int),0), '') as sum_pl
+                                  ,format(isnull(cast(sum_pv as int),0), '') as sum_pv
+                                  ,format(isnull(cast(sum_lpg as int),0), '') as sum_lpg
+                                  ,format(isnull(cast(sum_d_o as int),0), '') as sum_d_o
                             from li_insurance_renew_awc_memo_sumins where process_id = '" + id + "'";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
             return dt;
@@ -224,13 +233,13 @@ namespace onlineLegalWF.frmInsurance
                                            ('" + xprocess_id + @"'
                                            ,'" + item.Row_Sort + @"'
                                            ,'" + item.TYPE_PROP + @"'
-                                           ,'" + int.Parse(item.IAR, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.BI, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.CGL, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.PL, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.PV, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.LPG, NumberStyles.AllowThousands) + @"'
-                                           ,'" + int.Parse(item.D_O, NumberStyles.AllowThousands) + "')";
+                                           ,'" + float.Parse(item.IAR) + @"'
+                                           ,'" + float.Parse(item.BI) + @"'
+                                           ,'" + float.Parse(item.CGL) + @"'
+                                           ,'" + float.Parse(item.PL) + @"'
+                                           ,'" + float.Parse(item.PV) + @"'
+                                           ,'" + float.Parse(item.LPG) + @"'
+                                           ,'" + float.Parse(item.D_O) + "')";
 
                             ret = zdb.ExecNonQueryReturnID(sqlsum, zconnstr);
 
@@ -319,8 +328,8 @@ namespace onlineLegalWF.frmInsurance
                     no++;
                 }
 
-                gvList.DataSource = listRequestResponse;
-                gvList.DataBind();
+                //gvList.DataSource = listRequestResponse;
+                //gvList.DataBind();
             }
         }
 
@@ -1027,149 +1036,159 @@ namespace onlineLegalWF.frmInsurance
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
-            string process_code = "INR_AWC_RENEW";
-            int version_no = 1;
+            int res = EditRenewRequest();
 
-            // getCurrentStep
-            var wfAttr = zwf.getCurrentStep(lblPID.Text, process_code, version_no);
-
-            // check session_user
-            if (Session["user_login"] != null)
+            if (res > 0)
             {
-                var xlogin_name = Session["user_login"].ToString();
-                var empFunc = new EmpInfo();
+                string process_code = "INR_AWC_RENEW";
+                int version_no = 1;
 
-                //get data user
-                var emp = empFunc.getEmpInfo(xlogin_name);
+                // getCurrentStep
+                var wfAttr = zwf.getCurrentStep(lblPID.Text, process_code, version_no);
 
-                // set WF Attributes
-                wfAttr.subject = subject.Text.Trim();
-                wfAttr.wf_status = "SUBMITTED";
-                wfAttr.submit_answer = "SUBMITTED";
-                wfAttr.submit_by = emp.user_login;
-                wfAttr.next_assto_login = zwf.findNextStep_Assignee(wfAttr.process_code, wfAttr.step_name, emp.user_login, wfAttr.submit_by);
-                wfAttr.updated_by = emp.user_login;
-
-                // wf.updateProcess Start
-                var wfA_NextStep = zwf.updateProcess(wfAttr);
-                wfA_NextStep.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep.process_code, wfA_NextStep.step_name, emp.user_login, wfAttr.submit_by);
-                string status = zwf.Insert_NextStep(wfA_NextStep);
-
-                // wf.updateProcess Insurance Specialist Approve
-                wfA_NextStep.subject = subject.Text.Trim();
-                wfA_NextStep.wf_status = wfA_NextStep.step_name + " Approved";
-                wfA_NextStep.submit_answer = "APPROVED";
-                wfA_NextStep.submit_by = emp.user_login;
-                wfA_NextStep.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep.process_code, wfA_NextStep.step_name, emp.user_login, wfAttr.submit_by);
-                wfA_NextStep.updated_by = emp.user_login;
-
-                // wf.updateProcess Next Step
-                var wfA_NextStep2 = zwf.updateProcess(wfA_NextStep);
-                wfA_NextStep2.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep2.process_code, wfA_NextStep2.step_name, emp.user_login, wfAttr.submit_by);
-                status = zwf.Insert_NextStep(wfA_NextStep2);
-
-                if (status == "Success")
+                // check session_user
+                if (Session["user_login"] != null)
                 {
-                    GenDocumnetInsRenewAWC(lblPID.Text);
-                    //send mail
-                    string subject = "";
-                    string body = "";
-                    string sqlmail = @"select * from li_insurance_renew_awc_memo where process_id = '" + wfAttr.process_id + "'";
-                    var dt = zdb.ExecSql_DataTable(sqlmail, zconnstr);
-                    if (dt.Rows.Count > 0)
+                    var xlogin_name = Session["user_login"].ToString();
+                    var empFunc = new EmpInfo();
+
+                    //get data user
+                    var emp = empFunc.getEmpInfo(xlogin_name);
+
+                    // set WF Attributes
+                    wfAttr.subject = subject.Text.Trim();
+                    wfAttr.wf_status = "SUBMITTED";
+                    wfAttr.submit_answer = "SUBMITTED";
+                    wfAttr.submit_by = emp.user_login;
+                    wfAttr.next_assto_login = zwf.findNextStep_Assignee(wfAttr.process_code, wfAttr.step_name, emp.user_login, wfAttr.submit_by);
+                    wfAttr.updated_by = emp.user_login;
+
+                    // wf.updateProcess Start
+                    var wfA_NextStep = zwf.updateProcess(wfAttr);
+                    wfA_NextStep.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep.process_code, wfA_NextStep.step_name, emp.user_login, wfAttr.submit_by);
+                    string status = zwf.Insert_NextStep(wfA_NextStep);
+
+                    // wf.updateProcess Insurance Specialist Approve
+                    wfA_NextStep.subject = subject.Text.Trim();
+                    wfA_NextStep.wf_status = wfA_NextStep.step_name + " Approved";
+                    wfA_NextStep.submit_answer = "APPROVED";
+                    wfA_NextStep.submit_by = emp.user_login;
+                    wfA_NextStep.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep.process_code, wfA_NextStep.step_name, emp.user_login, wfAttr.submit_by);
+                    wfA_NextStep.updated_by = emp.user_login;
+
+                    // wf.updateProcess Next Step
+                    var wfA_NextStep2 = zwf.updateProcess(wfA_NextStep);
+                    wfA_NextStep2.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep2.process_code, wfA_NextStep2.step_name, emp.user_login, wfAttr.submit_by);
+                    status = zwf.Insert_NextStep(wfA_NextStep2);
+
+                    if (status == "Success")
                     {
-                        var dr = dt.Rows[0];
-                        string id = dr["req_no"].ToString();
-                        subject = dr["subject"].ToString();
-                        var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
-                        body = "คุณได้รับมอบหมายให้ตรวจสอบเอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='"+host_url_sendmail+"legalportal/legalportal?m=myworklist'>Click</a>";
-
-                        string pathfileins = "";
-                        string outputdirectory = "";
-
-                        string sqlfile = "select top 1 * from z_replacedocx_log where replacedocx_reqno='" + id + "' order by row_id desc";
-
-                        var resfile = zdb.ExecSql_DataTable(sqlfile, zconnstr);
-
-                        if (resfile.Rows.Count > 0)
+                        GenDocumnetInsRenewAWC(lblPID.Text);
+                        //send mail
+                        string subject = "";
+                        string body = "";
+                        string sqlmail = @"select * from li_insurance_renew_awc_memo where process_id = '" + wfAttr.process_id + "'";
+                        var dt = zdb.ExecSql_DataTable(sqlmail, zconnstr);
+                        if (dt.Rows.Count > 0)
                         {
-                            pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
-                            outputdirectory = resfile.Rows[0]["output_directory"].ToString();
+                            var dr = dt.Rows[0];
+                            string id = dr["req_no"].ToString();
+                            subject = dr["subject"].ToString();
+                            var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
+                            body = "คุณได้รับมอบหมายให้ตรวจสอบเอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='" + host_url_sendmail + "legalportal/legalportal?m=myworklist'>Click</a>";
 
-                            List<string> listpdf = new List<string>();
-                            listpdf.Add(pathfileins);
+                            string pathfileins = "";
+                            string outputdirectory = "";
 
-                            string sqlattachfile = "select * from wf_attachment where pid = '" + wfAttr.process_id + "' and e_form IS NULL";
+                            string sqlfile = "select top 1 * from z_replacedocx_log where replacedocx_reqno='" + id + "' order by row_id desc";
 
-                            var resattachfile = zdb.ExecSql_DataTable(sqlattachfile, zconnstr);
+                            var resfile = zdb.ExecSql_DataTable(sqlfile, zconnstr);
 
-                            if (resattachfile.Rows.Count > 0)
+                            if (resfile.Rows.Count > 0)
                             {
-                                foreach (DataRow item in resattachfile.Rows)
+                                pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
+                                outputdirectory = resfile.Rows[0]["output_directory"].ToString();
+
+                                List<string> listpdf = new List<string>();
+                                listpdf.Add(pathfileins);
+
+                                string sqlattachfile = "select * from wf_attachment where pid = '" + wfAttr.process_id + "' and e_form IS NULL";
+
+                                var resattachfile = zdb.ExecSql_DataTable(sqlattachfile, zconnstr);
+
+                                if (resattachfile.Rows.Count > 0)
                                 {
-                                    listpdf.Add(item["attached_filepath"].ToString());
-                                }
-                            }
-                            //get list pdf file from tb z_replacedocx_log where replacedocx_reqno
-                            string[] pdfFiles = listpdf.ToArray();
-
-                            string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
-
-                            string email = "";
-
-                            var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
-                            ////get mail from db
-                            /////send mail to next_approve
-                            if (isdev != "true")
-                            {
-                                string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
-                                System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                                if (dtbpm.Rows.Count > 0)
-                                {
-                                    email = dtbpm.Rows[0]["email"].ToString();
-
-                                }
-                                else
-                                {
-                                    string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
-                                    System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
-
-                                    if (dtrpa.Rows.Count > 0)
+                                    foreach (DataRow item in resattachfile.Rows)
                                     {
-                                        email = dtrpa.Rows[0]["Email"].ToString();
+                                        listpdf.Add(item["attached_filepath"].ToString());
+                                    }
+                                }
+                                //get list pdf file from tb z_replacedocx_log where replacedocx_reqno
+                                string[] pdfFiles = listpdf.ToArray();
+
+                                string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
+
+                                string email = "";
+
+                                var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
+                                ////get mail from db
+                                /////send mail to next_approve
+                                if (isdev != "true")
+                                {
+                                    string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
+                                    System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
+
+                                    if (dtbpm.Rows.Count > 0)
+                                    {
+                                        email = dtbpm.Rows[0]["email"].ToString();
+
                                     }
                                     else
                                     {
-                                        email = "";
+                                        string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
+                                        System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+
+                                        if (dtrpa.Rows.Count > 0)
+                                        {
+                                            email = dtrpa.Rows[0]["Email"].ToString();
+                                        }
+                                        else
+                                        {
+                                            email = "";
+                                        }
+
                                     }
-
                                 }
-                            }
-                            else
-                            {
-                                ////fix mail test
-                                email = "legalwfuat2024@gmail.com";
+                                else
+                                {
+                                    ////fix mail test
+                                    email = "legalwfuat2024@gmail.com";
+                                }
+
+                                if (!string.IsNullOrEmpty(email))
+                                {
+                                    _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, filepath);
+                                }
+
+                                var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
+                                Response.Redirect(host_url + "legalportal/legalportal.aspx?m=myworklist", false);
                             }
 
-                            if (!string.IsNullOrEmpty(email))
-                            {
-                                _ = zsendmail.sendEmail(subject + " Mail To Next Appove", email, body, filepath);
-                            }
-
-                            var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-                            Response.Redirect(host_url + "legalportal/legalportal.aspx?m=myworklist", false);
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Error !!!');</script>");
                         }
 
                     }
-                    else 
-                    {
-                        Response.Write("<script>alert('Error !!!');</script>");
-                    }
-                    
-                }
 
+                }
             }
+            else
+            {
+                Response.Write("<script>alert('Error !!!');</script>");
+            }
+            
         }
 
         protected void btn_export_doc_Click(object sender, EventArgs e)

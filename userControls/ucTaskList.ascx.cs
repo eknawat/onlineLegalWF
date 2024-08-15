@@ -77,6 +77,10 @@ namespace onlineLegalWF.userControls
                     {
                         bind_gv1(getPermitTrackingList());
                     }; break;
+                case "insTracking":
+                    {
+                        bind_gv1(getInsTrackingList());
+                    }; break;
 
             }
         }
@@ -193,6 +197,30 @@ namespace onlineLegalWF.userControls
                             MAX(row_id) as row_id
                             FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM')
                             GROUP BY process_id)as tb1)";
+            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
+
+            return dt;
+        }
+        public DataTable getInsTrackingList()
+        {
+            var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
+            string sql = @"Select req.document_no,wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
+                            CASE 
+                                WHEN wf_status = '' THEN 'IN PROGRESS' 
+                                ELSE wf_status
+                            END AS wf_status 
+                            ,'" + host_url + @"forms/apv.aspx?req='+process_id+'&pc='+process_code+' AS link_url_format,bu.bu_desc
+                            from wf_routing as wf
+							left outer join li_insurance_claim as claimreq on claimreq.process_id = wf.process_id 
+                            left outer join li_insurance_request as insreq on insreq.process_id = wf.process_id 
+                            left outer join li_insurance_renew_awc_memo as memoreq on memoreq.process_id = wf.process_id 
+                            left outer join li_business_unit as bu on bu.bu_code = wf.bu_code
+							where wf.process_code in ('INR_AWC_RENEW', 'INR_CLAIM', 'INR_CLAIM_2', 'INR_CLAIM_3', 'INR_NEW')
+                             and wf.row_id in (select tb1.row_id from
+                            (SELECT process_id,
+                            MAX(row_id) as row_id
+                            FROM wf_routing where process_code in ('INR_AWC_RENEW', 'INR_CLAIM', 'INR_CLAIM_2', 'INR_CLAIM_3', 'INR_NEW')
+                            GROUP BY process_id)as tb1) and wf.wf_status <> 'SAVE'";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
             return dt;

@@ -1,4 +1,6 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Office.Interop.Word;
 using onlineLegalWF.Class;
 using Org.BouncyCastle.Ocsp;
 using Spire.Doc;
@@ -144,6 +146,13 @@ namespace onlineLegalWF.forms
                     getDocument(id);
                 }
             }
+
+            string mode = Request.QueryString["mode"];
+            if (mode == "tracking") 
+            {
+                btn_Approve.Enabled = false;
+                btn_Reject.Enabled = false;
+            }
         }
 
         private void getDocument(string id) 
@@ -283,6 +292,7 @@ namespace onlineLegalWF.forms
                                         string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
                                         string email = "";
+                                        string ccemail = "";
 
                                         var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                         ////get mail from db
@@ -312,11 +322,13 @@ namespace onlineLegalWF.forms
                                                 }
 
                                             }
+                                            ccemail = "ruangsuk.k@assetworldcorp-th.com";
                                         }
                                         else 
                                         {
                                             ////fix mail test
                                             email = "legalwfuat2024@gmail.com";
+                                            ccemail = "legalwfuat2024@gmail.com";
                                         }
 
                                         if (!string.IsNullOrEmpty(email)) 
@@ -327,7 +339,7 @@ namespace onlineLegalWF.forms
                                             if (wfA_NextStep.step_name == "CCO Approve")
                                             {
                                                 //string ccemail = "ruangsuk.k@assetworldcorp-th.com";
-                                                string ccemail = "legalwfuat2024@gmail.com";
+                                                //string ccemail = "legalwfuat2024@gmail.com";
                                                 _ = zsendmail.sendEmailCC(subject + " Mail To Next Appove", email, ccemail, body, filepath);
                                             }
                                             else 
@@ -581,7 +593,7 @@ namespace onlineLegalWF.forms
                                         string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
                                         string email = "";
-
+                                        string ccemail = "";
                                         var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                         ////get mail from db
                                         /////send mail to next_approve
@@ -610,11 +622,13 @@ namespace onlineLegalWF.forms
                                                 }
 
                                             }
+                                            ccemail = "ruangsuk.k@assetworldcorp-th.com";
                                         }
                                         else
                                         {
                                             ////fix mail test
                                             email = "legalwfuat2024@gmail.com";
+                                            ccemail = "legalwfuat2024@gmail.com";
                                         }
 
                                         if (!string.IsNullOrEmpty(email))
@@ -625,7 +639,7 @@ namespace onlineLegalWF.forms
                                             if (wfA_NextStep.step_name == "CCO Approve")
                                             {
                                                 //string ccemail = "ruangsuk.k@assetworldcorp-th.com";
-                                                string ccemail = "legalwfuat2024@gmail.com";
+                                                //string ccemail = "legalwfuat2024@gmail.com";
                                                 _ = zsendmail.sendEmailCC(subject + " Mail To Next Appove", email, ccemail, body, filepath);
                                             }
                                             else
@@ -684,6 +698,7 @@ namespace onlineLegalWF.forms
                                     string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
                                     string email = "";
+                                    string emailxclv = "";
 
                                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                     ////get mail from db
@@ -718,6 +733,7 @@ namespace onlineLegalWF.forms
                                     {
                                         ////fix mail test
                                         email = "legalwfuat2024@gmail.com";
+                                        emailxclv = "legalwfuat2024@gmail.com";
                                     }
 
                                     if (!string.IsNullOrEmpty(email))
@@ -734,6 +750,25 @@ namespace onlineLegalWF.forms
                                         //_ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
                                         _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
                                         _ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
+
+                                        ////send mail to C-Level
+                                        string sqlbu = @"select * from li_business_unit where bu_code = '" + hid_bucode.Value + "'";
+                                        var resbu = zdb.ExecSql_DataTable(sqlbu, zconnstr);
+                                        if (resbu.Rows.Count > 0)
+                                        {
+                                            DataRow drbu = resbu.Rows[0];
+                                            string xclv = drbu["c_level"].ToString();
+                                            //get data am user
+                                            if (!string.IsNullOrEmpty(xclv))
+                                            {
+                                                var empclv = empFunc.getEmpInfo(xclv);
+                                                if (empclv.user_login != null)
+                                                {
+                                                    emailxclv = empclv.email;
+                                                }
+                                            }
+                                        }
+                                        _ = zsendmail.sendEmail(subject + " Mail To C-Level", emailxclv, body, filepath);
                                     }
 
                                 }

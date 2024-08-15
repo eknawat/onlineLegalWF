@@ -67,7 +67,7 @@
                             </td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr>
+                        <%--<tr>
                             <td class="cell_content_20PC_TR">
                                 <label class="Label_md">List </label>
                             </td>
@@ -158,7 +158,7 @@
                                 <asp:Button ID="btn_export_doc" runat="server" Text="Export Doc" CssClass="btn_normal_silver" OnClientClick="this.disabled = true;" UseSubmitBehavior="false" OnClick="btn_export_doc_Click" />
                             </td>
                             <td>&nbsp;</td>
-                        </tr>
+                        </tr>--%>
                         <tr>
                             <td class="cell_content_20PC_TR">
                                 <label class="Label_md">Summary Insured </label>
@@ -180,43 +180,43 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="IAR">
                                                         <itemtemplate>
-                                                            <asp:TextBox ID="gv1txtIAR" Text='<%# Bind("IAR") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtIAR" Text='<%# Bind("IAR") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </itemtemplate>
                                                         <itemstyle width="100px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="BI">
                                                         <itemtemplate>
-                                                            <asp:TextBox ID="gv1txtBI" Text='<%# Bind("BI") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtBI" Text='<%# Bind("BI") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </itemtemplate>
                                                         <itemstyle width="100px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="CGL($)">
                                                         <itemtemplate>
-                                                            <asp:TextBox ID="gv1txtCGL" Text='<%# Bind("CGL") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtCGL" Text='<%# Bind("CGL") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </itemtemplate>
                                                         <itemstyle width="130px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="PL">
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="gv1txtPL" Text='<%# Bind("PL") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtPL" Text='<%# Bind("PL") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </ItemTemplate>
                                                         <ItemStyle Width="130px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="PV">
                                                         <itemtemplate>
-                                                            <asp:TextBox ID="gv1txtPV" Text='<%# Bind("PV") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtPV" Text='<%# Bind("PV") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </itemtemplate>
                                                         <itemstyle width="100px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="LPG">
                                                         <itemtemplate>
-                                                            <asp:TextBox ID="gv1txtLPG" Text='<%# Bind("LPG") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtLPG" Text='<%# Bind("LPG") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </itemtemplate>
                                                         <itemstyle width="100px" />
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="D&O">
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="gv1txtD_O" Text='<%# Bind("D_O") %>' runat="server" CssClass="Text_sm"></asp:TextBox>
+                                                            <asp:TextBox ID="gv1txtD_O" Text='<%# Bind("D_O") %>' runat="server" TextMode="Number" CssClass="Text_sm"></asp:TextBox>
                                                         </ItemTemplate>
                                                         <ItemStyle Width="100px" />
                                                     </asp:TemplateField>

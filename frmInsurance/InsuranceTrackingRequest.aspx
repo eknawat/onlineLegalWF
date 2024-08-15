@@ -13,11 +13,60 @@
         <tr>
             <td>
                 <div class="div_90">
-                    <asp:ListView ID="ListView1" runat="server">
+                    <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" CssClass="w-100 table" AllowSorting="true" AllowPaging="true" PageSize="20" OnPageIndexChanging="gv1_PageIndexChanging">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Document No">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("document_no") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <%--<asp:TemplateField HeaderText="Bussiness Group/BU">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTypeRequest" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("bu_desc") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>--%>
+                            <asp:TemplateField HeaderText="Subject">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSubject" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("subject") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Request By">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblReqBy" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("submit_by") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Submitted Date">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSubmittedDate" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("created_datetime" , "{0:dd/MM/yy}") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Status">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatus" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("wf_status") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Last updated">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLastupdated" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("updated_datetime" , "{0:dd/MM/yy}") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Last updated by">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLastupdateby" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("updated_by") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Assign To">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAssignto" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("assto_login") %>' ForeColor="#003399"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                    <%--<asp:ListView ID="ListView1" runat="server">
                         <LayoutTemplate>
                             <table id="itemPlaceholderContainer" runat="server" class="table">
                                 <tr class="gv_header_blue" style="height: 30px;">
-                                    <%--<th></th>--%>
                                     <th>No.</th>
                                     <th>Bussiness Group/BU</th>
                                     <th>Status</th>
@@ -28,7 +77,6 @@
                                     <th>PV</th>
                                     <th>LPG</th>
                                     <th>D&O</th>
-                                    <%--<th></th>--%>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
                                 </tr>
@@ -36,10 +84,6 @@
                         </LayoutTemplate>
                         <ItemTemplate>
                             <tr>
-                                <%--<td>
-                                    <asp:CheckBox ID="CheckBox1" runat="server" />
-                                    <asp:HiddenField ID="req_no" Value='<%# Eval("RequestNo") %>' runat="server" />
-                                </td>--%>
                                 <td>
                                     <asp:Label runat="server" Text='<%# Eval("ProcressID") %>' />
                                 </td>
@@ -70,24 +114,9 @@
                                 <td>
                                     <asp:Label runat="server" Text='<%# Eval("DOSumInsured") %>' />
                                 </td>
-                                <%--<td>
-                                    <table style="color: #333333; border-collapse: collapse;">
-                                        <tr>
-                                            <td style="border: 0px !important;">
-                                                <asp:ImageButton ID="btn_Edit" runat="server" Height="35px" ImageUrl="~/images/icon_edit.png" />
-                                            </td>
-                                            <td style="border: 0px !important;">
-                                                <asp:ImageButton ID="btn_Delete" runat="server" Height="35px" ImageUrl="~/images/icon_delete.png" />
-                                            </td>
-                                            <td style="border: 0px !important;">
-                                                <asp:Button runat="server" CssClass="btn_small_red pointer" Text="Reject" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>--%>
                             </tr>
                         </ItemTemplate>
-                    </asp:ListView>
+                    </asp:ListView>--%>
                     <%--<br />
                     <div>
                         <asp:Button runat="server" CssClass="btn_normal_blue pointer" Text="Approve" OnClick="Approve_Click" />
@@ -98,5 +127,7 @@
         </tr>
     </table>
     
+    <asp:HiddenField ID="hidLogin" runat="server" />
+<asp:HiddenField ID="hidMode" runat="server" />
 </asp:Content>
 
