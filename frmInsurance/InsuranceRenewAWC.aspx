@@ -63,7 +63,7 @@
                             </td>
                             <td>&nbsp;</td>
                             <td class="cell_content_80PC_TL">
-                                <asp:TextBox ID="description" runat="server" CssClass="Text_600" Height="150px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="description" runat="server" CssClass="Text_600" Height="150px" TextMode="MultiLine">เพื่อให้การต่ออายุประกันภัยทรัพย์สิน ประจำปี 2023-2024 ของกลุ่ม AWC ครบถ้วนสมบูรณ์ รวมถึงเพื่อให้มองเห็นภาพรวมและอำนวยความสะดวกในการลงนาม หน่วยงานประกันภัยกลางได้รวบรวมข้อมูล เพื่อขออนุมัติต่ออายุประกันภัยทรัพย์สินตาม ตาม MOA 7.3.3.1 </asp:TextBox>
                             </td>
                             <td>&nbsp;</td>
                         </tr>
