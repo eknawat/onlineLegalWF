@@ -699,59 +699,22 @@ namespace onlineLegalWF.forms
 
                                     string email = "";
                                     string emailxclv = "";
+                                    string[] emailInsurance;
+                                    string emailpro = "";
 
                                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                     ////get mail from db
-                                    /////send mail to next_approve
+                                    /////send mail 
                                     if (isdev != "true")
                                     {
-                                        string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
-                                        System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                                        if (dtbpm.Rows.Count > 0)
+                                        var empreq = empFunc.getEmpInfo(wfAttr.submit_by);
+                                        if (empreq.user_login != null)
                                         {
-                                            email = dtbpm.Rows[0]["email"].ToString();
-
+                                            email = empreq.email;
                                         }
-                                        else
-                                        {
-                                            string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
-                                            System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+                                        emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+                                        emailpro = "pornnipa.u@assetworldcorp-th.com";
 
-                                            if (dtrpa.Rows.Count > 0)
-                                            {
-                                                email = dtrpa.Rows[0]["Email"].ToString();
-                                            }
-                                            else
-                                            {
-                                                email = "";
-                                            }
-
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ////fix mail test
-                                        email = "legalwfuat2024@gmail.com";
-                                        emailxclv = "legalwfuat2024@gmail.com";
-                                    }
-
-                                    if (!string.IsNullOrEmpty(email))
-                                    {
-                                        //send mail to requester
-                                        _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
-
-                                        //send mait to Procurement
-                                        _ = zsendmail.sendEmail(subject + " Mail To Procurement", email, body, filepath);
-
-
-                                        ////send mail to Insurance
-                                        //string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
-                                        //_ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
-                                        _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
-                                        _ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
-
-                                        ////send mail to C-Level
                                         string sqlbu = @"select * from li_business_unit where bu_code = '" + hid_bucode.Value + "'";
                                         var resbu = zdb.ExecSql_DataTable(sqlbu, zconnstr);
                                         if (resbu.Rows.Count > 0)
@@ -768,6 +731,32 @@ namespace onlineLegalWF.forms
                                                 }
                                             }
                                         }
+                                    }
+                                    else
+                                    {
+                                        ////fix mail test
+                                        email = "legalwfuat2024@gmail.com";
+                                        emailxclv = "legalwfuat2024@gmail.com";
+                                        emailInsurance = new string[] { "legalwfuat2024@gmail.com" };
+                                        emailpro = "legalwfuat2024@gmail.com";
+                                    }
+
+                                    if (!string.IsNullOrEmpty(email))
+                                    {
+                                        //send mail to requester
+                                        _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
+
+                                        //send mait to Procurement
+                                        _ = zsendmail.sendEmail(subject + " Mail To Procurement", emailpro, body, filepath);
+
+
+                                        ////send mail to Insurance
+                                        //string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+                                        _ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
+                                        //_ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
+                                        //_ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
+
+                                        ////send mail to C-Level
                                         _ = zsendmail.sendEmail(subject + " Mail To C-Level", emailxclv, body, filepath);
                                     }
 
@@ -824,40 +813,32 @@ namespace onlineLegalWF.forms
                                         string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
                                         string email = "";
+                                        string emailpro = "";
+                                        string[] emailIndara;
+                                        string[] emailInsurance;
 
                                         var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                         ////get mail from db
                                         /////send mail to next_approve
                                         if (isdev != "true")
                                         {
-                                            string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
-                                            System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                                            if (dtbpm.Rows.Count > 0)
+                                            var empreq = empFunc.getEmpInfo(wfAttr.submit_by);
+                                            if (empreq.user_login != null)
                                             {
-                                                email = dtbpm.Rows[0]["email"].ToString();
-
+                                                email = empreq.email;
                                             }
-                                            else
-                                            {
-                                                string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
-                                                System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
-
-                                                if (dtrpa.Rows.Count > 0)
-                                                {
-                                                    email = dtrpa.Rows[0]["Email"].ToString();
-                                                }
-                                                else
-                                                {
-                                                    email = "";
-                                                }
-
-                                            }
+                                            //emailIndara = new string[] { "teerapat.w@tgh.co.th", "phakorn.s@tgh.co.th" };
+                                            emailIndara = new string[] { "jaroonsak.n@assetworldcorp-th.com" };
+                                            emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+                                            emailpro = "pornnipa.u@assetworldcorp-th.com";
                                         }
                                         else
                                         {
                                             ////fix mail test
                                             email = "legalwfuat2024@gmail.com";
+                                            emailIndara = new string[] { "legalwfuat2024@gmail.com", "manit.ch@assetworldcorp-th.com" };
+                                            emailInsurance = new string[] { "legalwfuat2024@gmail.com", "manit.ch@assetworldcorp-th.com" };
+                                            emailpro = "legalwfuat2024@gmail.com";
                                         }
 
                                         if (!string.IsNullOrEmpty(email))
@@ -866,21 +847,20 @@ namespace onlineLegalWF.forms
                                             _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
 
                                             //send mait to Procurement
-                                            _ = zsendmail.sendEmail(subject + " Mail To Procurement", email, body, filepath);
+                                            _ = zsendmail.sendEmail(subject + " Mail To Procurement", emailpro, body, filepath);
 
 
                                             ////send mail to Insurance
                                             //string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
-                                            //_ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
-                                            _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
-                                            _ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
+                                            _ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
+                                            //_ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
+                                            //_ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
 
                                             //send mail to indara
                                             //get file eform and attach first attachfile
-                                            string[] pdfFilesIndara = new string[] { resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf"), resattachfile.Rows[0]["attached_filepath"].ToString() };
+                                            string[] pdfFilesIndara = new string[] { resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf"), resattachfile.Rows[resattachfile.Rows.Count-1]["attached_filepath"].ToString() };
                                             string filepathIndara = zmergepdf.mergefilePDF(pdfFilesIndara, outputdirectory);
                                             //string[] emailIndara = new string[] { "teerapat.w@tgh.co.th", "phakorn.s@tgh.co.th" };
-                                            string[] emailIndara = new string[] { "legalwfuat2024@gmail.com", "manit.ch@assetworldcorp-th.com" };
                                             _ = zsendmail.sendEmails(subject + " Mail To indara", emailIndara, body, filepathIndara);
                                         }
 
@@ -1035,7 +1015,9 @@ namespace onlineLegalWF.forms
 
                                     string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
-                                    string email = "";
+                                    //string email = "";
+                                    string[] emailInsurance;
+                                    string emailpro = "";
 
                                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                                     ////get mail from db
@@ -1043,76 +1025,73 @@ namespace onlineLegalWF.forms
                                     if (isdev != "true")
                                     {
                                         ////fix mail test 
-                                        email = "legalwfuat2024@gmail.com";
-                                        _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
-
-                                        //send mait to Procurement
-                                        _ = zsendmail.sendEmail(subject + " Mail To Procurement", email, body, filepath);
-
-                                        ////send mail to Insurance
-                                        //string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
-                                        //_ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
-                                        _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n", email, body, filepath);
-                                        _ = zsendmail.sendEmail(subject + " Mail To Warin.k", email, body, filepath);
-
+                                        //email = "legalwfuat2024@gmail.com";
+                                        emailpro = "pornnipa.u@assetworldcorp-th.com";
+                                        emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
                                     }
                                     else 
                                     {
-                                        //get req_no by process_id from li_insurance_renew_awc_memo_req from db loop for send mail
-                                        string sqlmemo = "select * from li_insurance_renew_awc_memo_req where process_id = '" + wfAttr.process_id + "'";
-                                        System.Data.DataTable dtmemo = zdb.ExecSql_DataTable(sqlmemo, zconnstr);
+                                        ////get req_no by process_id from li_insurance_renew_awc_memo_req from db loop for send mail
+                                        //string sqlmemo = "select * from li_insurance_renew_awc_memo_req where process_id = '" + wfAttr.process_id + "'";
+                                        //System.Data.DataTable dtmemo = zdb.ExecSql_DataTable(sqlmemo, zconnstr);
 
-                                        List<string> listEmails = new List<string>();
-                                        if (dtmemo.Rows.Count > 0)
-                                        {
-                                            foreach (DataRow row in dtmemo.Rows)
-                                            {
-                                                var req_id = row["req_no"].ToString();
+                                        //List<string> listEmails = new List<string>();
+                                        //if (dtmemo.Rows.Count > 0)
+                                        //{
+                                        //    foreach (DataRow row in dtmemo.Rows)
+                                        //    {
+                                        //        var req_id = row["req_no"].ToString();
 
-                                                string sql_login = @"select top 1 submit_by from wf_routing where process_id in (select process_id from li_insurance_request where req_no ='" + req_id + "')";
-                                                System.Data.DataTable dt_login = zdb.ExecSql_DataTable(sql_login, zconnstr);
+                                        //        string sql_login = @"select top 1 submit_by from wf_routing where process_id in (select process_id from li_insurance_request where req_no ='" + req_id + "')";
+                                        //        System.Data.DataTable dt_login = zdb.ExecSql_DataTable(sql_login, zconnstr);
 
-                                                if (dt_login.Rows.Count > 0)
-                                                {
-                                                    var submitby = dt_login.Rows[0]["submit_by"].ToString();
-                                                    string sqlbpm = "select * from li_user where user_login = '" + submitby + "' ";
-                                                    System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
+                                        //        if (dt_login.Rows.Count > 0)
+                                        //        {
+                                        //            var submitby = dt_login.Rows[0]["submit_by"].ToString();
+                                        //            string sqlbpm = "select * from li_user where user_login = '" + submitby + "' ";
+                                        //            System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
-                                                    if (dtbpm.Rows.Count > 0)
-                                                    {
-                                                        listEmails.Add(dtbpm.Rows[0]["email"].ToString());
-                                                        //email = dtbpm.Rows[0]["email"].ToString();
+                                        //            if (dtbpm.Rows.Count > 0)
+                                        //            {
+                                        //                listEmails.Add(dtbpm.Rows[0]["email"].ToString());
+                                        //                //email = dtbpm.Rows[0]["email"].ToString();
 
-                                                    }
-                                                    else
-                                                    {
-                                                        string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + submitby + "' ";
-                                                        System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + submitby + "' ";
+                                        //                System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
 
-                                                        if (dtrpa.Rows.Count > 0)
-                                                        {
-                                                            listEmails.Add(dtbpm.Rows[0]["Email"].ToString());
-                                                            //email = dtrpa.Rows[0]["Email"].ToString();
-                                                        }
+                                        //                if (dtrpa.Rows.Count > 0)
+                                        //                {
+                                        //                    listEmails.Add(dtbpm.Rows[0]["Email"].ToString());
+                                        //                    //email = dtrpa.Rows[0]["Email"].ToString();
+                                        //                }
 
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        //            }
+                                        //        }
+                                        //    }
+                                        //}
 
-                                        string[] emails = listEmails.ToArray();
-                                        //send mail to requester loop for all bu or prop
-                                        _ = zsendmail.sendEmails(subject + "Mail To Requester", emails, body, filepath);
+                                        //string[] emails = listEmails.ToArray();
+                                        ////send mail to requester loop for all bu or prop
+                                        //_ = zsendmail.sendEmails(subject + "Mail To Requester", emails, body, filepath);
 
                                         //send mait to Procurement
                                         ////fix mail test 
-                                        email = "legalwfuat2024@gmail.com";
-                                        _ = zsendmail.sendEmail(subject + " Mail To Procurement", email, body, filepath);
-
-                                        ////send mail to Insurance
-                                        string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
-                                        _ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
+                                        //email = "legalwfuat2024@gmail.com";
+                                        emailpro = "legalwfuat2024@gmail.com";
+                                        emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
                                     }
+
+                                    //_ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
+
+                                    //send mait to Procurement
+                                    _ = zsendmail.sendEmail(subject + " Mail To Procurement", emailpro, body, filepath);
+
+                                    ////send mail to Insurance
+                                    //string[] emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+                                    _ = zsendmail.sendEmails(subject + " Mail To Insurance", emailInsurance, body, filepath);
                                 }
 
                             }

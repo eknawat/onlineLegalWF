@@ -181,11 +181,11 @@ namespace onlineLegalWF.frmPermit
                             from wf_routing as wf
 							left outer join li_permit_request as req on req.process_id = wf.process_id
 							left outer join li_type_of_permitrequest as code on code.tof_permitreq_code = req.tof_permitreq_code
-							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM')
+							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                              and wf.row_id in (select tb1.row_id from
                             (SELECT process_id,
                             MAX(row_id) as row_id
-                            FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM')
+                            FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                             GROUP BY process_id)as tb1) and wf.wf_status <> 'SAVE'";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
@@ -204,11 +204,11 @@ namespace onlineLegalWF.frmPermit
                             from wf_routing as wf
 							left outer join li_permit_request as req on req.process_id = wf.process_id
 							left outer join li_type_of_permitrequest as code on code.tof_permitreq_code = req.tof_permitreq_code
-							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM')
+							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                              and wf.row_id in (select tb1.row_id from
                             (SELECT process_id,
                             MAX(row_id) as row_id
-                            FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM')
+                            FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                             GROUP BY process_id)as tb1) and wf.wf_status <> 'SAVE'";
 
             if (!string.IsNullOrEmpty(kw)) 

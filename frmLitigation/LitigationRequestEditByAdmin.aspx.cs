@@ -395,7 +395,7 @@ namespace onlineLegalWF.frmLitigation
                                 ////get mail from db
                                 if (isdev != "true")
                                 {
-                                    string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
+                                    string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.submit_by + "' ";
                                     System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
                                     if (dtbpm.Rows.Count > 0)
@@ -405,7 +405,7 @@ namespace onlineLegalWF.frmLitigation
                                     }
                                     else
                                     {
-                                        string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
+                                        string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.submit_by + "' ";
                                         System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
 
                                         if (dtrpa.Rows.Count > 0)

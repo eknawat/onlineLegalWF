@@ -1173,33 +1173,25 @@ namespace onlineLegalWF.frmInsurance
                     //get list pdf file from tb z_replacedocx_log where replacedocx_reqno
                     string[] pdfFiles = listpdf.ToArray();
 
+                    string email = "";
+
+                    var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
-                    //string email = "";
-                    //string sqlbpm = "select * from li_user where user_login = '" + wfA_NextStep.next_assto_login + "' ";
-                    //System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                    //if (dtbpm.Rows.Count > 0)
-                    //{
-                    //    email = dtbpm.Rows[0]["email"].ToString();
-
-                    //}
-                    //else
-                    //{
-                    //    string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + wfA_NextStep.next_assto_login + "' ";
-                    //    System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
-
-                    //    if (dtrpa.Rows.Count > 0)
-                    //    {
-                    //        email = dtrpa.Rows[0]["Email"].ToString();
-                    //    }
-
-                    //}
+                    if (isdev != "true")
+                    {
+                        email = "jaroonsak.n@assetworldcorp-th.com";
+                    }
+                    else
+                    {
+                        //fix mail test
+                        email = "legalwfuat2024@gmail.com";
+                    }
 
                     string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
 
                     //send mail to Jaroonsak review
                     ////fix mail test
-                    string email = "legalwfuat2024@gmail.com";
+                    //string email = "legalwfuat2024@gmail.com";
                     _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n Review", email, body, filepath);
 
                     Response.Write("<script>alert('SendEmail Successfully');</script>");

@@ -92,7 +92,7 @@ namespace onlineLegalWF.userControls
                             var xlogin_name = Session["user_login"].ToString();
 
                             //pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k
-                            if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku")
+                            if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku" || xlogin_name == "aunchisa.c" || xlogin_name == "chanetti.b" || xlogin_name == "kannika.pa" || xlogin_name == "mueanfan.m" || xlogin_name == "narisara.k" || xlogin_name == "zirint.w")
                             {
                                 (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
                                 (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
@@ -163,7 +163,7 @@ namespace onlineLegalWF.userControls
                         var xlogin_name = Session["user_login"].ToString();
 
                         //pornsawan.s, naruemol.w, kanita.s, pattanis.r, suradach.k
-                        if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku")
+                        if (xlogin_name == "pornsawan.s" || xlogin_name == "naruemol.w" || xlogin_name == "kanita.s" || xlogin_name == "pattanis.r" || xlogin_name == "suradach.k" || xlogin_name == "pichet.ku" || xlogin_name == "aunchisa.c" || xlogin_name == "chanetti.b" || xlogin_name == "kannika.pa" || xlogin_name == "mueanfan.m" || xlogin_name == "narisara.k" || xlogin_name == "zirint.w")
                         {
                             (row.FindControl("gvAlbtnMenu") as LinkButton).Visible = true;
                             (row.FindControl("gvAibtnMenuItemIcon") as ImageButton).Visible = true;
