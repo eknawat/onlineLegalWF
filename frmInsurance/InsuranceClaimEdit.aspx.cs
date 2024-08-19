@@ -366,152 +366,177 @@ namespace onlineLegalWF.frmInsurance
             data.propposition3_1 = headampos;
             data.propdate3_1 = "";
 
-            //check corditon deviation claim
-            float deviation = 0;
-            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
-            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-            deviation = cal_iar_uatc / cal_iar_pfc;
-            if (int_iar_pfc <= 100000)
-            {
-                data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                data.awcposition1 = "Insurance Specialist";
-                data.awcdate1 = "";
+            data.sign_awcname1 = "";
+            data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            data.awcposition1 = "Insurance Specialist";
+            data.awcdate1 = "";
 
-                data.sign_awcname1_2 = "";
-                data.awcname1_2 = "";
-                data.awcposition1_2 = "";
-                data.awcdate1_2 = "";
+            data.sign_awcname1_2 = "";
+            data.awcname1_2 = "";
+            data.awcposition1_2 = "";
+            data.awcdate1_2 = "";
 
-                data.sign_awcname1_3 = "";
-                data.awcname1_3 = "";
-                data.awcposition1_3 = "";
-                data.awcdate1_3 = "";
+            data.sign_awcname1_3 = "";
+            data.awcname1_3 = "";
+            data.awcposition1_3 = "";
+            data.awcdate1_3 = "";
 
-                data.sign_awcname2 = "";
-                data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
-                data.awcposition2 = "Head of Compliance";
-                data.awcdate2 = "";
+            data.sign_awcname2 = "";
+            data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+            data.awcposition2 = "Head of Compliance";
+            data.awcdate2 = "";
 
-                data.sign_awcname3 = "";
-                data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
-                data.awcposition3 = "Head of Legal";
-                data.awcdate3 = "";
-            }
-            else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
-            {
-                data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                data.awcposition1 = "Insurance Specialist";
-                data.awcdate1 = "";
+            data.sign_awcname3 = "";
+            data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+            data.awcposition3 = "Head of Legal";
+            data.awcdate3 = "";
 
-                data.sign_awcname1_2 = "";
-                data.awcname1_2 = "";
-                data.awcposition1_2 = "";
-                data.awcdate1_2 = "";
+            ////check corditon deviation claim
+            //float deviation = 0;
+            //float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+            //float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            //float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            //deviation = cal_iar_uatc / cal_iar_pfc;
+            //if (int_iar_pfc <= 100000)
+            //{
+            //    data.sign_awcname1 = "";
+            //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            //    data.awcposition1 = "Insurance Specialist";
+            //    data.awcdate1 = "";
 
-                data.sign_awcname1_3 = "";
-                data.awcname1_3 = "";
-                data.awcposition1_3 = "";
-                data.awcdate1_3 = "";
+            //    data.sign_awcname1_2 = "";
+            //    data.awcname1_2 = "";
+            //    data.awcposition1_2 = "";
+            //    data.awcdate1_2 = "";
 
-                data.sign_awcname2 = "";
-                data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
-                data.awcposition2 = "Head of Compliance";
-                data.awcdate2 = "";
+            //    data.sign_awcname1_3 = "";
+            //    data.awcname1_3 = "";
+            //    data.awcposition1_3 = "";
+            //    data.awcdate1_3 = "";
 
-                data.sign_awcname3 = "";
-                data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
-                data.awcposition3 = "Head of Legal";
-                data.awcdate3 = "";
-            }
-            else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
-            {
-                data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                data.awcposition1 = "Insurance Specialist";
-                data.awcdate1 = "";
+            //    data.sign_awcname2 = "";
+            //    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+            //    data.awcposition2 = "Head of Compliance";
+            //    data.awcdate2 = "";
 
-                data.sign_awcname1_2 = "";
-                data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                data.awcposition1_2 = "/Head of Compliance";
-                data.awcdate1_2 = "";
+            //    data.sign_awcname3 = "";
+            //    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+            //    data.awcposition3 = "Head of Legal";
+            //    data.awcdate3 = "";
+            //}
+            //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
+            //{
+            //    data.sign_awcname1 = "";
+            //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            //    data.awcposition1 = "Insurance Specialist";
+            //    data.awcdate1 = "";
 
-                data.sign_awcname1_3 = "";
-                data.awcname1_3 = "";
-                data.awcposition1_3 = "";
-                data.awcdate1_3 = "";
+            //    data.sign_awcname1_2 = "";
+            //    data.awcname1_2 = "";
+            //    data.awcposition1_2 = "";
+            //    data.awcdate1_2 = "";
 
-                data.sign_awcname2 = "";
-                data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
-                data.awcposition2 = "Head of Legal";
-                data.awcdate2 = "";
+            //    data.sign_awcname1_3 = "";
+            //    data.awcname1_3 = "";
+            //    data.awcposition1_3 = "";
+            //    data.awcdate1_3 = "";
 
-                data.sign_awcname3 = "";
-                data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
-                data.awcposition3 = "CCO";
-                data.awcdate3 = "";
-            }
-            else if (int_iar_pfc > 1000000 && deviation <= 0.2)
-            {
-                data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                data.awcposition1 = "Insurance Specialist";
-                data.awcdate1 = "";
+            //    data.sign_awcname2 = "";
+            //    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+            //    data.awcposition2 = "Head of Compliance";
+            //    data.awcdate2 = "";
 
-                data.sign_awcname1_2 = "";
-                data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                data.awcposition1_2 = "/Head of Compliance";
-                data.awcdate1_2 = "";
+            //    data.sign_awcname3 = "";
+            //    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+            //    data.awcposition3 = "Head of Legal";
+            //    data.awcdate3 = "";
+            //}
+            //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
+            //{
+            //    data.sign_awcname1 = "";
+            //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            //    data.awcposition1 = "Insurance Specialist";
+            //    data.awcdate1 = "";
 
-                data.sign_awcname1_3 = "";
-                data.awcname1_3 = "";
-                data.awcposition1_3 = "";
-                data.awcdate1_3 = "";
+            //    data.sign_awcname1_2 = "";
+            //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+            //    data.awcposition1_2 = "/Head of Compliance";
+            //    data.awcdate1_2 = "";
 
-                data.sign_awcname2 = "";
-                data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
-                data.awcposition2 = "Head of Legal";
-                data.awcdate2 = "";
+            //    data.sign_awcname1_3 = "";
+            //    data.awcname1_3 = "";
+            //    data.awcposition1_3 = "";
+            //    data.awcdate1_3 = "";
 
-                data.sign_awcname3 = "";
-                data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
-                data.awcposition3 = "CCO";
-                data.awcdate3 = "";
-            }
-            else if (int_iar_pfc > 1000000 && deviation > 0.2)
-            {
-                //data.sign_awcname1 = "";
-                //data.awcname1 = "คุณชโลทร ศรีสมวงษ์";
-                //data.awcposition1 = "Head of Legal";
-                //data.awcdate1 = "";
+            //    data.sign_awcname2 = "";
+            //    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
+            //    data.awcposition2 = "Head of Legal";
+            //    data.awcdate2 = "";
 
-                data.sign_awcname1 = "";
-                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                data.awcposition1 = "Insurance Specialist";
-                data.awcdate1 = "";
+            //    data.sign_awcname3 = "";
+            //    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
+            //    data.awcposition3 = "CCO";
+            //    data.awcdate3 = "";
+            //}
+            //else if (int_iar_pfc > 1000000 && deviation <= 0.2)
+            //{
+            //    data.sign_awcname1 = "";
+            //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            //    data.awcposition1 = "Insurance Specialist";
+            //    data.awcdate1 = "";
 
-                data.sign_awcname1_2 = "";
-                data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                data.awcposition1_2 = "/Head of Compliance";
-                data.awcdate1_2 = "";
+            //    data.sign_awcname1_2 = "";
+            //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+            //    data.awcposition1_2 = "/Head of Compliance";
+            //    data.awcdate1_2 = "";
 
-                data.sign_awcname1_3 = "";
-                data.awcname1_3 = "คุณชโลทร ศรีสมวงษ์";
-                data.awcposition1_3 = "/Head of Legal";
-                data.awcdate1_3 = "";
+            //    data.sign_awcname1_3 = "";
+            //    data.awcname1_3 = "";
+            //    data.awcposition1_3 = "";
+            //    data.awcdate1_3 = "";
 
-                data.sign_awcname2 = "";
-                data.awcname2 = "ดร.สิเวศ โรจนสุนทร";
-                data.awcposition2 = "CCO";
-                data.awcdate2 = "";
+            //    data.sign_awcname2 = "";
+            //    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
+            //    data.awcposition2 = "Head of Legal";
+            //    data.awcdate2 = "";
 
-                data.sign_awcname3 = "";
-                data.awcname3 = "คุณวัลลภา ไตรโสรัส";
-                data.awcposition3 = "CEO";
-                data.awcdate3 = "";
-            }
+            //    data.sign_awcname3 = "";
+            //    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
+            //    data.awcposition3 = "CCO";
+            //    data.awcdate3 = "";
+            //}
+            //else if (int_iar_pfc > 1000000 && deviation > 0.2)
+            //{
+            //    //data.sign_awcname1 = "";
+            //    //data.awcname1 = "คุณชโลทร ศรีสมวงษ์";
+            //    //data.awcposition1 = "Head of Legal";
+            //    //data.awcdate1 = "";
+
+            //    data.sign_awcname1 = "";
+            //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+            //    data.awcposition1 = "Insurance Specialist";
+            //    data.awcdate1 = "";
+
+            //    data.sign_awcname1_2 = "";
+            //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+            //    data.awcposition1_2 = "/Head of Compliance";
+            //    data.awcdate1_2 = "";
+
+            //    data.sign_awcname1_3 = "";
+            //    data.awcname1_3 = "คุณชโลทร ศรีสมวงษ์";
+            //    data.awcposition1_3 = "/Head of Legal";
+            //    data.awcdate1_3 = "";
+
+            //    data.sign_awcname2 = "";
+            //    data.awcname2 = "ดร.สิเวศ โรจนสุนทร";
+            //    data.awcposition2 = "CCO";
+            //    data.awcdate2 = "";
+
+            //    data.sign_awcname3 = "";
+            //    data.awcname3 = "คุณวัลลภา ไตรโสรัส";
+            //    data.awcposition3 = "CEO";
+            //    data.awcdate3 = "";
+            //}
 
             DataTable dtStr = zreplaceinsclaim.genTagData(data);
 
@@ -740,32 +765,34 @@ namespace onlineLegalWF.frmInsurance
                 xiar_uatc = (!string.IsNullOrEmpty(resreq.Rows[0]["iar_uatc"].ToString()) ? resreq.Rows[0]["iar_uatc"].ToString() : null);
             }
 
-            //check corditon deviation claim
-            float deviation = 0;
-            float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
-            float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-            float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-            deviation = cal_iar_uatc / cal_iar_pfc;
-            if (int_iar_pfc <= 100000)
-            {
-                process_code = "INR_CLAIM";
-            }
-            else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
-            {
-                process_code = "INR_CLAIM";
-            }
-            else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
-            {
-                process_code = "INR_CLAIM_2";
-            }
-            else if (int_iar_pfc > 1000000 && deviation <= 0.2)
-            {
-                process_code = "INR_CLAIM_2";
-            }
-            else if (int_iar_pfc > 1000000 && deviation > 0.2)
-            {
-                process_code = "INR_CLAIM_3";
-            }
+            process_code = "INR_CLAIM";
+
+            ////check corditon deviation claim
+            //float deviation = 0;
+            //float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+            //float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            //float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+            //deviation = cal_iar_uatc / cal_iar_pfc;
+            //if (int_iar_pfc <= 100000)
+            //{
+            //    process_code = "INR_CLAIM";
+            //}
+            //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
+            //{
+            //    process_code = "INR_CLAIM";
+            //}
+            //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
+            //{
+            //    process_code = "INR_CLAIM_2";
+            //}
+            //else if (int_iar_pfc > 1000000 && deviation <= 0.2)
+            //{
+            //    process_code = "INR_CLAIM_2";
+            //}
+            //else if (int_iar_pfc > 1000000 && deviation > 0.2)
+            //{
+            //    process_code = "INR_CLAIM_3";
+            //}
 
             int version_no = 1;
             string xbu_code = ddl_bu.SelectedValue;
@@ -1009,152 +1036,177 @@ namespace onlineLegalWF.frmInsurance
                 data.propposition3_1 = headampos;
                 data.propdate3_1 = "";
 
-                //check corditon deviation claim
-                float deviation = 0;
-                float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
-                float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-                float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
-                deviation = cal_iar_uatc / cal_iar_pfc;
-                if (int_iar_pfc <= 100000)
-                {
-                    data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                    data.awcposition1 = "Insurance Specialist";
-                    data.awcdate1 = "";
+                data.sign_awcname1 = "";
+                data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                data.awcposition1 = "Insurance Specialist";
+                data.awcdate1 = "";
 
-                    data.sign_awcname1_2 = "";
-                    data.awcname1_2 = "";
-                    data.awcposition1_2 = "";
-                    data.awcdate1_2 = "";
+                data.sign_awcname1_2 = "";
+                data.awcname1_2 = "";
+                data.awcposition1_2 = "";
+                data.awcdate1_2 = "";
 
-                    data.sign_awcname1_3 = "";
-                    data.awcname1_3 = "";
-                    data.awcposition1_3 = "";
-                    data.awcdate1_3 = "";
+                data.sign_awcname1_3 = "";
+                data.awcname1_3 = "";
+                data.awcposition1_3 = "";
+                data.awcdate1_3 = "";
 
-                    data.sign_awcname2 = "";
-                    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
-                    data.awcposition2 = "Head of Compliance";
-                    data.awcdate2 = "";
+                data.sign_awcname2 = "";
+                data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+                data.awcposition2 = "Head of Compliance";
+                data.awcdate2 = "";
 
-                    data.sign_awcname3 = "";
-                    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
-                    data.awcposition3 = "Head of Legal";
-                    data.awcdate3 = "";
-                }
-                else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
-                {
-                    data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                    data.awcposition1 = "Insurance Specialist";
-                    data.awcdate1 = "";
+                data.sign_awcname3 = "";
+                data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+                data.awcposition3 = "Head of Legal";
+                data.awcdate3 = "";
 
-                    data.sign_awcname1_2 = "";
-                    data.awcname1_2 = "";
-                    data.awcposition1_2 = "";
-                    data.awcdate1_2 = "";
+                ////check corditon deviation claim
+                //float deviation = 0;
+                //float cal_iar_uatc = (!string.IsNullOrEmpty(xiar_uatc) ? float.Parse(xiar_uatc) : 0);
+                //float cal_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+                //float int_iar_pfc = (!string.IsNullOrEmpty(xiar_pfc) ? float.Parse(xiar_pfc) : 0);
+                //deviation = cal_iar_uatc / cal_iar_pfc;
+                //if (int_iar_pfc <= 100000)
+                //{
+                //    data.sign_awcname1 = "";
+                //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                //    data.awcposition1 = "Insurance Specialist";
+                //    data.awcdate1 = "";
 
-                    data.sign_awcname1_3 = "";
-                    data.awcname1_3 = "";
-                    data.awcposition1_3 = "";
-                    data.awcdate1_3 = "";
+                //    data.sign_awcname1_2 = "";
+                //    data.awcname1_2 = "";
+                //    data.awcposition1_2 = "";
+                //    data.awcdate1_2 = "";
 
-                    data.sign_awcname2 = "";
-                    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
-                    data.awcposition2 = "Head of Compliance";
-                    data.awcdate2 = "";
+                //    data.sign_awcname1_3 = "";
+                //    data.awcname1_3 = "";
+                //    data.awcposition1_3 = "";
+                //    data.awcdate1_3 = "";
 
-                    data.sign_awcname3 = "";
-                    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
-                    data.awcposition3 = "Head of Legal";
-                    data.awcdate3 = "";
-                }
-                else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
-                {
-                    data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                    data.awcposition1 = "Insurance Specialist";
-                    data.awcdate1 = "";
+                //    data.sign_awcname2 = "";
+                //    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+                //    data.awcposition2 = "Head of Compliance";
+                //    data.awcdate2 = "";
 
-                    data.sign_awcname1_2 = "";
-                    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                    data.awcposition1_2 = "/Head of Compliance";
-                    data.awcdate1_2 = "";
+                //    data.sign_awcname3 = "";
+                //    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+                //    data.awcposition3 = "Head of Legal";
+                //    data.awcdate3 = "";
+                //}
+                //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation <= 0.1)
+                //{
+                //    data.sign_awcname1 = "";
+                //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                //    data.awcposition1 = "Insurance Specialist";
+                //    data.awcdate1 = "";
 
-                    data.sign_awcname1_3 = "";
-                    data.awcname1_3 = "";
-                    data.awcposition1_3 = "";
-                    data.awcdate1_3 = "";
+                //    data.sign_awcname1_2 = "";
+                //    data.awcname1_2 = "";
+                //    data.awcposition1_2 = "";
+                //    data.awcdate1_2 = "";
 
-                    data.sign_awcname2 = "";
-                    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
-                    data.awcposition2 = "Head of Legal";
-                    data.awcdate2 = "";
+                //    data.sign_awcname1_3 = "";
+                //    data.awcname1_3 = "";
+                //    data.awcposition1_3 = "";
+                //    data.awcdate1_3 = "";
 
-                    data.sign_awcname3 = "";
-                    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
-                    data.awcposition3 = "CCO";
-                    data.awcdate3 = "";
-                }
-                else if (int_iar_pfc > 1000000 && deviation <= 0.2)
-                {
-                    data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                    data.awcposition1 = "Insurance Specialist";
-                    data.awcdate1 = "";
+                //    data.sign_awcname2 = "";
+                //    data.awcname2 = "คุณวารินทร์ เกลียวไพศาล";
+                //    data.awcposition2 = "Head of Compliance";
+                //    data.awcdate2 = "";
 
-                    data.sign_awcname1_2 = "";
-                    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                    data.awcposition1_2 = "/Head of Compliance";
-                    data.awcdate1_2 = "";
+                //    data.sign_awcname3 = "";
+                //    data.awcname3 = "คุณชโลทร ศรีสมวงษ์";
+                //    data.awcposition3 = "Head of Legal";
+                //    data.awcdate3 = "";
+                //}
+                //else if (int_iar_pfc > 100000 && int_iar_pfc <= 1000000 && deviation > 0.1)
+                //{
+                //    data.sign_awcname1 = "";
+                //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                //    data.awcposition1 = "Insurance Specialist";
+                //    data.awcdate1 = "";
 
-                    data.sign_awcname1_3 = "";
-                    data.awcname1_3 = "";
-                    data.awcposition1_3 = "";
-                    data.awcdate1_3 = "";
+                //    data.sign_awcname1_2 = "";
+                //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+                //    data.awcposition1_2 = "/Head of Compliance";
+                //    data.awcdate1_2 = "";
 
-                    data.sign_awcname2 = "";
-                    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
-                    data.awcposition2 = "Head of Legal";
-                    data.awcdate2 = "";
+                //    data.sign_awcname1_3 = "";
+                //    data.awcname1_3 = "";
+                //    data.awcposition1_3 = "";
+                //    data.awcdate1_3 = "";
 
-                    data.sign_awcname3 = "";
-                    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
-                    data.awcposition3 = "CCO";
-                    data.awcdate3 = "";
-                }
-                else if (int_iar_pfc > 1000000 && deviation > 0.2)
-                {
-                    //data.sign_awcname1 = "";
-                    //data.awcname1 = "คุณชโลทร ศรีสมวงษ์";
-                    //data.awcposition1 = "Head of Legal";
-                    //data.awcdate1 = "";
+                //    data.sign_awcname2 = "";
+                //    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
+                //    data.awcposition2 = "Head of Legal";
+                //    data.awcdate2 = "";
 
-                    data.sign_awcname1 = "";
-                    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
-                    data.awcposition1 = "Insurance Specialist";
-                    data.awcdate1 = "";
+                //    data.sign_awcname3 = "";
+                //    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
+                //    data.awcposition3 = "CCO";
+                //    data.awcdate3 = "";
+                //}
+                //else if (int_iar_pfc > 1000000 && deviation <= 0.2)
+                //{
+                //    data.sign_awcname1 = "";
+                //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                //    data.awcposition1 = "Insurance Specialist";
+                //    data.awcdate1 = "";
 
-                    data.sign_awcname1_2 = "";
-                    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
-                    data.awcposition1_2 = "/Head of Compliance";
-                    data.awcdate1_2 = "";
+                //    data.sign_awcname1_2 = "";
+                //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+                //    data.awcposition1_2 = "/Head of Compliance";
+                //    data.awcdate1_2 = "";
 
-                    data.sign_awcname1_3 = "";
-                    data.awcname1_3 = "คุณชโลทร ศรีสมวงษ์";
-                    data.awcposition1_3 = "/Head of Legal";
-                    data.awcdate1_3 = "";
+                //    data.sign_awcname1_3 = "";
+                //    data.awcname1_3 = "";
+                //    data.awcposition1_3 = "";
+                //    data.awcdate1_3 = "";
 
-                    data.sign_awcname2 = "";
-                    data.awcname2 = "ดร.สิเวศ โรจนสุนทร";
-                    data.awcposition2 = "CCO";
-                    data.awcdate2 = "";
+                //    data.sign_awcname2 = "";
+                //    data.awcname2 = "คุณชโลทร ศรีสมวงษ์";
+                //    data.awcposition2 = "Head of Legal";
+                //    data.awcdate2 = "";
 
-                    data.sign_awcname3 = "";
-                    data.awcname3 = "คุณวัลลภา ไตรโสรัส";
-                    data.awcposition3 = "CEO";
-                    data.awcdate3 = "";
-                }
+                //    data.sign_awcname3 = "";
+                //    data.awcname3 = "ดร.สิเวศ โรจนสุนทร";
+                //    data.awcposition3 = "CCO";
+                //    data.awcdate3 = "";
+                //}
+                //else if (int_iar_pfc > 1000000 && deviation > 0.2)
+                //{
+                //    //data.sign_awcname1 = "";
+                //    //data.awcname1 = "คุณชโลทร ศรีสมวงษ์";
+                //    //data.awcposition1 = "Head of Legal";
+                //    //data.awcdate1 = "";
+
+                //    data.sign_awcname1 = "";
+                //    data.awcname1 = "คุณจรูญศักดิ์ นามะฮง";
+                //    data.awcposition1 = "Insurance Specialist";
+                //    data.awcdate1 = "";
+
+                //    data.sign_awcname1_2 = "";
+                //    data.awcname1_2 = "คุณวารินทร์ เกลียวไพศาล";
+                //    data.awcposition1_2 = "/Head of Compliance";
+                //    data.awcdate1_2 = "";
+
+                //    data.sign_awcname1_3 = "";
+                //    data.awcname1_3 = "คุณชโลทร ศรีสมวงษ์";
+                //    data.awcposition1_3 = "/Head of Legal";
+                //    data.awcdate1_3 = "";
+
+                //    data.sign_awcname2 = "";
+                //    data.awcname2 = "ดร.สิเวศ โรจนสุนทร";
+                //    data.awcposition2 = "CCO";
+                //    data.awcdate2 = "";
+
+                //    data.sign_awcname3 = "";
+                //    data.awcname3 = "คุณวัลลภา ไตรโสรัส";
+                //    data.awcposition3 = "CEO";
+                //    data.awcdate3 = "";
+                //}
             }
             DataTable dtStr = zreplaceinsclaim.bindTagData(lblPID.Text,data);
 

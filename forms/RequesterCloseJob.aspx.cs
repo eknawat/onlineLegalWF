@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,6 +17,7 @@ namespace onlineLegalWF.forms
         public string zconnstr = ConfigurationManager.AppSettings["BPMDB"].ToString();
         public WFFunctions zwf = new WFFunctions();
         public SendMail zsendmail = new SendMail();
+        public MargePDF zmergepdf = new MargePDF();
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -145,11 +147,169 @@ namespace onlineLegalWF.forms
                         {
                             string sqlupdate = @"update li_insurance_request set status='approved',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
                             zdb.ExecNonQuery(sqlupdate, zconnstr);
+
+                            string subject = "";
+                            string body = "";
+                            string sql = @"select * from li_insurance_request where process_id = '" + wfAttr.process_id + "'";
+                            var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                            if (dt.Rows.Count > 0)
+                            {
+                                var dr = dt.Rows[0];
+                                string id = dr["req_no"].ToString();
+                                subject = dr["subject"].ToString();
+                                body = "เอกสารเลขที่ " + dr["document_no"].ToString() + " ได้รับการอนุมัติผ่านระบบแล้ว";
+
+                                string pathfileins = "";
+                                string outputdirectory = "";
+
+                                string sqlfile = "select top 1 * from z_replacedocx_log where replacedocx_reqno='" + id + "' order by row_id desc";
+
+                                var resfile = zdb.ExecSql_DataTable(sqlfile, zconnstr);
+
+                                if (resfile.Rows.Count > 0)
+                                {
+                                    pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
+                                    outputdirectory = resfile.Rows[0]["output_directory"].ToString();
+
+                                    List<string> listpdf = new List<string>();
+                                    listpdf.Add(pathfileins);
+
+                                    string sqlattachfile = "select * from wf_attachment where pid = '" + wfAttr.process_id + "' and e_form IS NULL";
+
+                                    var resattachfile = zdb.ExecSql_DataTable(sqlattachfile, zconnstr);
+
+                                    if (resattachfile.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow item in resattachfile.Rows)
+                                        {
+                                            listpdf.Add(item["attached_filepath"].ToString());
+                                        }
+                                    }
+                                    //get list pdf file from tb z_replacedocx_log where replacedocx_reqno
+                                    string[] pdfFiles = listpdf.ToArray();
+
+                                    string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
+
+                                    string email = "";
+                                    string[] emailInsurance;
+
+                                    var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
+                                    ////get mail from db
+                                    /////send mail 
+                                    if (isdev != "true")
+                                    {
+                                        var empreq = empFunc.getEmpInfo(wfAttr.submit_by);
+                                        if (empreq.user_login != null)
+                                        {
+                                            email = empreq.email;
+                                        }
+                                        emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+
+                                    }
+                                    else
+                                    {
+                                        ////fix mail test
+                                        email = "legalwfuat2024@gmail.com";
+                                        emailInsurance = new string[] { "legalwfuat2024@gmail.com" };
+                                    }
+
+                                    if (!string.IsNullOrEmpty(email))
+                                    {
+                                        //send mail to requester
+                                        _ = zsendmail.sendEmail(subject + " Completed Mail To Requester", email, body, filepath);
+
+                                        ////send mail to Insurance
+                                        _ = zsendmail.sendEmails(subject + " Completed Mail To Insurance", emailInsurance, body, filepath);
+
+                                    }
+
+                                }
+
+                            }
                         }
-                        else if (wfA_NextStep.step_name == "End" && wfAttr.process_code == "INR_CLAIM")
+                        else if (wfA_NextStep.step_name == "End" && (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM2" || wfAttr.process_code == "INR_CLAIM3"))
                         {
                             string sqlupdate = @"update li_insurance_claim set status='approved',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
                             zdb.ExecNonQuery(sqlupdate, zconnstr);
+
+                            string subject = "";
+                            string body = "";
+                            string sql = @"select * from li_insurance_claim where process_id = '" + wfAttr.process_id + "'";
+                            var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                            if (dt.Rows.Count > 0)
+                            {
+                                var dr = dt.Rows[0];
+                                string id = dr["claim_no"].ToString();
+                                subject = dr["incident"].ToString();
+                                body = "เอกสารเลขที่ " + dr["document_no"].ToString() + " ได้รับการอนุมัติผ่านระบบแล้ว";
+
+                                string pathfileins = "";
+                                string outputdirectory = "";
+
+                                string sqlfile = "select top 1 * from z_replacedocx_log where replacedocx_reqno='" + id + "' order by row_id desc";
+
+                                var resfile = zdb.ExecSql_DataTable(sqlfile, zconnstr);
+
+                                if (resfile.Rows.Count > 0)
+                                {
+                                    pathfileins = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
+                                    outputdirectory = resfile.Rows[0]["output_directory"].ToString();
+
+                                    List<string> listpdf = new List<string>();
+                                    listpdf.Add(pathfileins);
+
+                                    string sqlattachfile = "select * from wf_attachment where pid = '" + wfAttr.process_id + "' and e_form IS NULL";
+
+                                    var resattachfile = zdb.ExecSql_DataTable(sqlattachfile, zconnstr);
+
+                                    if (resattachfile.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow item in resattachfile.Rows)
+                                        {
+                                            listpdf.Add(item["attached_filepath"].ToString());
+                                        }
+                                    }
+                                    //get list pdf file from tb z_replacedocx_log where replacedocx_reqno
+                                    string[] pdfFiles = listpdf.ToArray();
+
+                                    string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
+
+                                    string email = "";
+                                    string[] emailInsurance;
+
+                                    var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
+                                    ////get mail from db
+                                    /////send mail to next_approve
+                                    if (isdev != "true")
+                                    {
+                                        var empreq = empFunc.getEmpInfo(wfAttr.submit_by);
+                                        if (empreq.user_login != null)
+                                        {
+                                            email = empreq.email;
+                                        }
+                                        emailInsurance = new string[] { "jaroonsak.n@assetworldcorp-th.com", "warin.k@assetworldcorp-th.com" };
+                                    }
+                                    else
+                                    {
+                                        ////fix mail test
+                                        email = "legalwfuat2024@gmail.com";
+                                        emailInsurance = new string[] { "legalwfuat2024@gmail.com", "manit.ch@assetworldcorp-th.com" };
+                                    }
+
+                                    if (!string.IsNullOrEmpty(email))
+                                    {
+                                        //send mail to requester
+                                        _ = zsendmail.sendEmail(subject + " Completed Mail To Requester", email, body, filepath);
+
+
+                                        ////send mail to Insurance
+                                        _ = zsendmail.sendEmails(subject + " Completed Mail To Insurance", emailInsurance, body, filepath);
+
+                                    }
+
+                                }
+
+                            }
                         }
                         else if (wfA_NextStep.step_name == "End" && wfAttr.process_code == "INR_RENEW")
                         {
