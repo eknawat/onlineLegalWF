@@ -209,29 +209,30 @@ namespace onlineLegalWF.forms
                     // wf.updateProcess
                     var wfA_NextStep = zwf.updateProcess(wfAttr);
                     wfA_NextStep.next_assto_login = zwf.findNextStep_Assignee(wfA_NextStep.process_code, wfA_NextStep.step_name, emp.user_login, wfAttr.submit_by, wfAttr.process_id, hid_bucode.Value);
-                    if (wfAttr.step_name == "CCO Approve" && wfAttr.process_code == "INR_NEW")
-                    {
-                        wfA_NextStep.wf_status = "WAITATCH";
-                        string sqlupdate = @"update li_insurance_request set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
-                        zdb.ExecNonQuery(sqlupdate, zconnstr);
-                    }
-                    else if (wfAttr.step_name == "Insurance Specialist Confirm Approve")
-                    {
-                        if (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM_2" || wfAttr.process_code == "INR_CLAIM_3") 
-                        {
-                            wfA_NextStep.wf_status = "WAITATCH";
-                            string sqlupdate = @"update li_insurance_claim set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
-                            zdb.ExecNonQuery(sqlupdate, zconnstr);
-                        }
+                    //if (wfAttr.step_name == "CCO Approve" && wfAttr.process_code == "INR_NEW")
+                    //{
+                    //    wfA_NextStep.wf_status = "WAITATCH";
+                    //    string sqlupdate = @"update li_insurance_request set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
+                    //    zdb.ExecNonQuery(sqlupdate, zconnstr);
+                    //}
+                    //else if (wfAttr.step_name == "Insurance Specialist Confirm Approve")
+                    //{
+                    //    if (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM_2" || wfAttr.process_code == "INR_CLAIM_3") 
+                    //    {
+                    //        wfA_NextStep.wf_status = "WAITATCH";
+                    //        string sqlupdate = @"update li_insurance_claim set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
+                    //        zdb.ExecNonQuery(sqlupdate, zconnstr);
+                    //    }
                         
-                    }
-                    else if (wfAttr.step_name == "BU Approve" && wfAttr.process_code == "INR_RENEW")
-                    {
-                        wfA_NextStep.wf_status = "WAITATCH";
-                        string sqlupdate = @"update li_insurance_request set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
-                        zdb.ExecNonQuery(sqlupdate, zconnstr);
-                    }
-                    else if (wfAttr.step_name == "End") 
+                    //}
+                    //else if (wfAttr.step_name == "BU Approve" && wfAttr.process_code == "INR_RENEW")
+                    //{
+                    //    wfA_NextStep.wf_status = "WAITATCH";
+                    //    string sqlupdate = @"update li_insurance_request set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
+                    //    zdb.ExecNonQuery(sqlupdate, zconnstr);
+                    //}
+                    //else if (wfAttr.step_name == "End") 
+                    if (wfAttr.step_name == "End") 
                     {
                         wfA_NextStep.wf_status = "COMPLETED";
                     }
@@ -847,7 +848,7 @@ namespace onlineLegalWF.forms
                                             _ = zsendmail.sendEmail(subject + " Mail To Requester", email, body, filepath);
 
                                             //send mait to Procurement
-                                            _ = zsendmail.sendEmail(subject + " Mail To Procurement", emailpro, body, filepath);
+                                            //_ = zsendmail.sendEmail(subject + " Mail To Procurement", emailpro, body, filepath);
 
 
                                             ////send mail to Insurance
@@ -858,10 +859,10 @@ namespace onlineLegalWF.forms
 
                                             //send mail to indara
                                             //get file eform and attach first attachfile
-                                            string[] pdfFilesIndara = new string[] { resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf"), resattachfile.Rows[resattachfile.Rows.Count-1]["attached_filepath"].ToString() };
-                                            string filepathIndara = zmergepdf.mergefilePDF(pdfFilesIndara, outputdirectory);
+                                            //string[] pdfFilesIndara = new string[] { resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf"), resattachfile.Rows[resattachfile.Rows.Count-1]["attached_filepath"].ToString() };
+                                            //string filepathIndara = zmergepdf.mergefilePDF(pdfFilesIndara, outputdirectory);
                                             //string[] emailIndara = new string[] { "teerapat.w@tgh.co.th", "phakorn.s@tgh.co.th" };
-                                            _ = zsendmail.sendEmails(subject + " Mail To indara", emailIndara, body, filepathIndara);
+                                            //_ = zsendmail.sendEmails(subject + " Mail To indara", emailIndara, body, filepathIndara);
                                         }
 
                                     }
