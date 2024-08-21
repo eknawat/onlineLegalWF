@@ -176,7 +176,7 @@ namespace onlineLegalWF.Class
             var x = new wf_attributes(); 
             string sql = " select * from wf_routing where process_id = '"+process_id+"' and process_code = '"+process_code+"' and version_no = " + version_no.ToString();
             //sql += " order by step_no desc "; 
-            sql += " order by created_datetime desc "; 
+            sql += " order by row_id desc "; 
             var dt = zdb.ExecSql_DataTable(sql, zconnstr); 
             if (dt.Rows.Count > 0)
             {
@@ -907,6 +907,121 @@ namespace onlineLegalWF.Class
                 //if (!isExistingWFStep(wfDefault_step.process_id, wfDefault_step.process_code, wfDefault_step.version_no,wfDefault_step.step_no)) // Check used to add New Step already or not?
                 //{
                 string xurl = "";
+                string xcreatedate = "";
+                //get req_date from tb_main request
+                if (wfDefault_step.process_code == "INR_NEW")
+                {
+                    string sql = @"select * from li_insurance_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var dr = dt.Rows[0];
+                        xcreatedate = dr["req_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "INR_RENEW")
+                {
+                    string sql = @"select * from li_insurance_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var dr = dt.Rows[0];
+                        xcreatedate = dr["req_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "INR_CLAIM" || wfDefault_step.process_code == "INR_CLAIM_2" || wfDefault_step.process_code == "INR_CLAIM_3")
+                {
+                    string sql = @"select * from li_insurance_claim where process_id = '" + wfDefault_step.process_id + "'";
+                    var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var dr = dt.Rows[0];
+                        xcreatedate = dr["claim_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "INR_AWC_RENEW")
+                {
+                    xurl = "/frminsurance/insurancerenewawcedit.aspx?id=" + wfDefault_step.process_id;
+
+                    string sql = @"select * from li_insurance_renew_awc_memo where process_id = '" + wfDefault_step.process_id + "'";
+                    var dt = zdb.ExecSql_DataTable(sql, zconnstr);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var dr = dt.Rows[0];
+                        xcreatedate = dr["req_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "CCR")
+                {
+                    string sqlreq = @"select * from li_comm_regis_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["req_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "PMT_LIC")
+                {
+                    string sqlreq = @"select * from li_permit_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["permit_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "PMT_TM")
+                {
+                    string sqlreq = @"select * from li_permit_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["permit_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "PMT_TAX")
+                {
+                    string sqlreq = @"select * from li_permit_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["permit_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "PMT_EMR")
+                {
+                    string sqlreq = @"select * from li_permit_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["permit_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "PMT_UTIL")
+                {
+                    string sqlreq = @"select * from li_permit_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["permit_date"].ToString();
+                    }
+                }
+                else if (wfDefault_step.process_code == "LIT" || wfDefault_step.process_code == "LIT_2")
+                {
+                    string sqlreq = @"select * from li_litigation_request where process_id = '" + wfDefault_step.process_id + "'";
+                    var dtreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                    if (dtreq.Rows.Count > 0)
+                    {
+                        var drreq = dtreq.Rows[0];
+                        xcreatedate = drreq["req_date"].ToString();
+                    }
+                }
+
                 if (wfDefault_step.step_name == "Requester Receive Approval")
                 {
                     xurl = "/forms/requesterclosejob.aspx?req=" + wfDefault_step.process_id + "&pc=" + wfDefault_step.process_code;
@@ -943,6 +1058,7 @@ namespace onlineLegalWF.Class
                             string id = dr["req_no"].ToString();
 
                             xurl = "/frminsurance/insurancerequestedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "INR_RENEW")
@@ -955,6 +1071,7 @@ namespace onlineLegalWF.Class
                             string id = dr["req_no"].ToString();
 
                             xurl = "/frminsurance/insurancerenewrequestedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "INR_CLAIM" || wfDefault_step.process_code == "INR_CLAIM_2" || wfDefault_step.process_code == "INR_CLAIM_3")
@@ -967,6 +1084,7 @@ namespace onlineLegalWF.Class
                             string id = dr["claim_no"].ToString();
 
                             xurl = "/frminsurance/insuranceclaimedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "INR_AWC_RENEW")
@@ -983,6 +1101,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["req_no"].ToString();
 
                             xurl = "/frmcommregis/commregisrequestedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "PMT_LIC")
@@ -995,6 +1114,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["permit_no"].ToString();
 
                             xurl = "/frmpermit/permitlicenseedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "PMT_TM")
@@ -1007,6 +1127,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["permit_no"].ToString();
 
                             xurl = "/frmpermit/permittrademarkedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "PMT_TAX")
@@ -1019,6 +1140,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["permit_no"].ToString();
 
                             xurl = "/frmpermit/permitlandtaxedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "PMT_EMR")
@@ -1031,6 +1153,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["permit_no"].ToString();
 
                             xurl = "/frmpermit/permitenergyedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "PMT_UTIL")
@@ -1043,6 +1166,7 @@ namespace onlineLegalWF.Class
                             string id = drreq["permit_no"].ToString();
 
                             xurl = "/frmpermit/permitutilityedit.aspx?id=" + id;
+
                         }
                     }
                     else if (wfDefault_step.process_code == "LIT" || wfDefault_step.process_code == "LIT_2")
@@ -1134,7 +1258,7 @@ namespace onlineLegalWF.Class
                                     '" + wfDefault_step.attr_apv_value + @"', 
                                     " + wfDefault_step.istrue_nextstep.ToString() + @", 
                                     " + wfDefault_step.isfalse_nextstep.ToString() + @", 
-                                    '" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"',
+                                    '" + xcreatedate + @"',
                                     '',
                                     '" + wfDefault_step.submit_by + @"',
                                     '" + wfDefault_step.updated_by + @"',
