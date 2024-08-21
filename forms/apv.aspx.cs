@@ -215,16 +215,16 @@ namespace onlineLegalWF.forms
                     //    string sqlupdate = @"update li_insurance_request set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
                     //    zdb.ExecNonQuery(sqlupdate, zconnstr);
                     //}
-                    //else if (wfAttr.step_name == "Insurance Specialist Confirm Approve")
-                    //{
-                    //    if (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM_2" || wfAttr.process_code == "INR_CLAIM_3") 
-                    //    {
-                    //        wfA_NextStep.wf_status = "WAITATCH";
-                    //        string sqlupdate = @"update li_insurance_claim set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
-                    //        zdb.ExecNonQuery(sqlupdate, zconnstr);
-                    //    }
-                        
-                    //}
+                    if (wfAttr.step_name == "Insurance Specialist Confirm Approve")
+                    {
+                        if (wfAttr.process_code == "INR_CLAIM" || wfAttr.process_code == "INR_CLAIM_2" || wfAttr.process_code == "INR_CLAIM_3") 
+                        {
+                            wfA_NextStep.wf_status = "COMPLETED";
+                            string sqlupdate = @"update li_insurance_claim set status='approve',updated_datetime = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where process_id = '" + wfAttr.process_id + "'";
+                            zdb.ExecNonQuery(sqlupdate, zconnstr);
+                        }
+
+                    }
                     //else if (wfAttr.step_name == "BU Approve" && wfAttr.process_code == "INR_RENEW")
                     //{
                     //    wfA_NextStep.wf_status = "WAITATCH";
@@ -232,7 +232,7 @@ namespace onlineLegalWF.forms
                     //    zdb.ExecNonQuery(sqlupdate, zconnstr);
                     //}
                     //else if (wfAttr.step_name == "End") 
-                    if (wfAttr.step_name == "End") 
+                    if (wfA_NextStep.step_name == "End") 
                     {
                         wfA_NextStep.wf_status = "COMPLETED";
                     }
