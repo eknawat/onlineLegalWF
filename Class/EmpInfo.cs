@@ -1,13 +1,17 @@
-﻿using Spire.Doc;
+﻿using Newtonsoft.Json;
+using Spire.Doc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using static onlineLegalWF.legalPortal.loginPage;
 
 namespace onlineLegalWF.Class
 {
@@ -71,7 +75,7 @@ namespace onlineLegalWF.Class
                 string sql = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xuser_login + "' ";
                 DataTable dt = zdb.ExecSql_DataTable(sql, zconnstr);
 
-                if (dt.Rows.Count > 0) 
+                if (dt.Rows.Count > 0)
                 {
                     var userLogin = dt.Rows[0]["Login"].ToString().Split(new char[] { '\\' });
                     empData.user_login = userLogin[1].Trim();
@@ -97,6 +101,16 @@ namespace onlineLegalWF.Class
                         }
 
                     }
+                }
+                else 
+                {
+                    //get Identity User MSAL
+                    var resUser = GetUserIdentityAsync(xuser_login, "EFCY_LGW");
+
+                    empData.user_login = xuser_login;
+                    empData.full_name_en = resUser.givenName;
+                    empData.position_en = resUser.jobTitle;
+                    empData.email = resUser.mail;
                 }
                 
             }
@@ -192,6 +206,60 @@ namespace onlineLegalWF.Class
                     }
                 }
             }
+        }
+
+        public UserIdntityResponse GetUserIdentityAsync(string identity, string appCode)
+        {
+            UserIdntityResponse res = null;
+            try
+            {
+                // Create an instance of HttpClient
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    //Prepare content
+                    var req = new UserIndentity
+                    {
+                        identity = identity,
+                        applicationCode = appCode
+                    };
+                    var options = new JsonSerializerSettings
+                    {
+                        Formatting = Formatting.Indented,
+                        DefaultValueHandling = DefaultValueHandling.Ignore
+                    };
+                    var jsonData = JsonConvert.SerializeObject(req, options);
+                    var content = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");
+
+                    // Define the parameters to include in the URL
+                    //string baseurl = $"{_crmSetting.Value.BaseURL}";
+                    string baseurl = ConfigurationManager.AppSettings["msal_api_url"].ToString();
+
+                    // Build the URL with the parameter
+                    string url = $"{baseurl}/User/identity?identity={identity}&applicationCode={appCode}";
+                    httpClient.BaseAddress = new Uri(url);
+
+                    //httpClient.DefaultRequestHeaders.Add("User-Agent", "K2S&L");
+                    //httpClient.DefaultRequestHeaders.Add("X-Api-Key", _crmSetting.Value.ApiKey);
+
+                    // Send the GET request and get the response
+                    //HttpResponseMessage response = await httpClient.PostAsync(httpClient.BaseAddress, content);
+                    HttpResponseMessage response = httpClient.GetAsync(httpClient.BaseAddress).Result;
+                    response.EnsureSuccessStatusCode();
+
+                    // Read and display the response content as a string
+                    //string responseContent = await response.Content.ReadAsStringAsync();
+                    string responseContent = response.Content.ReadAsStringAsync().Result;
+                    res = JsonConvert.DeserializeObject<UserIdntityResponse>(responseContent);
+                }
+
+            }
+            catch (HttpRequestException ex)
+            {
+                //return BadRequest($"Error: {ex.StatusCode}, {ex.Message}{ex.InnerException}");
+                LogHelper.Write($"Error: {ex.Message}{ex.InnerException}");
+            }
+
+            return res;
         }
     }
     public class EmpModel

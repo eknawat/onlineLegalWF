@@ -71,8 +71,8 @@
                                                         <td class="cell_content_80PC">
                                                             <label class="Label_md">Login : </label>
                                                             <asp:Label ID="login_name" runat="server" CssClass="Label_md" Text=""></asp:Label>&nbsp; 
-                                                            <label class="Label_md"> / </label>
-                                                            <asp:Label ID="login_bu" runat="server" CssClass="Label_md" Text=""></asp:Label>&nbsp; 
+                                                            <%--<label class="Label_md"> / </label>
+                                                            <asp:Label ID="login_bu" runat="server" CssClass="Label_md" Text=""></asp:Label>&nbsp; --%>
                                                         </td>
                                                         <td style="vertical-align: top; text-align: right; padding: 5px;">
                                                             <asp:Button ID="btn_logout" runat="server" CssClass="btn_small_silver" Text="Logout" OnClick="btn_logout_Click" />

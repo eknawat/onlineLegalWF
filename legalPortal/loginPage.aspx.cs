@@ -167,7 +167,7 @@ namespace onlineLegalWF.legalPortal
         }
 
         //static async Task<UserIdntityResponse> GetUserIdentityAsync(string identity,string appCode)
-        static UserIdntityResponse GetUserIdentityAsync(string identity,string appCode)
+        public UserIdntityResponse GetUserIdentityAsync(string identity,string appCode)
         {
             UserIdntityResponse res = null;
             try
@@ -306,12 +306,13 @@ namespace onlineLegalWF.legalPortal
                     string baseurl = ConfigurationManager.AppSettings["msal_api_url"].ToString();
 
                     // Build the URL with the parameter
-                    string url = $"{baseurl}/User/revokeUser";
+                    string url = $"{baseurl}/User/revokeUser?identity={username}";
+                    //string url = $"{baseurl}/User/revokeUser";
                     httpClient.BaseAddress = new Uri(url);
 
                     // Send the GET request and get the response
-                    //HttpResponseMessage response = await httpClient.PostAsync(httpClient.BaseAddress, content);
-                    HttpResponseMessage response = httpClient.PostAsync(httpClient.BaseAddress, content).Result;
+                    //HttpResponseMessage response = await httpClient.GetAsync(httpClient.BaseAddress, content);
+                    HttpResponseMessage response = httpClient.GetAsync(httpClient.BaseAddress).Result;
 
                     if (response.IsSuccessStatusCode)
                     {

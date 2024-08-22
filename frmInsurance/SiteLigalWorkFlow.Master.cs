@@ -25,11 +25,11 @@ namespace onlineLegalWF
             if (Session["user_login"] != null) 
             {
                 var user_login = Session["user_login"].ToString();
-                var user_bu = Session["bu"].ToString();
+                //var user_bu = Session["bu"].ToString();
                 if (!string.IsNullOrEmpty(user_login))
                 {
                     login_name.Text = user_login;
-                    login_bu.Text = user_bu;
+                    //login_bu.Text = user_bu;
                 }
                 
             }
