@@ -110,7 +110,7 @@ namespace onlineLegalWF.userControls
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "showModalAttachFrm();", true);
                 var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-                frm_pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + filePath;
+                frm_pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + filePath.Replace("+", @"%2B");
             }
             else
             {

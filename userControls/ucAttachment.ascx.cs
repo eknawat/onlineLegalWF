@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -183,7 +184,7 @@ namespace onlineLegalWF.userControls
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", string.Format("$('#{0}').modal('show');", modalattach.ClientID), true);
                 var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-                pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + filePath;
+                pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + filePath.Replace("+", @"%2B");
             }
             else
             {

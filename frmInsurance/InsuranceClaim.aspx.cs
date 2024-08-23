@@ -93,26 +93,32 @@ namespace onlineLegalWF.frmInsurance
 
         protected void btn_save_Click(object sender, EventArgs e)
         {
+            //int res = 0;
+            //if (Session["user_login"] != null)
+            //{
+            //    res = SaveClaim();
+            //}
+
             int res = SaveClaim();
 
             if (res > 0)
             {
                 // wf save draft
-                //string process_code = "INR_CLAIM";
-                var xiar_pfc = "";
-                var xiar_uatc = "";
-                string process_code = "";
-                string sqlreq = "select * from li_insurance_claim where claim_no='" + claim_no.Value + "'";
+                string process_code = "INR_CLAIM";
+                //var xiar_pfc = "";
+                //var xiar_uatc = "";
+                //string process_code = "";
+                //string sqlreq = "select * from li_insurance_claim where claim_no='" + claim_no.Value + "'";
 
-                var resreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
+                //var resreq = zdb.ExecSql_DataTable(sqlreq, zconnstr);
 
-                if (resreq.Rows.Count > 0)
-                {
-                    xiar_pfc = (!string.IsNullOrEmpty(resreq.Rows[0]["iar_pfc"].ToString()) ? resreq.Rows[0]["iar_pfc"].ToString() : null);
-                    xiar_uatc = (!string.IsNullOrEmpty(resreq.Rows[0]["iar_uatc"].ToString()) ? resreq.Rows[0]["iar_uatc"].ToString() : null);
-                }
+                //if (resreq.Rows.Count > 0)
+                //{
+                //    xiar_pfc = (!string.IsNullOrEmpty(resreq.Rows[0]["iar_pfc"].ToString()) ? resreq.Rows[0]["iar_pfc"].ToString() : null);
+                //    xiar_uatc = (!string.IsNullOrEmpty(resreq.Rows[0]["iar_uatc"].ToString()) ? resreq.Rows[0]["iar_uatc"].ToString() : null);
+                //}
 
-                process_code = "INR_CLAIM";
+                //process_code = "INR_CLAIM";
 
                 ////check corditon deviation claim
                 //float deviation = 0;
@@ -788,7 +794,7 @@ namespace onlineLegalWF.frmInsurance
             string filePath = outputfn.Replace(".docx", ".pdf");
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "showModalDoc();", true);
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            pdf_render.Attributes["src"] = host_url+"render/pdf?id=" + filePath;
+            pdf_render.Attributes["src"] = host_url+"render/pdf?id=" + filePath.Replace("+", @"%2B");
         }
 
         protected void btn_submit_Click(object sender, EventArgs e)
