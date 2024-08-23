@@ -916,7 +916,8 @@ namespace onlineLegalWF.Class
                     if (dt.Rows.Count > 0)
                     {
                         var dr = dt.Rows[0];
-                        xcreatedate = dr["req_date"].ToString();
+                        //xcreatedate = dr["req_date"].ToString("yyyy-MM-dd HH:mm:ss.fff");
+                        xcreatedate = Convert.ToDateTime(dr["req_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "INR_RENEW")
@@ -926,7 +927,7 @@ namespace onlineLegalWF.Class
                     if (dt.Rows.Count > 0)
                     {
                         var dr = dt.Rows[0];
-                        xcreatedate = dr["req_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(dr["req_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "INR_CLAIM" || wfDefault_step.process_code == "INR_CLAIM_2" || wfDefault_step.process_code == "INR_CLAIM_3")
@@ -936,7 +937,7 @@ namespace onlineLegalWF.Class
                     if (dt.Rows.Count > 0)
                     {
                         var dr = dt.Rows[0];
-                        xcreatedate = dr["claim_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(dr["claim_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "INR_AWC_RENEW")
@@ -948,7 +949,7 @@ namespace onlineLegalWF.Class
                     if (dt.Rows.Count > 0)
                     {
                         var dr = dt.Rows[0];
-                        xcreatedate = dr["req_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(dr["req_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "CCR")
@@ -958,7 +959,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["req_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["req_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "PMT_LIC")
@@ -968,7 +969,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["permit_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["permit_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "PMT_TM")
@@ -978,7 +979,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["permit_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["permit_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "PMT_TAX")
@@ -988,7 +989,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["permit_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["permit_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "PMT_EMR")
@@ -998,7 +999,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["permit_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["permit_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "PMT_UTIL")
@@ -1008,7 +1009,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["permit_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["permit_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
                 else if (wfDefault_step.process_code == "LIT" || wfDefault_step.process_code == "LIT_2")
@@ -1018,7 +1019,7 @@ namespace onlineLegalWF.Class
                     if (dtreq.Rows.Count > 0)
                     {
                         var drreq = dtreq.Rows[0];
-                        xcreatedate = drreq["req_date"].ToString();
+                        xcreatedate = Convert.ToDateTime(drreq["req_date"]).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     }
                 }
 
