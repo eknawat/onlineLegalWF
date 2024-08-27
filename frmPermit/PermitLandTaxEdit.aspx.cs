@@ -257,16 +257,16 @@ namespace onlineLegalWF.frmPermit
             var xlt_project_code = type_lt_project.SelectedValue;
             var xtof_permitreq_code = type_req_tax.SelectedValue;
             var xtof_permitreq_other_desc = tof_permitreq_other_desc.Text.Trim();
-            var xpermit_subject = permit_subject.Text.Trim();
-            var xpermit_desc = permit_desc.Text.Trim();
-            var xcontact_agency = contact_agency.Text.Trim();
-            var xattorney_name = attorney_name.Text.Trim();
+            var xpermit_subject = permit_subject.Text.Trim().Replace("'", "’");
+            var xpermit_desc = permit_desc.Text.Trim().Replace("'", "’");
+            var xcontact_agency = contact_agency.Text.Trim().Replace("'", "’");
+            var xattorney_name = attorney_name.Text.Trim().Replace("'", "’");
             var xemail_accounting = email_accounting.Text.Trim();
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xcom_code = com_code.Text.Trim();
             var xgl = gl.Text.Trim();
             var xcb_urgent = cb_urgent.Checked;
-            var xurgent_remark = urgent_remark.Text.Trim();
+            var xurgent_remark = urgent_remark.Text.Trim().Replace("'", "’");
 
             string sql = @"UPDATE [dbo].[li_permit_request]
                            SET [permit_subject] = '" + xpermit_subject + @"'

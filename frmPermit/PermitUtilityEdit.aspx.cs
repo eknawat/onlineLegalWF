@@ -202,11 +202,11 @@ namespace onlineLegalWF.frmPermit
             var xpermit_updatedate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             var xproject_code = type_project.SelectedValue;
             var xtof_permitreq_code = type_req_utility.SelectedValue;
-            var xpermit_subject = permit_subject.Text.Trim();
-            var xpermit_desc = permit_desc.Text.Trim();
+            var xpermit_subject = permit_subject.Text.Trim().Replace("'", "’");
+            var xpermit_desc = permit_desc.Text.Trim().Replace("'", "’");
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xcb_urgent = cb_urgent.Checked;
-            var xurgent_remark = urgent_remark.Text.Trim();
+            var xurgent_remark = urgent_remark.Text.Trim().Replace("'", "’");
 
             string sql = @"UPDATE [dbo].[li_permit_request]
                            SET [permit_subject] = '" + xpermit_subject + @"'

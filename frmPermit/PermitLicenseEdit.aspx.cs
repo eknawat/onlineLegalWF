@@ -436,13 +436,13 @@ namespace onlineLegalWF.frmPermit
             {
                 xsublicense_code = ddl_sublicense.SelectedValue;
             }
-            var xpermit_subject = permit_subject.Text.Trim();
-            var xpermit_desc = permit_desc.Text.Trim();
-            var xcontact_agency = contact_agency.Text.Trim();
-            var xattorney_name = attorney_name.Text.Trim();
+            var xpermit_subject = permit_subject.Text.Trim().Replace("'", "’");
+            var xpermit_desc = permit_desc.Text.Trim().Replace("'", "’");
+            var xcontact_agency = contact_agency.Text.Trim().Replace("'", "’");
+            var xattorney_name = attorney_name.Text.Trim().Replace("'", "’");
             var xnumber_of_licenses = number_of_licenses.Text.Trim();
             var xcb_urgent = cb_urgent.Checked;
-            var xurgent_remark = urgent_remark.Text.Trim();
+            var xurgent_remark = urgent_remark.Text.Trim().Replace("'", "’");
 
             string sql = @"UPDATE [dbo].[li_permit_request]
                            SET [permit_subject] = '" + xpermit_subject + @"'

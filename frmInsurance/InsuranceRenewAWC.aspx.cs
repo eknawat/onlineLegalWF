@@ -270,9 +270,9 @@ namespace onlineLegalWF.frmInsurance
             var xprocess_id = hid_PID.Value.ToString();
             var xfrom = company_name.Text.ToString();
             var xdoc_no = doc_no.Text.Trim();
-            var xsubject = subject.Text.Trim();
+            var xsubject = subject.Text.Trim().Replace("'", "’");
             var xto = to.Text.Trim();
-            var xdescription = description.Text.Trim();
+            var xdescription = description.Text.Trim().Replace("'", "’");
 
 
             //Get Data from gv1 Sum Insurance Detail

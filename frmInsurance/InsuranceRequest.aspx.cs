@@ -597,17 +597,17 @@ namespace onlineLegalWF.frmInsurance
             //var xprocess_id = string.Format("{0:000000}", (GetMaxProcessID() + 1));
             var xprocess_id = hid_PID.Value.ToString();
             var xtype_req = type_req.SelectedValue.ToString();
-            var xcompany = company.Text.Trim();
+            var xcompany = company.Text.Trim().Replace("'", "’");
             var xdoc_no = doc_no.Text.Trim();
             var xreq_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             var xsubject = subject.Text.Trim();
             var xto = to.Text.Trim();
-            var xpurpose = purpose.Text.Trim();
-            var xbackground = background.Text.Trim();
-            var xapprove_des = approve_des.Text.Trim();
+            var xpurpose = purpose.Text.Trim().Replace("'", "’");
+            var xbackground = background.Text.Trim().Replace("'", "’");
+            var xapprove_des = approve_des.Text.Trim().Replace("'", "’");
             var xstatus = "verify";
             var xbu_code = ddl_bu.SelectedValue.ToString();
-            var xprop_ins_name = prop_ins_name.Text.Trim();
+            var xprop_ins_name = prop_ins_name.Text.Trim().Replace("'", "’");
 
             //Get Data from gv1 Insurance Detail
             List<InsurancePropData> listInsurancePropData = new List<InsurancePropData>();

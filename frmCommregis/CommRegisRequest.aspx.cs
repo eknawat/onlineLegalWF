@@ -173,7 +173,7 @@ namespace onlineLegalWF.frmCommregis
             var xreq_no = req_no.Text.Trim();
             var xprocess_id = hid_PID.Value.ToString();
             var xreq_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            var xmt_res_desc = mt_res_desc.Text.Trim();
+            var xmt_res_desc = mt_res_desc.Text.Trim().Replace("'", "’");
             var xmt_res_no = mt_res_no.Text.Trim();
             var xmt_res_date = mt_res_date.Text.Trim();
             var xstatus = "verify";

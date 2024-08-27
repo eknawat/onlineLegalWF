@@ -192,12 +192,12 @@ namespace onlineLegalWF.frmLitigation
             var xprocess_id = hid_PID.Value.ToString();
             var xdoc_no = doc_no.Text.Trim();
             var xtype_req = type_req.SelectedValue.ToString();
-            var xsubject = subject.Text.Trim();
+            var xsubject = subject.Text.Trim().Replace("'", "’");
             var xdesc = desc.Text.Trim();
             var xstatus = "verify";
             var xbucode = ddl_bu.SelectedValue.ToString();
             var xcompany_name = company.Text.Trim();
-            var xpro_occ_desc = pro_occ_desc.Text.Trim();
+            var xpro_occ_desc = pro_occ_desc.Text.Trim().Replace("'", "’");
 
             string sqlLit = @"select * from li_litigation_request where req_no = '" + xreq_no + "'";
             var resLit = zdb.ExecSql_DataTable(sqlLit, zconnstr);

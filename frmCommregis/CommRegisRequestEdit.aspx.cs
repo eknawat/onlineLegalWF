@@ -294,7 +294,7 @@ namespace onlineLegalWF.frmCommregis
             string xtype_comm_regis = type_comm_regis.SelectedValue;
             var xreq_no = req_no.Text.Trim();
             var xupdate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            var xmt_res_desc = mt_res_desc.Text.Trim();
+            var xmt_res_desc = mt_res_desc.Text.Trim().Replace("'", "’");
             var xmt_res_no = mt_res_no.Text.Trim();
             var xmt_res_date = mt_res_date.Text.Trim();
             var xddl_subsidiary = ddl_subsidiary.SelectedValue;

@@ -198,12 +198,12 @@ namespace onlineLegalWF.frmInsurance
             var xclaim_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             var xdoc_no = doc_no.Text.Trim();
             var xbu_code = ddl_bu.SelectedValue.ToString();
-            var xincident = incident.Text.Trim();
+            var xincident = incident.Text.Trim().Replace("'", "’");
             var xoccurred_date = occurred_date.Text.Trim();
             var xsubmission_date = submission_date.Text.Trim();
-            var xincident_summary = incident_summary.Text.Trim();
+            var xincident_summary = incident_summary.Text.Trim().Replace("'", "’");
             var xsurveyor_name = surveyor_name.Text.Trim();
-            var xsurveyor_company = surveyor_company.Text.Trim();
+            var xsurveyor_company = surveyor_company.Text.Trim().Replace("'", "’");
             var xsettlement_date = settlement_date.Text.Trim();
             var xsettlement_day = settlement_day.Text.Trim();
             var xiar_atc = (!string.IsNullOrEmpty(iar_atc.Text.Trim()) ? iar_atc.Text.Trim() : null);

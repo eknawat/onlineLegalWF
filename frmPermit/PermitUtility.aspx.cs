@@ -225,12 +225,12 @@ namespace onlineLegalWF.frmPermit
             var xpermit_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             var xproject_code = type_project.SelectedValue;
             var xtof_permitreq_code = type_req_utility.SelectedValue;
-            var xpermit_subject = permit_subject.Text.Trim();
-            var xpermit_desc = permit_desc.Text.Trim();
+            var xpermit_subject = permit_subject.Text.Trim().Replace("'", "’");
+            var xpermit_desc = permit_desc.Text.Trim().Replace("'", "’");
             var xstatus = "verify";
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xcb_urgent = cb_urgent.Checked;
-            var xurgent_remark = urgent_remark.Text.Trim();
+            var xurgent_remark = urgent_remark.Text.Trim().Replace("'", "’");
 
             string sql = @"INSERT INTO [dbo].[li_permit_request]
                                    ([process_id],[permit_no],[document_no],[permit_date],[permit_subject],[permit_desc],[tof_requester_code],[tof_requester_other_desc],[bu_code],[tof_permitreq_code],[responsible_phone],[isurgent],[urgent_remark],[status])

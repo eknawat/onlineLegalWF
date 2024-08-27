@@ -55,7 +55,7 @@
                             </td>
                             <td>&nbsp;</td>
                             <td class="cell_content_80PC_TL">
-                                <asp:TextBox ID="incident" runat="server" TextMode="MultiLine" CssClass="Text_800" Height="150"></asp:TextBox>
+                                <asp:TextBox ID="incident" runat="server" CssClass="Text_400"></asp:TextBox>
                             </td>
                             <td>&nbsp;</td>
                         </tr>

@@ -1393,7 +1393,7 @@ namespace onlineLegalWF.frmInsurance
                 string id = dr["req_no"].ToString();
                 subject = dr["subject"].ToString();
                 var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
-                body = "คุณได้รับมอบหมายให้ตรวจสอบเอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='"+host_url_sendmail+"legalportal/legalportal?m=myworklist'>Click</a>";
+                body = "คุณได้รับมอบหมายให้ Review เอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='"+host_url_sendmail+"legalportal/legalportal?m=myworklist'>Click</a>";
 
                 string pathfileins = "";
                 string outputdirectory = "";

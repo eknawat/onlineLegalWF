@@ -380,15 +380,15 @@ namespace onlineLegalWF.frmPermit
             var xtof_permitreq_other_desc = "";
             var xlicense_code = license_code.SelectedValue;
             var xsublicense_code = ddl_sublicense.SelectedValue;
-            var xpermit_desc = permit_desc.Text.Trim();
-            var xcontact_agency = contact_agency.Text.Trim();
-            var xattorney_name = attorney_name.Text.Trim();
+            var xpermit_desc = permit_desc.Text.Trim().Replace("'", "’");
+            var xcontact_agency = contact_agency.Text.Trim().Replace("'", "’");
+            var xattorney_name = attorney_name.Text.Trim().Replace("'", "’");
             var xstatus = "verify";
             var xsubject = permit_subject.Text.Trim();
             var xresponsible_phone = responsible_phone.Text.Trim();
             var xnumber_of_licenses = number_of_licenses.Text.Trim();
             var xcb_urgent = cb_urgent.Checked;
-            var xurgent_remark = urgent_remark.Text.Trim();
+            var xurgent_remark = urgent_remark.Text.Trim().Replace("'", "’");
 
             string sql = "";
 

@@ -283,11 +283,11 @@ namespace onlineLegalWF.frmInsurance
             var xtype_req = type_req.SelectedValue.ToString();
             var xcompany = company.Text.Trim();
             var xdoc_no = doc_no.Text.Trim();
-            var xsubject = subject.Text.Trim();
+            var xsubject = subject.Text.Trim().Replace("'", "’");
             var xto = to.Text.Trim();
-            var xpurpose = purpose.Text.Trim();
-            var xbackground = background.Text.Trim();
-            var xapprove_des = approve_des.Text.Trim();
+            var xpurpose = purpose.Text.Trim().Replace("'", "’");
+            var xbackground = background.Text.Trim().Replace("'", "’");
+            var xapprove_des = approve_des.Text.Trim().Replace("'", "’");
             var xupdate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             var xbu_code = ddl_bu.SelectedValue.ToString();
             var xprop_ins_name = prop_ins_name.Text.Trim();
@@ -1142,7 +1142,7 @@ namespace onlineLegalWF.frmInsurance
                 string id = dr["req_no"].ToString();
                 subject = dr["subject"].ToString();
                 var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
-                body = "คุณได้รับมอบหมายให้ตรวจสอบเอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='"+host_url_sendmail+"onlinelegalwf/legalportal/legalportal?m=myworklist'>Click</a>";
+                body = "คุณได้รับมอบหมายให้ Review เอกสารเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='"+host_url_sendmail+"onlinelegalwf/legalportal/legalportal?m=myworklist'>Click</a>";
 
                 string pathfileins = "";
                 string outputdirectory = "";
