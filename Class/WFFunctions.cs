@@ -876,6 +876,42 @@ namespace onlineLegalWF.Class
                     next_step = wfA.isfalse_nextstep;
                 }
             }
+            else if (wfA.step_name == "Start" && wfA.process_code == "INR_NEW")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
+            else if (wfA.step_name == "Start" && wfA.process_code == "INR_CLAIM")
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.division == "Hotel Operations")
+                    {
+                        next_step = 3;
+                    }
+                    else
+                    {
+                        next_step = 2;
+                    }
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
             else 
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
