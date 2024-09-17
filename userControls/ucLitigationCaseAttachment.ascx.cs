@@ -176,7 +176,7 @@ namespace onlineLegalWF.userControls
             //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "hideModalEditData();", true);
             //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "showModalAttachLitigation();", true);
             //    var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-            //    pdf_render_liti.Attributes["src"] = host_url + "render/pdf?id=" + filePath.Replace("+", @"%2B");
+            //    pdf_render_liti.Attributes["src"] = host_url + "render/pdf?id=" + filePath.Replace("+", @"%2B").Replace("&", @"%26");
             //}
             //else
             //{

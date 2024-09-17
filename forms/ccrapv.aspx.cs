@@ -173,7 +173,7 @@ namespace onlineLegalWF.forms
             {
                 string pathfile = resfile.Rows[0]["output_filepath"].ToString().Replace(".docx", ".pdf");
                 var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
-                pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + pathfile.Replace("+", @"%2B");
+                pdf_render.Attributes["src"] = host_url + "render/pdf?id=" + pathfile.Replace("+", @"%2B").Replace("&", @"%26");
             }
         }
 
