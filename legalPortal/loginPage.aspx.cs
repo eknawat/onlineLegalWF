@@ -88,11 +88,14 @@ namespace onlineLegalWF.legalPortal
             //string user_name = Username.Substring(Username.LastIndexOf("\\") + 1);
             string appCode = "EFCY_LGW";
 
+            string[] res = xusername.Split(new char[] { '@' });
+            string resusername = res[0].Trim();
+
             //Revoke User
-            var status = RevokeUser(xusername);
+            var status = RevokeUser(resusername);
 
             //Check Identity User MSAL
-            var resUser = GetUserIdentity(xusername, xpassword, appCode);
+            var resUser = GetUserIdentity(resusername, xpassword, appCode);
             // Use Token Data From MSAL
             if (resUser != null)
             {
@@ -105,7 +108,7 @@ namespace onlineLegalWF.legalPortal
                 //var Isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                 //if (Isdev == "true") 
                 //{
-                if (!string.IsNullOrEmpty(xusername.Trim()) && xpassword.Trim() == "1234")
+                if (!string.IsNullOrEmpty(resusername.Trim()) && xpassword.Trim() == "1234")
                 {
                     token = "IsPass";
                 }
@@ -126,11 +129,11 @@ namespace onlineLegalWF.legalPortal
                 //    }
                 //}
 
-                //if (!string.IsNullOrEmpty(xusername.Trim()) && !string.IsNullOrEmpty(xpassword.Trim()))
+                //if (!string.IsNullOrEmpty(resusername.Trim()) && !string.IsNullOrEmpty(xpassword.Trim()))
                 //{
                 //    var key = "iJLTaWhyqexThL3Qmj63qA==";
                 //    string hashpassword = EmpInfo.EncryptString(key, xpassword);
-                //    string sqlbpm = "select * from li_user where user_login = '" + xusername.Trim() + "' and passwordhash = '" + hashpassword + "' ";
+                //    string sqlbpm = "select * from li_user where user_login = '" + resusername.Trim() + "' and passwordhash = '" + hashpassword + "' ";
                 //    DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
                 //    if (dtbpm.Rows.Count > 0)
@@ -152,7 +155,10 @@ namespace onlineLegalWF.legalPortal
         {
             var empFunc = new EmpInfo();
 
-            var emp = empFunc.getEmpInfo(xusername);
+            string[] res = xusername.Split(new char[] { '@' });
+            string resusername = res[0].Trim();
+
+            var emp = empFunc.getEmpInfo(resusername);
             Session.Clear();
             Session.Add("is_login", "Y");
             Session.Add("user_login", emp.user_login);
