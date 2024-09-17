@@ -1174,17 +1174,49 @@ namespace onlineLegalWF.frmInsurance
                     string[] pdfFiles = listpdf.ToArray();
 
                     string email = "";
+                    string ccemail = "";
 
                     var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
                     ////get mail from db
                     if (isdev != "true")
                     {
+                        string sqlwf = "select top 1 submit_by from wf_routing where process_id = '" + lblPID.Text + "' ";
+                        DataTable dtwf = zdb.ExecSql_DataTable(sqlwf, zconnstr);
+                        string submitby = dtwf.Rows[0]["submit_by"].ToString();
+
+                        if (dtwf.Rows.Count > 0)
+                        {
+                            string sqlbpm = "select * from li_user where user_login = '" + submitby + "' ";
+                            DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
+
+                            if (dtbpm.Rows.Count > 0)
+                            {
+                                ccemail = dtbpm.Rows[0]["email"].ToString();
+
+                            }
+                            else
+                            {
+                                string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + submitby + "' ";
+                                DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+
+                                if (dtrpa.Rows.Count > 0)
+                                {
+                                    ccemail = dtrpa.Rows[0]["Email"].ToString();
+                                }
+                                else
+                                {
+                                    ccemail = "";
+                                }
+
+                            }
+                        }
                         email = "jaroonsak.n@assetworldcorp-th.com";
                     }
                     else
                     {
                         //fix mail test
                         email = "legalwfuat2024@gmail.com";
+                        ccemail = "legalwfuat2024@gmail.com";
                     }
 
                     string filepath = zmergepdf.mergefilePDF(pdfFiles, outputdirectory);
@@ -1192,7 +1224,8 @@ namespace onlineLegalWF.frmInsurance
                     //send mail to Jaroonsak review
                     ////fix mail test
                     //string email = "legalwfuat2024@gmail.com";
-                    _ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n Review", email, body, filepath);
+                    _ = zsendmail.sendEmailCC(subject + " Mail To Jaroonsak.n Review", email, ccemail, body, filepath);
+                    //_ = zsendmail.sendEmail(subject + " Mail To Jaroonsak.n Review", email, body, filepath);
 
                     Response.Write("<script>alert('SendEmail Successfully');</script>");
                 }
