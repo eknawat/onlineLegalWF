@@ -68,6 +68,8 @@ namespace onlineLegalWF.userControls
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+            string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
+            string extension = Path.GetExtension(filename);
             if (FileUpload1.FileContent.Length <= 0)
             {
                 // file not found 
@@ -76,39 +78,42 @@ namespace onlineLegalWF.userControls
             }
             else
             {
-                // check existing folder => path_attachment + \\pid\\
-                string xpath = zpath_attachment + "\\" + hidPID.Value;
-                if (!Directory.Exists(xpath)) 
-                { 
-                    Directory.CreateDirectory(xpath); 
-                }
-
-                // check existing file
-                string fn = xpath + "\\" + FileUpload1.FileName;
-                if (System.IO.File.Exists(fn))
+                // Check file extension.
+                if (extension.ToLower() == ".pdf")
                 {
-                    Response.Write("<script> alert('Warning! File name is dupplicated. Please rename the filename.');</script>");
-                }
-                else
-                {
-                    //Save file in Local
-                    FileUpload1.SaveAs(fn);
-
-                    string xpid = hidPID.Value;
-                    string xattach_fn = FileUpload1.FileName;
-                    string xattach_fp = fn;
-                    //var xattach_ct_byte = FileUpload1.FileBytes;
-                    string xeform = eformID.Value;
-                    string xeform_sec_no = eformSecNo.Value;
-                    string xattach_ctt = FileUpload1.PostedFile.ContentType;
-                    string xcreate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", new CultureInfo("en-US"));
-
-                    // insert into db
-
-                    string sql = "";
-                    if (string.IsNullOrEmpty(eformID.Value))
+                    // check existing folder => path_attachment + \\pid\\
+                    string xpath = zpath_attachment + "\\" + hidPID.Value;
+                    if (!Directory.Exists(xpath))
                     {
-                        sql = @"INSERT INTO [dbo].[wf_attachment] 
+                        Directory.CreateDirectory(xpath);
+                    }
+
+                    // check existing file
+                    string fn = xpath + "\\" + FileUpload1.FileName;
+                    if (System.IO.File.Exists(fn))
+                    {
+                        Response.Write("<script> alert('Warning! File name is dupplicated. Please rename the filename.');</script>");
+                    }
+                    else
+                    {
+                        //Save file in Local
+                        FileUpload1.SaveAs(fn);
+
+                        string xpid = hidPID.Value;
+                        string xattach_fn = FileUpload1.FileName;
+                        string xattach_fp = fn;
+                        //var xattach_ct_byte = FileUpload1.FileBytes;
+                        string xeform = eformID.Value;
+                        string xeform_sec_no = eformSecNo.Value;
+                        string xattach_ctt = FileUpload1.PostedFile.ContentType;
+                        string xcreate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", new CultureInfo("en-US"));
+
+                        // insert into db
+
+                        string sql = "";
+                        if (string.IsNullOrEmpty(eformID.Value))
+                        {
+                            sql = @"INSERT INTO [dbo].[wf_attachment] 
                                         ([pid],[attached_filename],[attached_filepath],[content_type],[created_datetime])
                                          VALUES
                                                ('" + xpid + @"'
@@ -116,10 +121,10 @@ namespace onlineLegalWF.userControls
                                                ,'" + xattach_fp + @"'
                                                ,'" + xattach_ctt + @"'
                                                ,'" + xcreate_date + @"')";
-                    }
-                    else
-                    {
-                        sql = @"INSERT INTO [dbo].[wf_attachment] 
+                        }
+                        else
+                        {
+                            sql = @"INSERT INTO [dbo].[wf_attachment] 
                                         ([pid],[e_form],[e_form_sec_no],[attached_filename],[attached_filepath],[content_type],[created_datetime])
                                          VALUES
                                                ('" + xpid + @"'
@@ -129,45 +134,48 @@ namespace onlineLegalWF.userControls
                                                ,'" + xattach_fp + @"'
                                                ,'" + xattach_ctt + @"'
                                                ,'" + xcreate_date + @"')";
+                        }
+                        zdb.ExecNonQuery(sql, zconnstr);
+
+
+                        //string xpid = hidPID.Value;
+                        //string xattach_fn = FileUpload1.FileName;
+                        //string xattach_fp = fn;
+                        //var xattach_ct_byte = FileUpload1.FileBytes;
+                        //string xattach_ctt = FileUpload1.PostedFile.ContentType;
+                        //string xcreate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", new CultureInfo("en-US"));
+
+                        //string sql = @"INSERT INTO [dbo].[wf_attachment] 
+                        //                    ([pid],[attached_filename],[attached_filepath],[attached_content],[content_type],[created_datetime])
+                        //                     VALUES
+                        //                           ('" + xpid + @"'
+                        //                           ,'" + xattach_fn + @"'
+                        //                           ,'" + xattach_fp + @"'
+                        //                           ,@bytes
+                        //                           ,'" + xattach_ctt + @"'
+                        //                           ,'" + xcreate_date + @"')";
+
+                        //using (SqlConnection conn = new SqlConnection(zconnstr))
+                        //{
+                        //    conn.Open();
+                        //    SqlCommand command = new SqlCommand(sql, conn);
+                        //    //command.Parameters.Add("@bytes", SqlDbType.VarBinary);
+                        //    //command.Parameters["@bytes"].Value = xattach_ct_byte;
+                        //    // Replace 8000, below, with the correct size of the field
+                        //    command.Parameters.Add("@bytes", SqlDbType.VarBinary, 8000).Value = xattach_ct_byte;
+                        //    command.ExecuteNonQuery();
+                        //    command.Dispose();
+                        //    conn.Close();
+                        //}
+
+                        ini_data_wf_attach();
                     }
-                    zdb.ExecNonQuery(sql, zconnstr);
-
-
-                    //string xpid = hidPID.Value;
-                    //string xattach_fn = FileUpload1.FileName;
-                    //string xattach_fp = fn;
-                    //var xattach_ct_byte = FileUpload1.FileBytes;
-                    //string xattach_ctt = FileUpload1.PostedFile.ContentType;
-                    //string xcreate_date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", new CultureInfo("en-US"));
-
-                    //string sql = @"INSERT INTO [dbo].[wf_attachment] 
-                    //                    ([pid],[attached_filename],[attached_filepath],[attached_content],[content_type],[created_datetime])
-                    //                     VALUES
-                    //                           ('" + xpid + @"'
-                    //                           ,'" + xattach_fn + @"'
-                    //                           ,'" + xattach_fp + @"'
-                    //                           ,@bytes
-                    //                           ,'" + xattach_ctt + @"'
-                    //                           ,'" + xcreate_date + @"')";
-
-                    //using (SqlConnection conn = new SqlConnection(zconnstr))
-                    //{
-                    //    conn.Open();
-                    //    SqlCommand command = new SqlCommand(sql, conn);
-                    //    //command.Parameters.Add("@bytes", SqlDbType.VarBinary);
-                    //    //command.Parameters["@bytes"].Value = xattach_ct_byte;
-                    //    // Replace 8000, below, with the correct size of the field
-                    //    command.Parameters.Add("@bytes", SqlDbType.VarBinary, 8000).Value = xattach_ct_byte;
-                    //    command.ExecuteNonQuery();
-                    //    command.Dispose();
-                    //    conn.Close();
-                    //}
-
-                    ini_data_wf_attach();
-
-
-
                 }
+                else 
+                {
+                    // file not found 
+                    Response.Write("<script> alert('Select only pdf file.');</script>");
+                }   
                 
             }
 
