@@ -24,15 +24,19 @@
                                 <label>Search by Subject :</label>
                                 <asp:TextBox runat="server" ID="txtSearch" AutoPostBack="true" OnTextChanged="Search" />
                                 <br />
+                                <label>License :</label>
+                                <asp:DropDownList runat="server" ID="ddl_license" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByLicense">
+                                    <%--<asp:ListItem Value="0">All</asp:ListItem>--%>
+                                </asp:DropDownList>
+                                <br />
                                 <label>Type of Request :</label>
                                 <asp:DropDownList runat="server" ID="ddlType_of_request" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByTOR">
-                                    <%--<asp:ListItem Value="0">All</asp:ListItem>--%>
                                 </asp:DropDownList>
                                 <br />
                                 <label>Status :</label>
                                 <asp:DropDownList runat="server" ID="ddl_status" CssClass="Text_200" AutoPostBack="true" OnSelectedIndexChanged="SearchByStatus">
                                     <asp:ListItem Value="0">All</asp:ListItem>
-                                    <asp:ListItem Value="IN PROGRESS">IN PROGRESS</asp:ListItem>
+                                    <asp:ListItem Value="IN PROGRESS" Selected="True">IN PROGRESS</asp:ListItem>
                                     <asp:ListItem Value="COMPLETED">COMPLETED</asp:ListItem>
                                 </asp:DropDownList>
                                 <br />
@@ -53,9 +57,16 @@
                                             <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("document_no") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Type Request">
+                                    <asp:TemplateField HeaderText="Type Request & Project">
                                         <ItemTemplate>
                                             <asp:Label ID="lblTypeRequest" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("tof_permitreq_desc") %>' ForeColor="#003399"></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblBu" runat="server" Font-Bold="true" Font-Names="Tahoma" Font-Size="10pt" Text='<%# Bind("bu_desc") %>' ForeColor="#003399"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="License">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblLicense" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("license_desc") %>' ForeColor="#003399"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Subject">

@@ -104,6 +104,7 @@ namespace onlineLegalWF.userControls
                             "CASE "+
                                 "WHEN step_name = 'Start' or wf_status in ('SAVE', 'WAITATCH') THEN ('" + host_url+ "' + link_url_format) " +
                                 "ELSE '"+host_url+"legalPortal/legalportal?m=myrequest#' " +
+                                //"ELSE '" + host_url + "' + link_url_format " +
                             "END AS link_url_format,"+
                             "CASE " +
                                 "WHEN permitreq.document_no IS NOT NULL THEN permitreq.document_no " +

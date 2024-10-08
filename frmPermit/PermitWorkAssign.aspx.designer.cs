@@ -42,6 +42,15 @@ namespace onlineLegalWF.frmPermit
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
+        /// ddl_license control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_license;
+
+        /// <summary>
         /// ddlType_of_request control.
         /// </summary>
         /// <remarks>

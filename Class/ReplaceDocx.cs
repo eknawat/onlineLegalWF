@@ -317,6 +317,7 @@ namespace ReplaceDocx.Class
                         Paragraph paragraph = range.OwnerParagraph;
                         Body body = paragraph.OwnerTextBody;
                         int index = body.ChildObjects.IndexOf(paragraph);
+                        
 
                         Table table = section.AddTable(true);
                         string[] Header = new string[dtProp.Rows.Count];
@@ -367,6 +368,8 @@ namespace ReplaceDocx.Class
 
                             //Cell Alignment
                             Paragraph p = FRow.Cells[a].AddParagraph();
+                            p.Format.AfterAutoSpacing = false;
+                            p.Format.AfterSpacing = 0;
                             try { FRow.Cells[a].Width = float.Parse(drCol["col_width"].ToString()); } catch { }
                             try { vertical_alignment = drCol["header_valign"].ToString(); }
                             catch { vertical_alignment = "Middle"; }
@@ -496,6 +499,8 @@ namespace ReplaceDocx.Class
                                 }
                                 //Fill Data in Rows
                                 Paragraph p2 = DataRow.Cells[b].AddParagraph();
+                                p2.Format.AfterAutoSpacing = false;
+                                p2.Format.AfterSpacing = 0;
                                 TextRange TR2 = p2.AppendText(dataCol[b].Replace("!comma",","));
 
                                 //Format Cells

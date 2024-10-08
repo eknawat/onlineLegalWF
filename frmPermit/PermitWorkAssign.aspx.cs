@@ -44,6 +44,18 @@ namespace onlineLegalWF.frmPermit
                 ddlType_of_request.DataBind();
                 ddlType_of_request.Items.Insert(0, new ListItem("All", "0"));
 
+                ddl_license.DataSource = GetTypeOfLicenseRequest();
+                ddl_license.DataTextField = "license_desc_en";
+                ddl_license.DataValueField = "license_code";
+                ddl_license.DataBind();
+                ddl_license.Items.Insert(0, new ListItem("All", "0"));
+
+                //ddl_status.SelectedValue = "IN PROGRESS";
+
+                //getSearchPermitTracking("", "0", "IN PROGRESS");
+
+                gv1.DataSource = getSearchPermitTracking("", "0", "IN PROGRESS", ddl_license.SelectedValue);
+                gv1.DataBind();
             }
         }
         public DataTable GetTypeOfRequest()
@@ -53,21 +65,34 @@ namespace onlineLegalWF.frmPermit
             return dt;
         }
 
+        public DataTable GetTypeOfLicenseRequest()
+        {
+            string sql = "select * from li_permit_license order by row_sort asc";
+            DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
+            return dt;
+        }
+
         protected void Search(object sender, EventArgs e)
         {
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, "");
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, "", ddl_license.SelectedValue);
             gv1.DataBind();
             
         }
 
         protected void SearchByTOR(object sender, EventArgs e)
         {
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue,"");
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue,"", ddl_license.SelectedValue);
             gv1.DataBind();
         }
         protected void SearchByStatus(object sender, EventArgs e)
         {
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue);
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue, ddl_license.SelectedValue);
+            gv1.DataBind();
+        }
+
+        protected void SearchByLicense(object sender, EventArgs e)
+        {
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue, ddl_license.SelectedValue);
             gv1.DataBind();
         }
 
@@ -177,10 +202,12 @@ namespace onlineLegalWF.frmPermit
                                 ELSE wf_status
                             END AS wf_status 
                             ,'" + host_url + @"forms/permitapv.aspx?req='+wf.process_id+'&pc='+process_code+'&st='+step_name+'&mode=tracking' AS link_url_format
-							,code.tof_permitreq_desc,req.tof_permitreq_code
+							,code.tof_permitreq_desc,req.tof_permitreq_code,req.license_code, license.license_desc_en + ': '+ license_desc as license_desc,req.bu_code,bu.bu_desc
                             from wf_routing as wf
 							left outer join li_permit_request as req on req.process_id = wf.process_id
 							left outer join li_type_of_permitrequest as code on code.tof_permitreq_code = req.tof_permitreq_code
+                            left outer join li_permit_license as license on req.license_code = license.license_code
+                            left outer join li_business_unit as bu on req.bu_code = bu.bu_code
 							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                              and wf.row_id in (select tb1.row_id from
                             (SELECT process_id,
@@ -191,7 +218,7 @@ namespace onlineLegalWF.frmPermit
 
             return dt;
         }
-        public DataTable getSearchPermitTracking(string kw, string code, string status)
+        public DataTable getSearchPermitTracking(string kw, string code, string status, string license)
         {
             var host_url = ConfigurationManager.AppSettings["host_url"].ToString();
             string sql = @"Select req.document_no,wf.process_code,wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.updated_datetime,
@@ -200,10 +227,12 @@ namespace onlineLegalWF.frmPermit
                                 ELSE wf_status
                             END AS wf_status 
                             ,'" + host_url + @"forms/permitapv.aspx?req='+wf.process_id+'&pc='+process_code+'&st='+step_name+'&mode=tracking' AS link_url_format
-							,code.tof_permitreq_desc,req.tof_permitreq_code
+							,code.tof_permitreq_desc,req.tof_permitreq_code,req.license_code, license.license_desc_en + ': '+ license_desc as license_desc,req.bu_code,bu.bu_desc
                             from wf_routing as wf
 							left outer join li_permit_request as req on req.process_id = wf.process_id
 							left outer join li_type_of_permitrequest as code on code.tof_permitreq_code = req.tof_permitreq_code
+                            left outer join li_permit_license as license on req.license_code = license.license_code
+                            left outer join li_business_unit as bu on req.bu_code = bu.bu_code
 							where wf.process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
                              and wf.row_id in (select tb1.row_id from
                             (SELECT process_id,
@@ -238,6 +267,14 @@ namespace onlineLegalWF.frmPermit
                         sql += "and wf_status like '%" + status + "%'";
                     }
                     
+                }
+
+            }
+            if (!string.IsNullOrEmpty(license))
+            {
+                if (license != "0")
+                {
+                    sql += "and req.license_code like '%" + license + "%'";
                 }
 
             }
@@ -279,7 +316,7 @@ namespace onlineLegalWF.frmPermit
             gv1.HeaderStyle.Font.Bold = true;
 
             gv1.AllowPaging = false;
-            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue);
+            gv1.DataSource = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue, ddl_license.SelectedValue);
             gv1.DataBind();
 
             gv1.RenderControl(htmltextwrtter);
