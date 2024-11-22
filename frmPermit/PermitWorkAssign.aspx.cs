@@ -96,6 +96,49 @@ namespace onlineLegalWF.frmPermit
             gv1.DataBind();
         }
 
+        protected void gv1_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            //Retrieve the table from the session object.
+            DataTable dt = getSearchPermitTracking(txtSearch.Text, ddlType_of_request.SelectedValue, ddl_status.SelectedValue, ddl_license.SelectedValue);
+            if (dt != null)
+            {
+                //Sort the data.
+                dt.DefaultView.Sort = e.SortExpression + " " + GetSortDirection(e.SortExpression);
+                gv1.DataSource = dt.DefaultView;
+                gv1.DataBind();
+            }
+        }
+
+        private string GetSortDirection(string column)
+        {
+
+            // By default, set the sort direction to ascending.
+            string sortDirection = "ASC";
+
+            // Retrieve the last column that was sorted.
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                // Check if the same column is being sorted.
+                // Otherwise, the default value can be returned.
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            // Save new values in ViewState.
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
+        }
+
         protected void gv1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gv1.PageIndex = e.NewPageIndex;
@@ -213,7 +256,7 @@ namespace onlineLegalWF.frmPermit
                             (SELECT process_id,
                             MAX(row_id) as row_id
                             FROM wf_routing where process_code in ('PMT_LIC', 'PMT_TAX', 'PMT_TM', 'PMT_UTIL', 'PMT_EMR')
-                            GROUP BY process_id)as tb1) and wf.wf_status <> 'SAVE'";
+                            GROUP BY process_id)as tb1) and wf.wf_status <> 'SAVE' order by document_no desc";
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
             return dt;
@@ -278,6 +321,10 @@ namespace onlineLegalWF.frmPermit
                 }
 
             }
+
+            //order by 
+            sql += " order by document_no desc";
+
             DataTable dt = zdb.ExecSql_DataTable(sql, zconnstrbpm);
 
             return dt;

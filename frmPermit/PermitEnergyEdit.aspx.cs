@@ -289,6 +289,7 @@ namespace onlineLegalWF.frmPermit
                 string xgm = resbu.Rows[0]["gm"].ToString();
                 string xam = resbu.Rows[0]["am"].ToString();
                 string xhead_am = resbu.Rows[0]["head_am"].ToString();
+                bool xcenter = Convert.ToBoolean(resbu.Rows[0]["iscenter"].ToString());
 
                 if (Session["user_login"] != null)
                 {
@@ -314,19 +315,39 @@ namespace onlineLegalWF.frmPermit
                     }
                     else
                     {
-                        //get requester
-                        var emp = empFunc.getEmpInfo(xlogin_name);
-                        if (!string.IsNullOrEmpty(emp.full_name_en))
+                        if (xcenter)
                         {
-                            proceed_by = emp.full_name_en;
+                            //get center apv1
+                            var empam = empFunc.getEmpInfo(xam);
+                            if (!string.IsNullOrEmpty(empam.full_name_en))
+                            {
+                                proceed_by = empam.full_name_en;
+                            }
+
+                            //get center apv2
+                            var empheam_am = empFunc.getEmpInfo(xhead_am);
+                            if (!string.IsNullOrEmpty(empheam_am.full_name_en))
+                            {
+                                approved_by = empheam_am.full_name_en;
+                            }
+                        }
+                        else
+                        {
+                            //get requester
+                            var emp = empFunc.getEmpInfo(xlogin_name);
+                            if (!string.IsNullOrEmpty(emp.full_name_en))
+                            {
+                                proceed_by = emp.full_name_en;
+                            }
+
+                            //get gm
+                            var empgm = empFunc.getEmpInfo(xgm);
+                            if (!string.IsNullOrEmpty(empgm.full_name_en))
+                            {
+                                approved_by = empgm.full_name_en;
+                            }
                         }
 
-                        //get gm
-                        var empgm = empFunc.getEmpInfo(xgm);
-                        if (!string.IsNullOrEmpty(empgm.full_name_en))
-                        {
-                            approved_by = empgm.full_name_en;
-                        }
                     }
 
                 }
@@ -609,6 +630,15 @@ namespace onlineLegalWF.frmPermit
             // getCurrentStep
             var wfAttr = zwf.getCurrentStep(lblPID.Text, process_code, version_no);
 
+            string sqlbu = "select * from li_business_unit where bu_code = '" + xbu_code + "'";
+            var resbu = zdb.ExecSql_DataTable(sqlbu, zconnstr);
+            if (resbu.Rows.Count > 0)
+            {
+                DataRow dr = resbu.Rows[0];
+                wfAttr.iscenter = Convert.ToBoolean(dr["iscenter"].ToString());
+
+            }
+
             // check session_user
             if (Session["user_login"] != null)
             {
@@ -756,6 +786,7 @@ namespace onlineLegalWF.frmPermit
                     string xgm = resbu.Rows[0]["gm"].ToString();
                     string xam = resbu.Rows[0]["am"].ToString();
                     string xhead_am = resbu.Rows[0]["head_am"].ToString();
+                    bool xcenter = Convert.ToBoolean(resbu.Rows[0]["iscenter"].ToString());
 
                     if (Session["user_login"] != null)
                     {
@@ -781,19 +812,39 @@ namespace onlineLegalWF.frmPermit
                         }
                         else
                         {
-                            //get requester
-                            var emp = empFunc.getEmpInfo(xlogin_name);
-                            if (!string.IsNullOrEmpty(emp.full_name_en))
+                            if (xcenter)
                             {
-                                proceed_by = emp.full_name_en;
+                                //get center apv1
+                                var empam = empFunc.getEmpInfo(xam);
+                                if (!string.IsNullOrEmpty(empam.full_name_en))
+                                {
+                                    proceed_by = empam.full_name_en;
+                                }
+
+                                //get center apv2
+                                var empheam_am = empFunc.getEmpInfo(xhead_am);
+                                if (!string.IsNullOrEmpty(empheam_am.full_name_en))
+                                {
+                                    approved_by = empheam_am.full_name_en;
+                                }
+                            }
+                            else
+                            {
+                                //get requester
+                                var emp = empFunc.getEmpInfo(xlogin_name);
+                                if (!string.IsNullOrEmpty(emp.full_name_en))
+                                {
+                                    proceed_by = emp.full_name_en;
+                                }
+
+                                //get gm
+                                var empgm = empFunc.getEmpInfo(xgm);
+                                if (!string.IsNullOrEmpty(empgm.full_name_en))
+                                {
+                                    approved_by = empgm.full_name_en;
+                                }
                             }
 
-                            //get gm
-                            var empgm = empFunc.getEmpInfo(xgm);
-                            if (!string.IsNullOrEmpty(empgm.full_name_en))
-                            {
-                                approved_by = empgm.full_name_en;
-                            }
                         }
 
                     }
@@ -858,8 +909,8 @@ namespace onlineLegalWF.frmPermit
                 string id = dr["permit_no"].ToString();
                 subject = xsubject;
                 var host_url_sendmail = ConfigurationManager.AppSettings["host_url"].ToString();
-                body = "!!!Urgent คำขอเลขที่ " + dr["process_id"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a><br/>" +
-                    "!!!Urgent Request no" + dr["process_id"].ToString() + " Please check and proceed through the system. <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a>";
+                body = "!!!Urgent คำขอเลขที่ " + dr["document_no"].ToString() + " กรุณาตรวจสอบและดำเนินการผ่านระบบ <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a><br/>" +
+                    "!!!Urgent Request no" + dr["document_no"].ToString() + " Please check and proceed through the system. <a target='_blank' href='" + host_url_sendmail + "frmpermit/permitworkassign'>Click</a>";
 
                 string pathfile = "";
 

@@ -226,6 +226,7 @@ namespace onlineLegalWF.forms
                     string xgm = resbu.Rows[0]["gm"].ToString();
                     string xam = resbu.Rows[0]["am"].ToString();
                     string xhead_am = resbu.Rows[0]["head_am"].ToString();
+                    bool xcenter = Convert.ToBoolean(resbu.Rows[0]["iscenter"].ToString());
 
                     var empFunc = new EmpInfo();
 
@@ -248,19 +249,39 @@ namespace onlineLegalWF.forms
                     }
                     else
                     {
-                        //get requester
-                        var emp = empFunc.getEmpInfo(submit_by);
-                        if (!string.IsNullOrEmpty(emp.full_name_en))
+                        if (xcenter)
                         {
-                            proceed_by = emp.full_name_en;
+                            //get center apv1
+                            var empam = empFunc.getEmpInfo(xam);
+                            if (!string.IsNullOrEmpty(empam.full_name_en))
+                            {
+                                proceed_by = empam.full_name_en;
+                            }
+
+                            //get center apv2
+                            var empheam_am = empFunc.getEmpInfo(xhead_am);
+                            if (!string.IsNullOrEmpty(empheam_am.full_name_en))
+                            {
+                                approved_by = empheam_am.full_name_en;
+                            }
+                        }
+                        else
+                        {
+                            //get requester
+                            var emp = empFunc.getEmpInfo(submit_by);
+                            if (!string.IsNullOrEmpty(emp.full_name_en))
+                            {
+                                proceed_by = emp.full_name_en;
+                            }
+
+                            //get gm
+                            var empgm = empFunc.getEmpInfo(xgm);
+                            if (!string.IsNullOrEmpty(empgm.full_name_en))
+                            {
+                                approved_by = empgm.full_name_en;
+                            }
                         }
 
-                        //get gm
-                        var empgm = empFunc.getEmpInfo(xgm);
-                        if (!string.IsNullOrEmpty(empgm.full_name_en))
-                        {
-                            approved_by = empgm.full_name_en;
-                        }
                     }
                 }
 
@@ -309,6 +330,15 @@ namespace onlineLegalWF.forms
                 // getCurrentStep
                 var wfAttr = zwf.getCurrentStep(lblPID.Text, process_code, version_no);
 
+                string sqlbu = "select * from li_business_unit where bu_code = '" + hid_bucode.Value + "'";
+                var resbu = zdb.ExecSql_DataTable(sqlbu, zconnstr);
+                if (resbu.Rows.Count > 0)
+                {
+                    DataRow dr = resbu.Rows[0];
+                    wfAttr.iscenter = Convert.ToBoolean(dr["iscenter"].ToString());
+
+                }
+
                 // check session_user
                 if (Session["user_login"] != null)
                 {
@@ -351,9 +381,13 @@ namespace onlineLegalWF.forms
                         //Gendoc
                         GenDocumnetPermit(lblPID.Text, wfAttr.submit_by);
                         //check Send email to next approve for hotel and ccm 
-                        if (wfAttr.step_name == "GM Approve" || wfAttr.step_name == "AM Approve")
+                        if (wfAttr.step_name == "GM Approve" || wfAttr.step_name == "AM Approve" && wfAttr.external_domain == "Y")
                         {
-                            if (wfAttr.external_domain == "Y")
+                            sendMailNextApprove(wfAttr.process_id, wfAttr.subject, wfA_NextStep.next_assto_login);
+                        }
+                        else if (wfAttr.step_name == "GM Approve" || wfAttr.step_name == "AM Approve" && wfAttr.external_domain == "N") 
+                        {
+                            if (wfAttr.iscenter)
                             {
                                 sendMailNextApprove(wfAttr.process_id, wfAttr.subject, wfA_NextStep.next_assto_login);
                             }
@@ -361,7 +395,6 @@ namespace onlineLegalWF.forms
                             {
                                 sendMailToPermit(wfAttr.process_id, wfAttr.subject);
                             }
-
                         }
                         else if (wfAttr.step_name == "Head AM Approve")
                         {
@@ -906,7 +939,7 @@ namespace onlineLegalWF.forms
                     if (emailCommregis.Length > 0)
                     {
                         //_ = zsendmail.sendEmails(subject + " Mail To Permit", emailCommregis, body, pathfilecommregis);
-                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Next Appove", emailCommregis, emailCommregis, body, pathfilecommregis);
+                        _ = zsendmail.sendEmailsCCs(subject + " Mail To Permit", emailCommregis, emailCommregis, body, pathfilecommregis);
                     }
                 }
 

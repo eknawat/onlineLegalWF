@@ -786,18 +786,68 @@ namespace onlineLegalWF.Class
                 }
 
             }
+            else if (wfA.step_name == "Edit Request" && (wfA.process_code == "PMT_LIC" || wfA.process_code == "PMT_TM" || wfA.process_code == "PMT_TAX" || wfA.process_code == "PMT_EMR" || wfA.process_code == "PMT_UTIL"))
+            {
+                if (wfA.attr_apv_value == wfA.submit_answer)
+                {
+                    if (wfA.external_domain == "Y")
+                    {
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+                    }
+                    else
+                    {
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    next_step = wfA.isfalse_nextstep;
+                }
+            }
             else if (wfA.step_name == "Start" && wfA.process_code == "PMT_LIC")
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
                 {
-                    if (wfA.division == "Hotel Operations")
+                    if (wfA.external_domain == "Y")
                     {
-                        next_step = 3;
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
                     }
                     else
                     {
-                        next_step = 2;
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else 
+                        {
+                            next_step = 2;
+                        }
+                        
                     }
+                    
                 }
                 else
                 {
@@ -808,13 +858,28 @@ namespace onlineLegalWF.Class
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
                 {
-                    if (wfA.division == "Hotel Operations")
+                    if (wfA.external_domain == "Y")
                     {
-                        next_step = 3;
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
                     }
                     else
                     {
-                        next_step = 2;
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+
                     }
                 }
                 else
@@ -826,13 +891,28 @@ namespace onlineLegalWF.Class
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
                 {
-                    if (wfA.division == "Hotel Operations")
+                    if (wfA.external_domain == "Y")
                     {
-                        next_step = 3;
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
                     }
                     else
                     {
-                        next_step = 2;
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+
                     }
                 }
                 else
@@ -844,13 +924,28 @@ namespace onlineLegalWF.Class
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
                 {
-                    if (wfA.division == "Hotel Operations")
+                    if (wfA.external_domain == "Y")
                     {
-                        next_step = 3;
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
                     }
                     else
                     {
-                        next_step = 2;
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+
                     }
                 }
                 else
@@ -862,13 +957,28 @@ namespace onlineLegalWF.Class
             {
                 if (wfA.attr_apv_value == wfA.submit_answer)
                 {
-                    if (wfA.division == "Hotel Operations")
+                    if (wfA.external_domain == "Y")
                     {
-                        next_step = 3;
+                        if (wfA.division == "Hotel Operations")
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
                     }
                     else
                     {
-                        next_step = 2;
+                        if (wfA.iscenter)
+                        {
+                            next_step = 3;
+                        }
+                        else
+                        {
+                            next_step = 2;
+                        }
+
                     }
                 }
                 else
@@ -2143,6 +2253,7 @@ namespace onlineLegalWF.Class
         public string permit_energy_external { get; set; }
         public string permit_utility_external { get; set; }
         public string division { get; set; }
+        public bool iscenter { get; set; }
 
     }
 }

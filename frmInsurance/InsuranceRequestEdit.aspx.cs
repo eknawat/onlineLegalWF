@@ -732,7 +732,8 @@ namespace onlineLegalWF.frmInsurance
                 
                 wfAttr.next_assto_login = zwf.findNextStep_Assignee(wfAttr.process_code, wfAttr.step_name, emp.user_login, wfAttr.submit_by,lblPID.Text,xbu_code);
                 wfAttr.updated_by = emp.user_login;
-                
+                wfAttr.division = emp.division;
+
                 // wf.updateProcess
                 var wfA_NextStep = zwf.updateProcess(wfAttr);
                 //wfA_NextStep.next_assto_login = emp.next_line_mgr_login;

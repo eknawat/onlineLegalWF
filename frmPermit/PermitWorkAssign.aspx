@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="PermitWorkAssign" EnableEventValidation = "false" Language="C#" MasterPageFile="~/frmInsurance/SiteLigalWorkFlow.Master" AutoEventWireup="true" CodeBehind="PermitWorkAssign.aspx.cs" Inherits="onlineLegalWF.frmPermit.PermitWorkAssign" %>
-<%--<%@ Register Src="~/userControls/ucWorkflowlist.ascx" TagPrefix="uc2" TagName="ucWorkflowlist" %>--%>
 <%@ Register Src="~/userControls/ucHeader.ascx" TagPrefix="uc1" TagName="ucHeader" %>
 <%@ Register Src="~/userControls/ucTaskList.ascx" TagPrefix="uc2" TagName="ucTaskList" %>
 
@@ -16,7 +15,6 @@
         
         <tr>
             <td colspan="2" class="cell_content_100PC">
-                <%--<uc2:ucTaskList runat="server" id="ucTaskList1" />--%>
                 <asp:Panel ID="Panel1" runat="server" Height="600px" CssClass="div_90">
                     <table class="w-100">
                         <tr>
@@ -50,14 +48,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" CssClass="w-100 table" AllowSorting="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="gv1_PageIndexChanging">
+                            <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" CssClass="w-100 table" AllowSorting="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="gv1_PageIndexChanging" OnSorting="gv1_Sorting" EnableViewState="true">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Document No">
+                                    <asp:TemplateField HeaderText="Document No" SortExpression="document_no">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="lbtnReqNo" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("document_no") %>' ForeColor="#003399" NavigateUrl='<%# Bind("link_url_format") %>'></asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Type Request & Project">
+                                    <asp:TemplateField HeaderText="Type Request & Project" SortExpression="bu_desc">
                                         <ItemTemplate>
                                             <asp:Label ID="lblTypeRequest" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("tof_permitreq_desc") %>' ForeColor="#003399"></asp:Label>
                                             <br />
@@ -79,7 +77,7 @@
                                             <asp:Label ID="lblReqBy" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("submit_by") %>' ForeColor="#003399"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Submitted Date">
+                                    <asp:TemplateField HeaderText="Submitted Date" SortExpression="created_datetime">
                                         <ItemTemplate>
                                             <asp:Label ID="lblSubmittedDate" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("created_datetime" , "{0:dd/MM/yy}") %>' ForeColor="#003399"></asp:Label>
                                         </ItemTemplate>
@@ -89,7 +87,7 @@
                                             <asp:Label ID="lblStatus" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("wf_status") %>' ForeColor="#003399"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Last updated">
+                                    <asp:TemplateField HeaderText="Last updated" SortExpression="updated_datetime">
                                         <ItemTemplate>
                                             <asp:Label ID="lblLastupdated" runat="server" Font-Names="Tahoma" Font-Size="9pt" Text='<%# Bind("updated_datetime" , "{0:dd/MM/yy}") %>' ForeColor="#003399"></asp:Label>
                                         </ItemTemplate>
@@ -106,6 +104,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <SortedAscendingHeaderStyle ForeColor="White" />
                             </asp:GridView>
                         </tr>
                     </table>

@@ -1185,6 +1185,10 @@ button.close {
     vertical-align: middle;
 }
 
+    .table th a {
+        color: white !important;
+    }
+
 .table td, .table th {
     padding: 5px;
 }

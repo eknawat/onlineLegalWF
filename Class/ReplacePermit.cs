@@ -185,9 +185,10 @@ namespace onlineLegalWF.Class
             ReplacePermit_TagData res = new ReplacePermit_TagData();
 
             string xexternal_domain = "";
+            bool xiscenter = false;
             string sql0 = @"SELECT permit.[row_id],permit.[process_id],permit.[permit_no],permit.[document_no],permit.[permit_date],permit.[permit_subject],permit.[permit_desc],permit.[isurgent],permit.[urgent_remark]
                                   ,permit.[tof_requester_code],permit.[tof_requester_other_desc],permit.[tof_permitreq_code],permit.[tof_permitreq_other_desc],permit.[license_code],permit.[sublicense_code]
-                                  ,permit.[contact_agency],permit.[attorney_name],permit.[email_accounting],permit.[bu_code],bu.[bu_desc],permit.[status],permit.[updated_datetime],permit.[responsible_phone],bu.[external_domain]
+                                  ,permit.[contact_agency],permit.[attorney_name],permit.[email_accounting],permit.[bu_code],bu.[bu_desc],permit.[status],permit.[updated_datetime],permit.[responsible_phone],bu.[external_domain],bu.[iscenter]
                               FROM [li_permit_request] as permit
                               INNER JOIN [li_business_unit] as bu on permit.bu_code = bu.bu_code
                               where process_id = '" + xprocess_id + "'";
@@ -199,6 +200,7 @@ namespace onlineLegalWF.Class
                 res.reqdate = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr0["permit_date"]), "th").Trim();
                 var xrequester_code = dr0["tof_requester_code"].ToString().Trim();
                 xexternal_domain = dr0["external_domain"].ToString();
+                xiscenter = Convert.ToBoolean(dr0["iscenter"].ToString());
                 res.req_other = "";
                 res.responsible_phone = dr0["responsible_phone"].ToString().Trim();
                 var xcb_urgent = dr0["isurgent"].ToString();
@@ -470,15 +472,41 @@ namespace onlineLegalWF.Class
                 {
                     var dr = dt1.Rows[i];
 
-                    if (dr["step_name"].ToString() == "Start" && xexternal_domain == "N")
+                    if (dr["step_name"].ToString() == "Start" && xexternal_domain == "N" && xiscenter == false)
                     {
                         if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
                         {
+                            res.signname1 = "";
+                            res.signdate1 = "";
+                            res.signname2 = "";
+                            res.signdate2 = "";
                             res.signname1 = "Approved by system";
                             res.signdate1 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
                         }
                     }
-                    if (dr["step_name"].ToString() == "GM Approve" && xexternal_domain == "N")
+                    else if (dr["step_name"].ToString() == "Edit Request" && xexternal_domain == "N" && xiscenter == false)
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname1 = "";
+                            res.signdate1 = "";
+                            res.signname2 = "";
+                            res.signdate2 = "";
+                            res.signname1 = "Approved by system";
+                            res.signdate1 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
+                        }
+                    }
+                    else if (dr["step_name"].ToString() == "Edit Request" && xexternal_domain == "N" && xiscenter == true)
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname1 = "";
+                            res.signdate1 = "";
+                            res.signname2 = "";
+                            res.signdate2 = "";
+                        }
+                    }
+                    else if (dr["step_name"].ToString() == "GM Approve" && xexternal_domain == "N" && xiscenter == false)
                     {
                         if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
                         {
@@ -486,7 +514,7 @@ namespace onlineLegalWF.Class
                             res.signdate2 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
                         }
                     }
-                    else if (dr["step_name"].ToString() == "AM Approve")
+                    else if (dr["step_name"].ToString() == "AM Approve" && xexternal_domain == "Y")
                     {
                         if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
                         {
@@ -494,7 +522,23 @@ namespace onlineLegalWF.Class
                             res.signdate1 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
                         }
                     }
-                    else if (dr["step_name"].ToString() == "Head AM Approve")
+                    else if (dr["step_name"].ToString() == "AM Approve" && xexternal_domain == "N" && xiscenter == true)
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname1 = "Approved by system";
+                            res.signdate1 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
+                        }
+                    }
+                    else if (dr["step_name"].ToString() == "Head AM Approve" && xexternal_domain == "Y")
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname2 = "Approved by system";
+                            res.signdate2 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
+                        }
+                    }
+                    else if (dr["step_name"].ToString() == "Head AM Approve" && xexternal_domain == "N" && xiscenter == true)
                     {
                         if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
                         {
