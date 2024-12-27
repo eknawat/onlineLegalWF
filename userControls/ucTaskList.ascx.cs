@@ -102,7 +102,7 @@ namespace onlineLegalWF.userControls
             //                "GROUP BY  process_id)as tb1) and step_name not in ('End')";
             string sql = @"Select wf.assto_login,wf.process_id,wf.subject,wf.submit_by,wf.updated_by,wf.created_datetime,wf.wf_status,wf.updated_datetime," +
                             "CASE "+
-                                "WHEN step_name = 'Start' or wf_status in ('SAVE', 'WAITATCH') THEN ('" + host_url+ "' + link_url_format) " +
+                                "WHEN step_name in ('Start', 'Edit Request') or wf_status in ('SAVE', 'WAITATCH', 'REJECT') THEN ('" + host_url+ "' + link_url_format) " +
                                 "ELSE '"+host_url+"legalPortal/legalportal?m=myrequest#' " +
                                 //"ELSE '" + host_url + "' + link_url_format " +
                             "END AS link_url_format,"+
