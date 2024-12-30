@@ -496,7 +496,27 @@ namespace onlineLegalWF.Class
                             res.signdate1 = Utillity.ConvertDateToLongDateTime(Convert.ToDateTime(dr["updated_datetime"]), "en");
                         }
                     }
+                    else if (dr["step_name"].ToString() == "Edit Request" && xexternal_domain == "Y" && xiscenter == false)
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname1 = "";
+                            res.signdate1 = "";
+                            res.signname2 = "";
+                            res.signdate2 = "";
+                        }
+                    }
                     else if (dr["step_name"].ToString() == "Edit Request" && xexternal_domain == "N" && xiscenter == true)
+                    {
+                        if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
+                        {
+                            res.signname1 = "";
+                            res.signdate1 = "";
+                            res.signname2 = "";
+                            res.signdate2 = "";
+                        }
+                    }
+                    else if (dr["step_name"].ToString() == "Edit Request" && xexternal_domain == "Y" && xiscenter == true)
                     {
                         if (dr["wf_status"].ToString() != "" && dr["updated_datetime"].ToString() != "")
                         {

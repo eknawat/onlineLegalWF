@@ -980,29 +980,35 @@ namespace onlineLegalWF.forms
                     /////send mail to next_approve
                     if (isdev != "true")
                     {
-                        string sqlbpm = "select * from li_user where user_login = '" + xassign_to + "' ";
-                        System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                        if (dtbpm.Rows.Count > 0)
+                        var empFunc = new EmpInfo();
+                        var empreq = empFunc.getEmpInfo(xassign_to);
+                        if (empreq.user_login != null)
                         {
-                            email = dtbpm.Rows[0]["email"].ToString();
-
+                            email = empreq.email;
                         }
-                        else
-                        {
-                            string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xassign_to + "' ";
-                            System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+                        //string sqlbpm = "select * from li_user where user_login = '" + xassign_to + "' ";
+                        //System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
-                            if (dtrpa.Rows.Count > 0)
-                            {
-                                email = dtrpa.Rows[0]["Email"].ToString();
-                            }
-                            else
-                            {
-                                email = "";
-                            }
+                        //if (dtbpm.Rows.Count > 0)
+                        //{
+                        //    email = dtbpm.Rows[0]["email"].ToString();
 
-                        }
+                        //}
+                        //else
+                        //{
+                        //    string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xassign_to + "' ";
+                        //    System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+
+                        //    if (dtrpa.Rows.Count > 0)
+                        //    {
+                        //        email = dtrpa.Rows[0]["Email"].ToString();
+                        //    }
+                        //    else
+                        //    {
+                        //        email = "";
+                        //    }
+
+                        //}
                         ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
@@ -1058,28 +1064,11 @@ namespace onlineLegalWF.forms
                     /////send mail to next_approve
                     if (isdev != "true")
                     {
-                        string sqlbpm = "select * from li_user where user_login = '" + xassign_to + "' ";
-                        System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                        if (dtbpm.Rows.Count > 0)
+                        var empFunc = new EmpInfo();
+                        var empreq = empFunc.getEmpInfo(xassign_to);
+                        if (empreq.user_login != null)
                         {
-                            email = dtbpm.Rows[0]["email"].ToString();
-
-                        }
-                        else
-                        {
-                            string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xassign_to + "' ";
-                            System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
-
-                            if (dtrpa.Rows.Count > 0)
-                            {
-                                email = dtrpa.Rows[0]["Email"].ToString();
-                            }
-                            else
-                            {
-                                email = "";
-                            }
-
+                            email = empreq.email;
                         }
                         ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
@@ -1138,29 +1127,35 @@ namespace onlineLegalWF.forms
                     ////get mail from db
                     if (isdev != "true")
                     {
-                        string sqlbpm = "select * from li_user where user_login = '" + xsumit_by + "' ";
-                        System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
-
-                        if (dtbpm.Rows.Count > 0)
+                        var empFunc = new EmpInfo();
+                        var empreq = empFunc.getEmpInfo(xsumit_by);
+                        if (empreq.user_login != null)
                         {
-                            email = dtbpm.Rows[0]["email"].ToString();
-
+                            email = empreq.email;
                         }
-                        else
-                        {
-                            string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xsumit_by + "' ";
-                            System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+                        //string sqlbpm = "select * from li_user where user_login = '" + xsumit_by + "' ";
+                        //System.Data.DataTable dtbpm = zdb.ExecSql_DataTable(sqlbpm, zconnstr);
 
-                            if (dtrpa.Rows.Count > 0)
-                            {
-                                email = dtrpa.Rows[0]["Email"].ToString();
-                            }
-                            else
-                            {
-                                email = "";
-                            }
+                        //if (dtbpm.Rows.Count > 0)
+                        //{
+                        //    email = dtbpm.Rows[0]["email"].ToString();
 
-                        }
+                        //}
+                        //else
+                        //{
+                        //    string sqlpra = "select * from Rpa_Mst_HrNameList where Login = 'ASSETWORLDCORP-\\" + xsumit_by + "' ";
+                        //    System.Data.DataTable dtrpa = zdb.ExecSql_DataTable(sqlpra, zconnstrrpa);
+
+                        //    if (dtrpa.Rows.Count > 0)
+                        //    {
+                        //        email = dtrpa.Rows[0]["Email"].ToString();
+                        //    }
+                        //    else
+                        //    {
+                        //        email = "";
+                        //    }
+
+                        //}
                         ccemails = new string[] { "pornsawan.s@assetworldcorp-th.com", "naruemol.w@assetworldcorp-th.com", "kanita.s@assetworldcorp-th.com", "pattanis.r@assetworldcorp-th.com", "suradach.k@assetworldcorp-th.com", "pichet.ku@assetworldcorp-th.com" };
                     }
                     else
