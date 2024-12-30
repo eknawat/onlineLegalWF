@@ -104,7 +104,7 @@ namespace onlineLegalWF.legalPortal
             else 
             {
                 var isdev = ConfigurationManager.AppSettings["isDev"].ToString();
-                if (isdev != "true")
+                if (isdev == "true")
                 {
                     if (!string.IsNullOrEmpty(resusername.Trim()) && xpassword.Trim() == "1234")
                     {
